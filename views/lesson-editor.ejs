@@ -1,0 +1,111 @@
+<% include layout-header %>
+
+	<div class="container-container">
+		<div class="container">
+			<div class="row">			
+				 
+				<div class="span3">
+					<div class="form-stacked form-v-spaced">
+						<label>Lesson Title</label>
+						<input id="lesson-title" type="text" value="<%- lesson.lessonTitle %>" />
+						
+						<div class="control-group">
+							<label class="control-label" for="lesson-description">Lesson Description</label>
+							<div class="controls">
+								<textarea class="input" id="lesson-description" rows="5" ><%= lesson.lessonDescription %></textarea>
+							</div>
+						</div>
+						
+						<label>Screens</label>
+						<ul id="lesson-screen-list" class="lesson-screen-list nav nav-tabs nav-stacked">
+							
+						</ul>
+						
+						<button id="btn-add-lesson-screen" class="btn full-width">Add Lesson Screen</button>
+						
+						
+						<div class="form-actions">
+							<button id="btn-save-lesson" class="btn btn-primary">Save</button>
+							<button class="btn">Cancel</button>
+						</div>
+					</div>
+						
+				</div>
+				
+				<div id="lesson-screen-editor" class="span9">
+					
+				</div>
+			</div><!-- row -->
+		</div>
+	</div> <!-- /container -->
+	
+	
+	
+	<script src="/javascripts/backbone-models.js"></script>
+	<script src="/javascripts/views/lesson-editor.js"></script>
+	<script src="/javascripts/views/screen-list.js"></script>
+	<script src="/javascripts/views/screen-editor.js"></script>
+	<script src="/javascripts/vendor/tiny_mce/tiny_mce.js"></script>
+	<script>
+		$(function() {
+			
+			var lessonEditor = new LessonEditor("main-body", <%-  JSON.stringify(lesson) %>);
+			
+		});
+			
+	</script>
+	
+	<script id="lesson-screen-editor-template" type="text/template">
+	
+		<form id="screen-editor" class="form-horizontal well">
+			<fieldset>
+				<legend><span id="legend-number"></span> - <span id="legend-text"></span></legend>
+				
+				<div class="control-group">
+					<label class="control-label" for="screen-text">Screen Text</label>
+					<div class="controls">
+						<textarea class="span6" id="screen-text" class="mceEditor" rows="10">screenText</textarea>
+					</div>
+				</div>
+				
+				<div class="control-group">
+					<label class="control-label" for="sql-example">SQL Example</label>
+					<div class="controls">
+						<textarea class="input-xlarge" id="sql-example" rows="5">sqlExample</textarea>
+					</div>
+				</div>
+				
+				<div class="control-group">
+					<label class="control-label" for="keep-sql">Keep SQL?</label>
+					<div class="controls">
+						<label class="checkbox">
+							<input type="checkbox" id="keep-sql">
+							SQL written in prior screen will be carried over and not erased.
+						</label>
+					</div>
+				</div>
+			
+				
+				<div class="control-group">
+					<label class="control-label" for="sql-target">SQL Target</label>
+					<div class="controls">
+						
+						<textarea class="input-xlarge" id="sql-target" rows="5">sqlTarget</textarea>
+						<p class="help-block">If a SQL Target is provided, the user will be required to write SQL that gets the same result in order to advance to the next screen.</p>
+					</div>
+				</div>
+				
+				<div class="control-group">
+					<label class="control-label" for="starting-sql">Starting SQL</label>
+					<div class="controls">
+						<textarea class="input-xlarge" id="starting-sql" rows="5">startingSql</textarea>
+					</div>
+				</div>
+				
+				
+			</fieldset>
+		</form>
+	
+	</script>
+	
+<% include layout-footer %>

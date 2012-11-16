@@ -1,0 +1,144 @@
+<% include layout-header %>
+
+	<div class="container-container">
+		<div class="container">
+			<div class="row">			
+				 
+				<div class="span9">
+					<div class="form-vertical">
+						
+						<div class="control-group">
+							<label class="control-label">Lesson Title</label>
+							<div class="controls">
+								<input id="lesson-title" type="text"  value="<%- lesson.lessonTitle || '' %>" />
+							</div>
+						</div>
+						
+						<div class="control-group">
+							<label class="control-label" for="lesson-description">Lesson Description</label>
+							<div class="controls">
+								<textarea class="input" id="lesson-description" rows="5" ><%= lesson.lessonDescription || '' %></textarea>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="span3">
+					<div class="form-actions">
+						<button id="btn-save-lesson" class="btn btn-primary">Save (ctrl + s)</button>
+					</div>
+				</div>
+				
+			</div><!-- row -->
+			
+			<hr>
+			
+			
+			<div class="row">
+				<div id="screen-cards" class="span12">
+				
+				</div>
+			</div>
+			<div class="row">
+				<div class="span12">
+					<button id="btn-add-lesson-screen" class="btn full-width">Add Lesson Screen</button>
+				</div>
+			</div>
+			<br><br>
+		</div>
+	</div> <!-- /container -->
+	
+	
+	<script src="/javascripts/vendor/tiny_mce/tiny_mce.js"></script>
+	<script src="/javascripts/vendor/uuid.js"></script>
+	<script src="/javascripts/views/lesson-editor-2.js"></script>
+	
+	<script>
+		$(function() {
+			
+			var lessonEditor = new LessonEditor("main-body", <%-  JSON.stringify(lesson) %>);
+			
+		});
+			
+	</script>
+	
+	<style>
+		.lesson-screen-card {
+			background-color: #efefef;
+			padding: 20px;
+			border: 1px solid #CCC;
+		}
+	</style>
+	
+	<script id="lesson-screen-editor-template" type="text/template">
+		<div>
+			<div class="lesson-screen-card">
+				
+				<div class="row-fluid">
+					
+					<div class="span6">
+						<div class="form-vertical">
+							<label>Screen Text</label>
+							<textarea class="span6 mceEditor screen-text" rows="10">screenText</textarea>
+						</div>
+							
+					</div>
+					
+					<div class="span6">
+						<div class="form-vertical">
+							
+							<div class="btn-group" style="margin: 0 auto; width:300px;">
+							  <button class="btn btn-insert-new">Insert New</button>
+							  <button class="btn btn-delete-card btn-danger">Delete Card</button>
+							</div>
+							<br><br>
+							<div class="control-group">
+								<label class="control-label" for="sql-example">SQL Example</label>
+								<div class="controls">
+									<textarea class="input-xlarge sql-example" rows="5">sqlExample</textarea>
+								</div>
+							</div>
+							
+							<hr>
+							
+							<div class="control-group">
+								<label class="control-label" for="starting-sql">Starting SQL</label>
+								<div class="controls">
+									<textarea class="input-xlarge starting-sql" id="" rows="5">startingSql</textarea>
+								</div>
+							</div>
+							
+							<div class="control-group">
+								
+								<div class="controls">
+									<label class="checkbox">
+										<input type="checkbox" class="keep-sql">
+										Keep SQL from previous screen.
+									</label>
+								</div>
+							</div>
+							
+							<hr>
+							
+							<div class="control-group">
+								<label class="control-label" for="sql-target">SQL Target</label>
+								<div class="controls">
+									
+									<textarea class="input-xlarge sql-target" id="" rows="5">sqlTarget</textarea>
+									<p class="help-block">If a SQL Target is provided, the user will be required to write SQL that gets the same result in order to advance to the next screen.</p>
+								</div>
+							</div>
+							
+							
+							
+						</div>
+					</div>
+				</div>
+				
+			</div>
+			<br>
+			<hr>
+		</div>
+	</script>
+	
+<% include layout-footer %>

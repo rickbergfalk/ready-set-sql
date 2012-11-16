@@ -1,0 +1,72 @@
+<% include layout-header %>
+
+	<div class="container-container">
+		<div class="container">	
+			<div class="row">
+				<div class="span4"> 
+					<div class="content">
+						<h3>Lesson Lists</h3>
+					</div>
+					
+				</div>
+				
+				<div class="span4">   
+					<div class="content">
+						<h3>List lessons</h3>
+					</div>
+				</div>
+				
+				<div class="span4">
+					<div class="content">
+						<h3>Unlisted Lessons</h3>
+					</div>
+				</div>
+			</div>
+			
+			<div class="row">			
+				
+				<div class="span4">
+					<div class="content">
+						<hr/>
+						<ul id="lesson-lists" class="nav nav-tabs nav-stacked">
+							<!--
+							<li>
+								<a></a>
+							</li>
+							-->
+						</ul>						
+					</div>
+
+				</div>
+				
+				<div class="span4">
+					<div class="content">
+						<hr/>
+						<ul id="list-lessons" class="nav nav-tabs nav-stacked connectedSortable"></ul>
+					</div>
+				</div>
+				
+				<div class="span4">
+					<div class="content">
+						<hr/>
+						<a class="btn" href="/edit/lesson/">New Lesson</a>
+						<hr>
+						<ul id="unlisted-lessons" class="nav nav-tabs nav-stacked connectedSortable"></ul>
+						
+					</div>
+						
+				</div>
+				
+			</div><!-- row -->
+		</div>
+	</div> <!-- /container -->
+	
+	<script src="/javascripts/views/lesson-list-editor.js"></script>
+	
+	<script>
+		$(function() {
+			var listEditor = new LessonListEditorView();
+		});
+	</script>
+	
+<% include layout-footer %>

@@ -1,0 +1,94 @@
+<!doctype html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html lang="en"> <!--<![endif]-->
+<head>
+
+	<!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame 
+       Remove this if you use the .htaccess -->
+	<!--<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">-->
+  
+	<!-- Basic Page Needs
+	================================================== -->
+	<meta charset="utf-8">
+	<title><%= title %></title>
+	<meta name="description" content="Learn SQL useful for reports and data analysis with AnalystSQL. Our interactive tutorials teach you the basics of the SQL SELECT statement for beginners, as well as advanced techniques for the experienced SQL user.">
+	<meta name="author" content="Rick Bergfalk, AnalystSQL.com">
+	<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+	<!-- Mobile Specific Metas
+	================================================== -->
+	<!-- <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"> -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	
+	<!-- CSS
+	================================================== -->
+    <link rel='stylesheet' href='/stylesheets/bootstrap.css' /> <!-- bootstrap, plus my customizations -->
+	
+	<!-- Favicons
+	================================================== -->
+	<link rel="shortcut icon" href="images/favicon.ico">
+	<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+	
+	<!-- Javascript at the bottom for fast page loading
+	================================================== -->
+	<script src="/javascripts/vendor/jquery-1.7.1.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"></script>
+	<script src="/javascripts/vendor/underscore-min.js"></script>
+	<script src="/javascripts/vendor/backbone-min.js"></script>
+	<script src="/javascripts/vendor/bootstrap.min.js"></script>
+	<script src="/javascripts/vendor/codemirror-2.24-sql-runmode.js"></script>
+	
+	<script type="text/javascript">
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-32751028-1']);
+		_gaq.push(['_trackPageview']);
+		(function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+	</script>
+	
+</head>
+
+<body>
+	
+	<div class="main-nav">
+		<div class="container">
+			<div class="row">
+					<!-- NO SPAN 12!!! -->
+					<!-- because this needs to go full screen on lesson viewer... -->
+					<a class="brand pull-left" href="/">
+						<h2>
+							Learn some SQL
+						</h2>
+					</a> 
+					
+					<div id="nav-menu" class="pull-right">	
+						<% for (var i = 0; i < links.length; i++) { %>
+							<a href="<%= links[i].url %>"><%= links[i].text %></a>
+						
+						<% } %>
+						<!--
+						<a href="/">Home</a> 
+						<a href="/about">About</a> 
+						<a href="/signin" class="hide-if-signed-in">Sign In</a>
+						<a href="/lessonlist/edit">Editor</a>
+						<a href="#" class="signout-link show-if-signed-in">Sign Out</a>
+						-->
+					</div>
+
+			</div>
+		</div>
+					
+		
+	</div>
+	
+	
+	<div id="main-body">

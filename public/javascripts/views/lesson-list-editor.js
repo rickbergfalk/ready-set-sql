@@ -1,0 +1,168 @@
+
+/* 	View : Lesson List Editor
+	================================================== */
+
+	
+LessonListEditorView = Backbone.View.extend({
+	
+	el: $('#main-body'),
+	
+	model: {}, // not sure yet
+	
+	lists: [],
+	unlistedLessons: [],
+	listLessons: [],
+	listLessonIds: [],
+	currentListId: undefined,
+		
+	initialize: function(){
+		this.render();
+		this.renderLists();
+		this.renderUnlistedLessons();
+	},
+	
+	render: function(){
+		
+	},
+	
+	renderLists: function () {
+		var me = this;
+		/* =============================================== 	
+			Get All Lesson Lists
+					
+			data.lessonlists: [{
+				lessonlist_id,
+				name,
+				seq,
+				is_visible
+			}]
+		================================================== */
+		$.ajax({
+			type: 'get',
+			url: '/lessonlist',
+			success: function(data, textStatus, jqXHR) {
+				
+				var $ul = $('#lesson-lists');
+				
+				$.each(data.lessonlists, function (i, lessonList) {
+					var $li = $('<li></li>').appendTo($ul);
+					var $a = $('<a>' + lessonList.name + '</a>').appendTo($li);
+					
+					$a.click(function(e) {
+						e.preventDefault();
+						$(this).tab('show');
+						
+						var $ul = $('#list-lessons').empty();
+						me.listLessons = [];
+						me.currentListId = lessonList.lessonlist_id;
+						
+						/* ===============================================
+							data.lesson: [{
+								lessonId,
+								lessonTitle,
+								lessonDescription,
+								lessonListId,
+								lessonSeq
+							}]
+						================================================== */
+						$.ajax({
+							type: 'get',
+							url: '/lesson/listid/' + lessonList.lessonlist_id,
+							success: function(data, textStatus, jqXHR) {
+								
+								me.listLessons = data.lesson;
+								
+								$.each(data.lesson, function(i, lesson) {
+									
+									$li = $('<li id="' + lesson.lessonId + '"></li>').appendTo($ul);
+									$a = $('<a>' + lesson.lessonTitle + '</a>').appendTo($li);
+									$a2 = $('<a class="pull-right" href="/edit/lesson/' + lesson.lessonId + '">edit</a>').appendTo($a);
+									
+								});
+								
+								$( "#list-lessons, #unlisted-lessons" ).sortable({
+									connectWith: ".connectedSortable",
+									stop: function(event, ui) { 
+										me.listLessonIds = $ul.sortable('toArray'); // this will return a list of element Ids, which for us will be lesson Ids.
+										me.save();
+									}
+								}).disableSelection();
+								
+							},
+							dataType: 'json'
+						});
+					});
+				});
+				
+				// if lessonlists were returned cache it
+				if (data.lessonlists && data.lessonlists.length) {
+					me.lists = data.lessonlists;
+				}
+				me.finalizeRender();
+			},
+			dataType: 'json'
+		});
+		
+	},
+	
+	renderUnlistedLessons: function () {
+		var me = this;
+		/* ===============================================
+			data.lesson: [{
+				lessonId 			
+				lessonTitle 		
+				lessonDescription 
+			}]
+		================================================== */
+		$.ajax({
+			type: 'get',
+			url: '/lesson/unlisted',
+			success: function(data, textStatus, jqXHR) {
+				/*
+				
+				*/
+				var $ul = $('#unlisted-lessons');
+				
+				$.each(data.lesson, function (i, lesson) {
+					// var $li = $('<li id="' + lesson.lessonId + '"><a>' + lesson.lessonTitle + '</a></li>').appendTo($ul);
+					
+					var $li = $('<li id="' + lesson.lessonId + '"></li>').appendTo($ul);
+					var $a = $('<a>' + lesson.lessonTitle + '</a>').appendTo($li);
+					var $a2 = $('<a class="pull-right" href="/edit/lesson/' + lesson.lessonId + '">edit</a>').appendTo($a);
+				});
+				
+				if (data.lesson && data.lesson.length) {
+					me.unlistedLessons = data.lesson;
+				}
+				me.finalizeRender();
+			},
+			dataType: 'json'
+		});
+	},
+	
+	finalizeRender: function() {
+		// only finalize if all the data is here.
+		if (this.lists.length > 0 && this.unlistedLessons.length > 0) {
+			//alert('yep!');
+		}
+	},
+	
+	events: {
+		"click #save-button" 		: "save"
+	},
+	
+	save: function () {
+		var me = this;
+		// this is an experiment. Clicking buttons is done. Lets save our list any time it changes.
+		$.ajax({
+			type: 'post',
+			url: '/lessonlist/id/' + me.currentListId,
+			data:  {lessonIds: me.listLessonIds},
+			error: function() {
+				alert('uh-oh. Save Failed...');
+			},
+			dataType: 'json'
+		});
+	}
+	
+});

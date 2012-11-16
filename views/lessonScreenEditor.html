@@ -1,0 +1,56 @@
+<form id="screen-editor" class="form-horizontal well">
+	<fieldset>
+		<legend><span id="legend-number"></span> - <span id="legend-text"></span></legend>
+		
+		<div class="control-group">
+			<label class="control-label" for="screen-title">Screen Title</label>
+			<div class="controls">
+				<input type="text" class="span6" id="screen-title" value="<%= screenTitle %>">
+				
+			</div>
+		</div>
+		
+		<div class="control-group">
+			<label class="control-label" for="screen-text">Screen Text</label>
+			<div class="controls">
+				<textarea class="span6" id="screen-text" rows="10"><%= screenText %></textarea>
+			</div>
+		</div>
+		
+		<div class="control-group">
+			<label class="control-label" for="sql-example">SQL Example</label>
+			<div class="controls">
+				<textarea class="input-xlarge" id="sql-example" rows="5"><%= sqlExample %></textarea>
+			</div>
+		</div>
+		
+		<div class="control-group">
+			<label class="control-label" for="keep-sql">Keep SQL?</label>
+			<div class="controls">
+				<label class="checkbox">
+					<input type="checkbox" id="keep-sql">
+					SQL written in prior screen will be carried over and not erased.
+				</label>
+			</div>
+		</div>
+	
+		
+		<div class="control-group">
+			<label class="control-label" for="sql-target">SQL Target</label>
+			<div class="controls">
+				
+				<textarea class="input-xlarge" id="sql-target" rows="5"><%= sqlTarget %></textarea>
+				<p class="help-block">If a SQL Target is provided, the user will be required to write SQL that gets the same result in order to advance to the next screen.</p>
+			</div>
+		</div>
+		
+		<div class="control-group">
+			<label class="control-label" for="starting-sql">Starting SQL</label>
+			<div class="controls">
+				<textarea class="input-xlarge" id="starting-sql" rows="5"><%= startingSql %></textarea>
+			</div>
+		</div>
+		
+		
+	</fieldset>
+</form>

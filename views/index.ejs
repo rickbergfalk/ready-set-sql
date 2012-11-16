@@ -1,0 +1,137 @@
+<% include layout-header %>
+		
+		
+	<div class="container-container light-bg">
+		<div id="hero-container" class="container">
+			
+			<div class="hero">
+				<div class="row">
+					<div class="span4">
+						<img src="/images/database-platters.png" alt="database platters" style="margin-left: -20px;">
+					</div>
+					<div class="span8">
+						<div class="content" style="margin-top: -20px;">
+							<br/>
+							<h1 class="big-homepage-heading ">
+								<span class="skinny">
+									Want to Learn some SQL?
+									<br>
+									It's super helpful for writing reports and analyzing data.
+									<!--
+									<br>Then go write some fancy reports. 
+									<br>And analyze some exciting data. 
+									-->
+								</span>
+							</h1>
+							
+							<br/>
+							
+							<h3 class="skinny">
+								Click a lesson below to begin its interactive tutorial. 
+								It's free, and you don't even need to register!
+								Lessons are listed in the suggested order, but each one stands on its own. 
+								Feel free to skip around if that's more your style.
+							</h3>
+							
+						</div>
+							
+					</div>
+				</div>
+			</div>
+			
+		</div>	<!-- container -->
+	</div>
+	
+	
+	
+	<style>
+		.big-text {
+			font-family: 'RobotoLight', Arial;
+			font-size: 24px;
+			line-height: 38px;
+		}
+		.hr1 {
+			margin: 10px 0;
+		}
+		.card {
+			padding: 20px;
+			border: 1px solid #888;
+			background-color: #fefefe;
+		}
+		.card-description {
+			margin-top: 20px;
+		}
+		.card-description p {
+			font-family: 'RobotoLight', Arial;
+			font-size: 18px;
+			line-height: 27px;
+		}
+		.light-bg {
+			background-image: url('../images/grey/grey.png');
+		}
+	</style>
+<div class="light-bg">
+	<div id="lessons" class="container">		
+		
+		<% for (var ll = 0; ll < lessonLists.length; ll++) { %>
+		<% 
+			var lessonList = lessonLists[ll]; 
+		%>
+			
+			<div class="row lessons tab-content">	
+				<div class="span12">
+					<div class="card">
+						<div class="row-fluid">
+							
+								<div class="span4">
+									<h1 class="big-homepage-heading skinny ">
+										<%= lessonList.listname %>
+									</h1>
+									<div class="card-description">
+										<p>
+											<%= lessonList.listDescription %>
+											<!--
+											All the basics of writing simple SQL Queries.
+											Learn to pull data from a table, 
+											showing all the columns or just some of them.
+											And maybe some other stuff too. We'll see.
+											-->
+										</p>
+									</div>
+
+								</div>
+								<div class="span8" style="padding-left: 50px;">
+									<% for (var i = 0; i < lessonList.lessons.length; i++ ) { %>
+										<% var lesson = lessonList.lessons[i]; %>
+										
+										<h3 class="lightHeading">
+											<a class="big-text" href="/lesson/<%= lesson.lessonid %>" class=""><%= lesson.lessontitle %></a>
+										</h3>
+										<hr class="hr1">
+										
+									<% } %>
+								</div>
+							
+						</div>
+
+					</div>
+				</div>
+			</div>
+			
+			<hr>
+			
+		<% } %> <!-- end for each lessonList -->
+			
+	</div> <!-- /container -->
+</div>
+	
+	
+	<script>
+		
+		//app.renderUserProgress();
+	
+	</script>
+		
+		
+
+<% include layout-footer %>

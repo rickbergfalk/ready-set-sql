@@ -1,0 +1,16 @@
+{
+  "name": "learn-some-sql",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+	"start": "node app"
+  },
+  "dependencies": {
+    "express"			: "3.0.0",
+    "ejs"				: "*",
+    "less-middleware"	: "*",
+	"mysql"				: "0.9.5",
+	"postgrator" 		: "0.0.10",
+	"pg"				: "0.8.6"
+  }
+}

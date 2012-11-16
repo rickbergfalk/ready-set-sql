@@ -1,0 +1,54 @@
+<% include layout-header %>
+	
+<div class="container-container">
+	<div id="hero-container" class="container">
+		<div class="hero">
+			
+			<div class="row">
+				<div class="span7">
+					<div class="content">
+						<h1 class="big-homepage-heading skinny">
+							Only editors
+							<br/>
+							can use the edit functionality
+						</h1>
+						
+						<br/><br/>
+						
+						<h3 class="skinny">
+							<% if (message) { %> 
+								<%= message %>
+							<% } else { %>
+								Do you know the secret passphrase?
+							<% } %>
+						</h3>
+						<br/>
+						
+						<form id="signup-form" action="signin" method="post" >
+							
+							<div class="control-group">
+								<div class="controls">
+									<input id="passphrase" name="passphrase" type="text" placeholder="Passphrase" />
+								</div>
+							</div>
+							
+							<div class="form-actions">
+								<input type="submit" id="sign-up-btn" class="btn btn-primary" value="Unlock the Editor Powers"/>
+								
+							</div>
+						</form>
+						
+					</div>
+				</div>
+				
+			</div>
+			
+		</div> <!-- .hero -->
+	</div>	
+</div>
+
+<script>
+	//var registerView = new RegisterView();
+</script>
+		
+<% include layout-footer %>

@@ -1,0 +1,208 @@
+<!doctype html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html lang="en"> <!--<![endif]-->
+<head>
+
+	<!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame 
+       Remove this if you use the .htaccess -->
+	<!--<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">-->
+  
+	<!-- Basic Page Needs
+	================================================== -->
+	<meta charset="utf-8">
+	<title><%= title %></title>
+	<meta name="description" content="AnalystSQL helps you learn SQL practical to Everyday Analysts using interactive tutorials and a baseball database.">
+	<meta name="author" content="Rick Bergfalk, AnalystSQL.com">
+	<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+	<!-- Mobile Specific Metas
+	================================================== -->
+	<!-- <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"> -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	
+	<!-- CSS
+	================================================== -->
+    <link rel='stylesheet' href='/stylesheets/bootstrap.css' /> <!-- bootstrap, plus my customizations -->
+	
+	<!-- Favicons
+	================================================== -->
+	<link rel="shortcut icon" href="/images/favicon.ico">
+	<link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="/images/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="/images/apple-touch-icon-114x114.png">
+	
+	<!-- Javascript at the bottom for fast page loading
+	================================================== -->
+	<script src="/javascripts/vendor/jquery-1.7.1.min.js"></script>
+	<script src="/javascripts/vendor/underscore-min.js"></script>
+	<script src="/javascripts/vendor/backbone-min.js"></script>
+	<script src="/javascripts/vendor/bootstrap.min.js"></script>
+	<script src="/javascripts/vendor/codemirror-2.24-sql-runmode.js"></script>
+	
+	<script type="text/javascript">
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-32751028-1']);
+		_gaq.push(['_trackPageview']);
+		(function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+	</script>
+	
+</head>
+
+<body>
+	
+	<div class="main-nav">
+		<div class="container" style="width: 100%; padding-left: 10px; ">
+			<div class="row" style="padding-left: 10px; padding-right: 10px; ">
+					<!-- NO SPAN 12!!! -->
+					<!-- because this needs to go full screen on lesson viewer... -->
+					<a class="brand pull-left" href="/">
+						<h2>
+							Learn Some SQL
+						</h2>
+					</a> 
+					<span class="brand pull-left" >
+						<h2 id="sub-brand" class="skinny">
+							
+						</h2>
+					</span> 
+					
+					<div id="nav-menu" class="pull-right">					
+						<% for (var i = 0; i < links.length; i++) { %>
+							<a href="<%= links[i].url %>"><%= links[i].text %></a>
+						
+						<% } %>
+					</div>
+
+			</div>
+		</div>
+					
+		
+	</div>
+	
+	
+	<div id="main-body">
+		
+		<div id="code-results-container">
+			
+			<div id="code-background">
+				<div id="code-container" class="lesson-viewer"> <!-- was id & class sql-editor -->
+					
+						<pre id="editor"></pre>
+						
+				</div>
+			</div>
+			
+			<div id="results-background">
+				
+				<div id="results-container">
+					
+					<div class="query-output">
+						<div class="query-output-header">
+							<h2 class="skinny pull-left" >Query Results: <span id="lesson-input-action-text"></span></h2>
+							<!--
+							<button id="help-btn" class="btn pull-right" data-toggle="modal" data-target="#myModal" style=""> <i class="icon-flag"></i> Show Answer</button>
+							<button id="run-sql" class="btn pull-right"> <i class="icon-play-circle icon-white"></i> Run SQL </button>
+							-->
+						</div>
+						
+						<div id="table-container" class="table-container">
+							
+						</div>
+					</div>
+					
+				</div>
+				
+					
+			
+			</div>
+		</div>
+			
+		<div id="lesson-content" class="lesson-content">
+				
+			<div id="lesson-screen-container">
+				<div id="lesson-screen">
+					<div id="screen-title-container">
+						<h3 id="screen-title" class="skinny">
+							
+						</h3>
+					</div> 
+
+					<div id="screen-text">
+						 
+					</div>
+				</div>
+			</div>
+				 
+			
+			<div class="actions">
+				<div class="btn-group button-wrapper">
+					<!-- &larr; for left arrow -->
+					<button id="previous-button" class="btn"><i class="icon-chevron-left"></i> Previous </button> 
+					<button id="help-btn" class="btn" data-toggle="modal" data-target="#myModal" style=""> <i class="icon-flag"></i> Show Answer</button>
+					<button id="run-sql" class="btn"> <i class="icon-play-circle icon-white"></i> Run SQL </button>
+					<button id="advance-button" class="btn btn-primary">Next <i class="icon-chevron-right icon-white"></i> </button>
+				</div>
+					
+			</div>
+			<div class="meter">
+				<span id="progress-bar" style="width:1%"></span>
+			</div>
+
+		</div>
+
+
+		<div class="modal hide" id="myModal">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h3>Are you sure?</h3>
+			</div>
+			<div class="modal-body">
+				<p>Proceeding with the help means any SQL currently in the SQL editor will be replaced. Are you sure you want to continue?</p>
+			</div>
+			<div class="modal-footer">
+				<button class="btn" data-dismiss="modal">No, I got this</button>
+				<button id="help-confirm-btn" data-dismiss="modal" class="btn btn-primary">Yes, help me out</button>
+			</div>
+		</div>
+		
+	</div> <!-- #main-body -->
+	
+	<script id="template-final-lesson-screen" type="text/template">
+		<br/>
+		<hr>
+		<div class="final-screen-buttons">
+			<a class="btn btn-large btn-primary btn-final">Next Lesson</a>
+			<br/>
+			<a href="/#lessons" class="btn btn-large btn-primary btn-final">Return to Lesson List</a>
+		</div>	
+	</script>
+		
+		
+	<!-- Javascript at the bottom for fast page loading
+	================================================== -->
+	<script src="/javascripts/backbone-models.js"></script>
+	<script src="/javascripts/views/LessonView.js"></script>
+	<script>
+		
+		var myLesson = new Lesson({
+									lesson: <%-  JSON.stringify(lesson) %> ,
+									currentScreenIndex: 0
+								});
+			
+		var lessonView = new LessonView({ model: myLesson });
+		lessonView.render();
+		
+		
+	</script>
+	
+	
+</body>
+</html>

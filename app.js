@@ -10,8 +10,6 @@ var express = require('express')
   , appDb = require('./lib/appDb')
   , crypto = require('crypto')
   , fs = require('fs')
-  , mysql = require('mysql')
-  , config = require('./lib/config')
   , path = require('path')
   , postgrator = require('postgrator');
 
@@ -19,14 +17,11 @@ var express = require('express')
 /* ============================================================
     Postgrator stuff
 =============================================================== */  
-var envConfig = config[process.env.NODE_ENV];
-var cs = "tcp://" + envConfig.user + ":" + envConfig.password + "@" + envConfig.host + "/" + envConfig.database;
-
-console.log(process.env.NODE_ENV);
-console.log(cs);
+if (!process.env.NODE_ENV) console.log('NODE_ENV not set');
+if (!process.env.DATABASE_URL) console.log('DATABASE_URL not set');
 
 postgrator.setMigrationDirectory(__dirname + '/migrations');
-postgrator.setConnectionString(cs);
+postgrator.setConnectionString(process.env.DATABASE_URL);
 postgrator.migrate('003');
   
   

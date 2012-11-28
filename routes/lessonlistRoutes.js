@@ -9,7 +9,7 @@ exports.setPrecalc = function(pc) {
 exports.getAll = function(req, res) {
 	// get a list of *all* lessonlists
 	console.log('getting all lists');
-	var sql = "SELECT lessonlist_id, name, seq, is_visible FROM lessonlist";
+	var sql = "SELECT lessonlist_id, name, seq, is_visible FROM lessonlist ORDER BY seq";
 	appDb.query(sql, [], function(err, results) {
 		if (err) {
 			console.log(err);

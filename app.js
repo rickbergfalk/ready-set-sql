@@ -13,6 +13,30 @@ var express = require('express')
   , path = require('path')
   , postgrator = require('postgrator');
 
+
+/* ============================================================
+    load some environment variables if they are not present
+	This really should be outside the app, 
+	and in a separate app running script... but...
+=============================================================== */    
+if (!process.env.NODE_ENV || !process.env.DATABASE_URL) {
+	console.log('Environment variable is missing - loading the .env');
+	try {
+		var envFile = fs.readFileSync(__dirname + '/.env', 'utf8');
+		var envSettings = envFile.replace(/\r/g, '').split('\n');
+		envSettings.forEach(function(setting) {
+			keyvalue = setting.split('=');
+			if (keyvalue.length == 2) {
+				console.log('setting process.env.' + keyvalue[0] + ' = ' + keyvalue[1]);
+				process.env[keyvalue[0]] = keyvalue[1];
+			}
+		});
+	} catch (err) {
+		console.log(err);
+	}
+}
+
+  
   
 /* ============================================================
     Postgrator stuff
@@ -22,7 +46,7 @@ if (!process.env.DATABASE_URL) console.log('DATABASE_URL not set');
 
 postgrator.setMigrationDirectory(__dirname + '/migrations');
 postgrator.setConnectionString(process.env.DATABASE_URL);
-postgrator.migrate('003');
+postgrator.migrate('005');
   
   
 /* ============================================================
@@ -230,10 +254,6 @@ app.get('/more-sql-resources', function(req, res) {
 	res.locals.title = 'More SQL Resources | Learn some SQL';
 	res.render('more-sql-resources');
 });
-app.get('/credits', function(req, res) {
-	res.locals.title = 'Credits | Learn some SQL';
-	res.render('credits');
-});
 
 app.get('/signout', function(req, res) {
 	req.session.destroy();
@@ -245,6 +265,67 @@ app.get('/signin', function(req, res) {
 	res.locals.title = 'Are you Rick? | Learn some SQL';
 	res.locals.message = false;
 	res.render('sign-in');
+});
+
+app.get('/xmas', function(req, res) {
+	
+	// Function drawNames
+	// draws names for Christmas with certain rules in place. 
+	// If a rule is broken, it redraws until everything works out.
+	var drawNames = function () {
+		var kids = ['Rick', 'Tara', 'Rob', 'Kelsey', 'Anna', 'Hans', 'Natalie']
+		var paperNameSlips = kids.slice(); // this creates a copy of the kids array. 
+	
+		// for each kid, get a random name from the paperNameSlips.
+		// This name must not be the name of the kid picking the slip.
+		// This name must also not be the spouse/significant other of the kid. 
+		// If any of these rules is broken, we'll start the *whole* process over.
+		// We'll do it this way because computers can think really fast 
+		// and I don't care if it does a bunch of extra meaningless work. 
+		//
+		// take that computer.
+		var results = [];
+		var badDraw = false;
+		kids.forEach(function(kid) {
+			// get a random paper slip number
+			// I stole this code from http://stackoverflow.com/a/5915122
+			var slipNumber = Math.floor(Math.random()*paperNameSlips.length); 
+			// use that paper slip number and get the name for that slip.
+			// at the same time, draw that slip from the bucket so no one else can get it.
+			var slipName = paperNameSlips.splice(slipNumber, 1); 
+			// Now we need to check to see if this drawing is invalid
+			results.push(kid + ' picks ' + slipName);
+			if (kid == slipName) {
+				console.log("kid can't draw its own name! Starting over");
+				badDraw = true;
+			} else if (
+						(kid == 'Rick' && slipName == 'Tara') 
+						|| (kid == 'Tara' && slipName == 'Rick')
+						|| (kid == 'Anna' && slipName == 'Hans') 
+						|| (kid == 'Hans' && slipName == 'Anna')
+						|| (kid == 'Rob' && slipName == 'Kelsey') 
+						|| (kid == 'Kelsey' && slipName == 'Rob')
+					  ) {
+				console.log("Significant Other Violation: " + kid + " can't pick " + slipName);
+				badDraw = true;
+			}
+			
+		});
+		if (badDraw) {
+			return false;
+		} else {
+			return results;
+		}
+	};
+	
+	var finalList;
+	var tries = 0;
+	while (!finalList) {
+		tries = tries + 1;
+		finalList = drawNames();
+	}
+		
+	res.send({"Number of tries to get it right": tries, results: finalList});
 });
 
 app.post('/signin', function(req, res) {

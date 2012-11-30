@@ -68,7 +68,6 @@ LessonView = Backbone.View.extend({
 		this.$helpButton = $('#help-btn');
 		
 		this.$tableContainer = $('#table-container');
-		this.$lessonInputActionText = $('#lesson-input-action-text');
 		this.$progressBar = $('#progress-bar');
 		this.$editor = $('#editor');
 		this.$subBrand = $('#sub-brand');
@@ -109,8 +108,7 @@ LessonView = Backbone.View.extend({
 		var currentScreenIndex = this.model.get("currentScreenIndex");
 		this.screenCache[currentScreenIndex] = {
 			screenSql: this.myCodeMirror.getValue(),
-			tableContainerHtml: this.$tableContainer.html(),
-			lessonInputActionHtml: this.$lessonInputActionText.html()
+			tableContainerHtml: this.$tableContainer.html()
 		};
 	},
 		
@@ -168,7 +166,6 @@ LessonView = Backbone.View.extend({
 		if (screenCache) {
 			this.myCodeMirror.setValue(screenCache.screenSql);
 			this.$tableContainer.html(screenCache.tableContainerHtml);
-			this.$lessonInputActionText.html(screenCache.lessonInputActionHtml);
 		} else {
 			// rendering actions for all screens:
 			// if startingSQL has been provided, load that and clear query results
@@ -248,7 +245,6 @@ LessonView = Backbone.View.extend({
 	
 	clearQueryResults: function () {
 		this.$tableContainer.empty();
-		this.$lessonInputActionText.empty();
 	},
 	
 	help: function () {
@@ -265,38 +261,45 @@ LessonView = Backbone.View.extend({
 	runSQL: function ( event ){
 		var me = this;
 		
+		var $queryMessage = $('#query-message');
+		$queryMessage.hide();
+		
 		// clear SQL results areas. 
 		// For the time being this will serve as an indicator that something is happening.
-		me.$lessonInputActionText.empty().text('running');
 		me.$tableContainer.empty();
+		$queryMessage.show().html('<div class="query-message">Running query...</div>');
 		
 		var processQueryResults = function(data, textStatus, jqXHR) {
-			
+			console.log(data);
 			// Render the response as appropriate
 			if (data.success) {
 				if (data.results) {
-					me.$lessonInputActionText.empty().text(data.results.length + " records returned.");
+					
+					// not showing record count anymore?
+					//me.$lessonInputActionText.empty().text(data.results.length + " records returned.");
 					var queryResult = new QueryResult(data.results);
-					queryResult.$table.appendTo(me.$tableContainer);
+					me.$tableContainer.empty().append(queryResult.$table);
+					$queryMessage.hide();
+					
+					// if there's target results, and we match it, then advance the screen
+					if (me.screenSQLResult) {
+						if (_.isEqual(data.results, me.screenSQLResult)) {
+							// proceed to next screen
+							me.advanceScreen();
+						} else {
+							// the query runs, but the results are not what we are looking for.
+							//me.$tableContainer.prepend('<div class="query-message">Sorry. Your query runs, but the result is incorrect.</div>');
+							$queryMessage.show().html("Sorry. Your query runs, but the result is incorrect.");
+						}	
+					}
+					
 				} else {
-					me.$lessonInputActionText.text('No Results Returned');
+					//me.$tableContainer.empty().html('<div class="query-message">No Results Returned</div>');
+					$queryMessage.show().html("No Results Returned");
 				}
 			} else {
-				me.$lessonInputActionText.empty().text("That didn't run right - Check SQL");
-			}
-				
-			
-			// Check the results for validity 
-			if (!me.screenSQLResult) {
-				// There's no SQL result we are looking for.
-				// should probably do more checking here, but for now this is good.
-			
-			} else if (_.isEqual(data.results, me.screenSQLResult)) {
-				// proceed to next screen
-				me.advanceScreen();
-
-			} else if (me.screenSQLResult) {
-				alert('Sorry. Your query runs, but the result is incorrect.');
+				//me.$tableContainer.empty().html('<div class="query-message">' + data.message + '</div>');
+				$queryMessage.show().html(data.message);
 			}
 			
 		};

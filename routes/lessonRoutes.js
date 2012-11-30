@@ -122,7 +122,7 @@ exports.getByLessonId = function(req, res) {
 				});
 			} else {
 				res.render('layoutLessonViewer.ejs', {
-					title: 'bam',
+					title: 'Learn some SQL',
 					lesson: lessons[0]
 				});
 			}

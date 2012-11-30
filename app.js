@@ -46,7 +46,7 @@ if (!process.env.DATABASE_URL) console.log('DATABASE_URL not set');
 
 postgrator.setMigrationDirectory(__dirname + '/migrations');
 postgrator.setConnectionString(process.env.DATABASE_URL);
-postgrator.migrate('005');
+postgrator.migrate('012');
   
   
 /* ============================================================
@@ -287,16 +287,19 @@ app.get('/xmas', function(req, res) {
 		var results = [];
 		var badDraw = false;
 		kids.forEach(function(kid) {
+			
 			// get a random paper slip number
 			// I stole this code from http://stackoverflow.com/a/5915122
 			var slipNumber = Math.floor(Math.random()*paperNameSlips.length); 
+			
 			// use that paper slip number and get the name for that slip.
 			// at the same time, draw that slip from the bucket so no one else can get it.
 			var slipName = paperNameSlips.splice(slipNumber, 1); 
+			
 			// Now we need to check to see if this drawing is invalid
 			results.push(kid + ' picks ' + slipName);
 			if (kid == slipName) {
-				console.log("kid can't draw its own name! Starting over");
+				console.log("kid can't draw own name!");
 				badDraw = true;
 			} else if (
 						(kid == 'Rick' && slipName == 'Tara') 
@@ -429,9 +432,10 @@ app.post('/query', function(req, res) {
 			if (err) {
 				console.log('err: /query');
 				console.log(err);
+				console.log(err.message);
 				res.send({
 					success: false, 
-					message: 'query failed to execute'
+					message: 'Query failed because <br>' + err.message
 				});
 			} else {
 				console.log('Finished Query: ' + Date());

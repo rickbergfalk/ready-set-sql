@@ -12,7 +12,7 @@
 	<!-- Basic Page Needs
 	================================================== -->
 	<meta charset="utf-8">
-	<title><%= title %></title>
+	<title><%= title + " lesson | " + lesson.lessonTitle %></title>
 	<meta name="description" content="AnalystSQL helps you learn SQL practical to Everyday Analysts using interactive tutorials and a baseball database.">
 	<meta name="author" content="Rick Bergfalk, AnalystSQL.com">
 	<!--[if lt IE 9]>
@@ -105,21 +105,13 @@
 				<div id="results-container">
 					
 					<div class="query-output">
-						<div class="query-output-header">
-							<h2 class="skinny pull-left" >Query Results: <span id="lesson-input-action-text"></span></h2>
-							<!--
-							<button id="help-btn" class="btn pull-right" data-toggle="modal" data-target="#myModal" style=""> <i class="icon-flag"></i> Show Answer</button>
-							<button id="run-sql" class="btn pull-right"> <i class="icon-play-circle icon-white"></i> Run SQL </button>
-							-->
-						</div>
-						
 						<div id="table-container" class="table-container">
 							
 						</div>
 					</div>
 					
 				</div>
-				
+				<div id="query-message"></div>
 					
 			
 			</div>
@@ -145,10 +137,10 @@
 			<div class="actions">
 				<div class="btn-group button-wrapper">
 					<!-- &larr; for left arrow -->
-					<button id="previous-button" class="btn"><i class="icon-chevron-left"></i> Previous </button> 
-					<button id="help-btn" class="btn" data-toggle="modal" data-target="#myModal" style=""> <i class="icon-flag"></i> Show Answer</button>
-					<button id="run-sql" class="btn"> <i class="icon-play-circle icon-white"></i> Run SQL </button>
-					<button id="advance-button" class="btn btn-primary">Next <i class="icon-chevron-right icon-white"></i> </button>
+					<button id="previous-button" class="btn"><i class="icon-chevron-left"></i><br> Previous </button> 
+					<button id="help-btn" class="btn" data-toggle="modal" data-target="#myModal" style=""> <i class="icon-flag"></i><br> Show Answer</button>
+					<button id="run-sql" class="btn"> <i class="icon-play-circle icon-white"></i><br> Run SQL </button>
+					<button id="advance-button" class="btn btn-primary"><i class="icon-chevron-right icon-white"></i><br> Next </button>
 				</div>
 					
 			</div>

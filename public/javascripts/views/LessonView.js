@@ -192,6 +192,9 @@ LessonView = Backbone.View.extend({
 		if (this.model.isLastScreen()) { 
 			this.disableAdvanceButton();
 			this.$screenText.append($('#template-final-lesson-screen').html());
+			$('#next-lesson-button')
+				.html("Next Lesson <br><br>" + this.model.get("lesson").nextLessonListName + ": " + this.model.get("lesson").nextLessonTitle)
+				.attr("href", "/lesson/" + this.model.get("lesson").nextLessonId);
 		}
 		
 		// update the progress bar

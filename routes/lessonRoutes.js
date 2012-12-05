@@ -1,5 +1,6 @@
 var appDb = require('../lib/appDb');
-
+var FileStrings = require('../lib/file-strings');
+var sqls = new FileStrings({directory: './sql/'}); 
 
 var precalc = {};
 exports.setPrecalc = function(pc) {
@@ -12,7 +13,7 @@ exports.create = function (req, res) {
 	// create a new lesson
 	var lesson = req.body;
 	
-	var sql = "INSERT INTO lesson (title, description, created, updated, screens) VALUES ($1, $2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, $3)";
+	var sql = sqls.get('lesson - create new.sql');
 	var params = [
 			lesson.lessonTitle,
 			lesson.lessonDescription,
@@ -42,8 +43,7 @@ exports.create = function (req, res) {
 exports.getAll = function(req, res) {
 	// get a list of *all* lessons
 	
-	var sql = "SELECT ll.name AS listName, ll.seq AS listSeq, l.lesson_id AS lessonId, l.title AS lessonTitle, l.description AS lessonDescription, l.seq AS lessonSeq FROM lesson l JOIN lessonlist ll ON l.lessonlist_id = ll.lessonlist_id";
-	
+	var sql = sqls.get('lesson - get all.sql');
 	appDb.query(sql, [], function(err, results, fields) {
 		if (err) {
 			res.send({
@@ -63,7 +63,8 @@ exports.getAll = function(req, res) {
 // GET /lesson/unlisted
 exports.getUnlisted = function(req, res) {
 	// get unlisted lessons
-	var sql = "SELECT l.lesson_id, l.title, l.description FROM lesson l LEFT JOIN lessonlist ll ON l.lessonlist_id = ll.lessonlist_id WHERE ll.lessonlist_id IS NULL";
+	
+	var sql = sqls.get('lesson - get unlisted.sql');
 	appDb.query(sql, [], function(err, results, fields) {
 		if (err) {
 			res.send({ success: false });
@@ -81,7 +82,7 @@ exports.getUnlisted = function(req, res) {
 exports.getByListId = function(req, res) {
 	// get a lesson by lessonlistid
 	
-	var sql = "SELECT l.lessonlist_id, l.seq, l.lesson_id, l.title, l.description FROM lesson l WHERE l.lessonlist_id = $1 ORDER BY l.seq";
+	var sql = sqls.get('lesson - get by lessonlist_id.sql');
 	var params = [req.params.id];
 	
 	appDb.query(sql, params, function(err, results, fields) {
@@ -103,8 +104,10 @@ exports.getByListId = function(req, res) {
 // GET /lesson/:id/:format?
 exports.getByLessonId = function(req, res) {
 	// get a lesson by lessonlistid
+	// this is a truly gross query to have stuck in javascript :S 
+	// should hack in that sql resources thing I was thinking about.
 	
-	var sql = "SELECT lesson_id, title, description, screens FROM lesson WHERE lesson_id = $1";
+	var sql = sqls.get('lesson - get by lesson_id.sql');		
 	var params = [req.params.id];
 	var format = req.params.format;
 	
@@ -134,7 +137,7 @@ exports.getByLessonId = function(req, res) {
 // GET /edit/lesson/:id
 exports.editById = function(req, res) {
 	
-	var sql = "SELECT lesson_id, title, description, screens FROM lesson WHERE lesson_id = $1";
+	var sql = sqls.get('lesson - get by lesson_id.sql');		
 	var id = req.params.id;
 	var params = [req.params.id];
 	
@@ -169,7 +172,7 @@ exports.save = function(req, res) {
 	// save a lesson by ID
 	var lesson = req.body;
 	
-	var sqlUpdateLesson = "UPDATE lesson SET title = $1, description = $2, updated = CURRENT_TIMESTAMP, screens = $3 WHERE lesson_id = $4";	
+	var sqlUpdateLesson = sqls.get('lesson - save lesson.sql');
 	var params = [
 			lesson.lessonTitle,
 			lesson.lessonDescription,

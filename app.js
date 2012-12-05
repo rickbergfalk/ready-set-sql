@@ -47,12 +47,12 @@ if (!process.env.DATABASE_URL) console.log('DATABASE_URL not set');
 postgrator.setMigrationDirectory(__dirname + '/migrations');
 postgrator.setConnectionString(process.env.DATABASE_URL);
 postgrator.migrate('012');
+
   
-  
+ 
 /* ============================================================
     Convenience functions
 =============================================================== */
-
 function md5(str) {
 	return crypto.createHash('md5').update(str).digest('hex');
 };
@@ -122,16 +122,32 @@ app.configure('development', function(){
 
 
 /* ============================================================
-    Support Functions
+    PreCalc 
+	Basically a cache of all the lesson data. 
+	Should be refreshed each time a lesson or lessonlist is changed/added
+	
+	it looks like:
+	precalc.lessonlists: [
+		{
+			listid: n,
+			listname: '',
+			listDescription: '',
+			lessons: [
+				{
+					listid,
+					listname,
+					listdescription,
+					listseq,
+					lessonid,
+					lessontitle,
+					lessondescription,
+					lessonseq
+				}
+			]
+		}
+	]
 =============================================================== */
 
-/*
- *	PreCalc
- *  - a place to cache data frequently used.
- *  - for now its just the lessonlist on the home page. 
- *		But later it could be individual lessons if usage is heavy enough.
- *
- *****************************************************************************/
 var precalc = {
 	lessonLists: [],
 	refreshLessonLists: function () {
@@ -140,30 +156,28 @@ var precalc = {
 	
 		appDb.query(sql, [], function(err, results) {
 			if (err) {
-				console.log('database query error: couldnt get lessons for homepage :( ');
+				console.log('precalc.refreshLessonLists() failure to run query');
 				precalc.lessonLists = [];
 			} else {
 				var lessonLists = [];
 				var lessonListCounter = -1;
 				
 				for (i = 0; i < results.length; i++) {
-					var listname = results[i].listname;
-					var listid = results[i].listid;
-					var listDescription = results[i].listdescription;
+					var lesson = results[i];
 					
-					if (lessonLists[lessonListCounter] && lessonLists[lessonListCounter].listname == listname) {
-						lessonLists[lessonListCounter].lessons.push(results[i]);
+					if (lessonLists[lessonListCounter] && lessonLists[lessonListCounter].listname == lesson.listname) {
+						lessonLists[lessonListCounter].lessons.push(lesson);
 					
 					} else {
 						// we've approached a new list. Increment the lessonListcounter
 						lessonListCounter = lessonListCounter + 1;
 						// if currentList has lessons
 						lessonLists[lessonListCounter] = {};
-						lessonLists[lessonListCounter].listid = listid;
-						lessonLists[lessonListCounter].listname = listname;
-						lessonLists[lessonListCounter].listDescription = listDescription;
+						lessonLists[lessonListCounter].listid = lesson.listid;
+						lessonLists[lessonListCounter].listname = lesson.listname;
+						lessonLists[lessonListCounter].listDescription = lesson.listdescription;
 						lessonLists[lessonListCounter].lessons = [];
-						lessonLists[lessonListCounter].lessons.push(results[i]);
+						lessonLists[lessonListCounter].lessons.push(lesson);
 					}
 				}
 				

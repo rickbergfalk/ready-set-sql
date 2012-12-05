@@ -11,13 +11,7 @@
 		},
 		
 		initialize: function () {
-			var currentIndex = this.get("currentScreenIndex");
-			// if current index is for some reason larger than the number of lessons
-			// adjust it, and set it to length - 1 (so we end up on the last page)
-			if (currentIndex >= this.get("lesson").lessonScreens.length) {
-				currentIndex = this.get("lesson").lessonScreens.length - 1;
-			}
-			this.set({currentScreenIndex: currentIndex, furthestScreenIndex: currentIndex});
+			// no initialization necessary anymore - we aren't going to save your lesson position
 		},
 		
 		

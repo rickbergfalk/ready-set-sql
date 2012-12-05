@@ -171,7 +171,7 @@
 		<br/>
 		<hr>
 		<div class="final-screen-buttons">
-			<a class="btn btn-large btn-primary btn-final">Next Lesson</a>
+			<a id="next-lesson-button" class="btn btn-large btn-primary btn-final">Next Lesson</a>
 			<br/>
 			<a href="/#lessons" class="btn btn-large btn-primary btn-final">Return to Lesson List</a>
 		</div>	
@@ -183,10 +183,9 @@
 	<script src="/javascripts/backbone-models.js"></script>
 	<script src="/javascripts/views/LessonView.js"></script>
 	<script>
-		
+		var lesson = <%-  JSON.stringify(lesson) %>;
 		var myLesson = new Lesson({
-									lesson: <%-  JSON.stringify(lesson) %> ,
-									currentScreenIndex: 0
+									lesson: <%-  JSON.stringify(lesson) %>
 								});
 			
 		var lessonView = new LessonView({ model: myLesson });

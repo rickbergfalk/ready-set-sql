@@ -1,4 +1,16 @@
 var appDb = require('../lib/appDb');
+var FileStrings = require('../lib/file-strings');
+
+/* ============================================================
+    SQL FileStrings
+	(because inline SQL was icky)
+	
+	use it like: 
+		sqls.get('user-get-all.sql')
+=============================================================== */  
+
+//var sqls = new FileStrings({directory: path.resolve('./sql/') + '/'}); 
+var sqls = new FileStrings({directory: './sql/'}); 
 
 var precalc = {};
 exports.setPrecalc = function(pc) {
@@ -9,8 +21,8 @@ exports.setPrecalc = function(pc) {
 exports.getAll = function(req, res) {
 	// get a list of *all* lessonlists
 	console.log('getting all lists');
-	var sql = "SELECT lessonlist_id, name, seq, is_visible FROM lessonlist ORDER BY seq";
-	appDb.query(sql, [], function(err, results) {
+	//var sql = "SELECT lessonlist_id, name, seq, is_visible FROM lessonlist ORDER BY seq";
+	appDb.query(sqls.get('lessonlist - get all.sql'), [], function(err, results) {
 		if (err) {
 			console.log(err);
 			res.send({ success: false });
@@ -36,7 +48,8 @@ exports.save = function(req, res) {
 	var errs = [];
 	
 	statements.push({
-		sql: 	"UPDATE lesson SET lessonlist_id = NULL, seq = NULL WHERE lessonlist_id = $1",
+		//sql: 	"UPDATE lesson SET lessonlist_id = NULL, seq = NULL WHERE lessonlist_id = $1",
+		sql: sqls.get('lesson - clear lessonlist info by lessonlist_id.sql'),
 		params: [lessonListId]
 	});
 	
@@ -45,7 +58,8 @@ exports.save = function(req, res) {
 	
 	for (var i = 0; i < lessonIdLength; i++) {
 		statements.push({
-			sql: 	'UPDATE lesson SET lessonlist_id = $1, seq = $2 WHERE lesson_id = $3',
+			//sql: 	'UPDATE lesson SET lessonlist_id = $1, seq = $2 WHERE lesson_id = $3',
+			sql: sqls.get('lesson - set lessonlist by lesson_id.sql'),
 			params: [lessonListId, i, lessonIds[i]]
 		});
 	}

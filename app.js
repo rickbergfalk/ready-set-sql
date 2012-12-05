@@ -389,11 +389,8 @@ app.get('/edit', [editorsOnly], function (req, res) {
 app.get('/migrate/:version', [editorsOnly], function (req, res) {
 	var version = req.params.version;
 	
-	var envConfig = config[process.env.NODE_ENV];
-	var cs = "tcp://" + envConfig.user + ":" + envConfig.password + "@" + envConfig.host + "/" + envConfig.database;
-
 	postgrator.setMigrationDirectory(__dirname + '/migrations');
-	postgrator.setConnectionString(cs);
+	postgrator.setConnectionString(process.env.DATABASE_URL);
 	postgrator.migrate(version, function(err, migrations) {
 		if (err) {
 			res.send(err)

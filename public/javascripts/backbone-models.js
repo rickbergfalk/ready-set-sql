@@ -1,5 +1,5 @@
 
-/* 	Model : 
+/*  Lesson
 	================================================== */
 	
 	var Lesson = Backbone.Model.extend({
@@ -93,37 +93,3 @@
 	
 	});
 	
-	
-	
-	
-/* 	Model : 
-	================================================== */
-	
-	var LessonScreen = Backbone.Model.extend ({
-	
-		defaults: function() {
-			return {
-				order			: screenList.nextOrder(),
-				screenType		: "InfoOnly", // WriteSQL, Question
-				screenTitle		: "lesson screen title",
-				screenText		: "this test is on the page",
-				questionText	: "",
-				sqlTarget 		: "",
-				startingSql 	: ""
-			};
-		},
-
-		clear: function() {
-			this.destroy();
-		}
-
-	});
-
-	var ScreenEditor = function (id) {
-	
-		var $el = $('#' + id);
-	
-		var template = _.template( $("#lesson-editor-template").html(), {} );
-		this.el.html( template );
-	
-	};

@@ -104,8 +104,6 @@ exports.getByListId = function(req, res) {
 // GET /lesson/:id/:format?
 exports.getByLessonId = function(req, res) {
 	// get a lesson by lessonlistid
-	// this is a truly gross query to have stuck in javascript :S 
-	// should hack in that sql resources thing I was thinking about.
 	
 	var sql = sqls.get('lesson - get by lesson_id.sql');		
 	var params = [req.params.id];
@@ -113,10 +111,7 @@ exports.getByLessonId = function(req, res) {
 	
 	appDb.query(sql, params, function(err, results, fields) {
 		if (err) {
-			res.send({
-				success: false, 
-				message: 'query failed to execute'
-			});
+			res.send(500, 'query failed to execute');
 		} else {
 			var lessons = appDb.lesson.translateResults(results);
 			if (format === 'json') {
@@ -144,13 +139,9 @@ exports.editById = function(req, res) {
 	if (id) {
 		appDb.query(sql, params, function(err, results, fields) {
 			if (err) {
-				res.send({
-					success: false, 
-					message: 'query failed to execute'
-				});
+				res.send(500, 'query failed to execute');
 			} else {
 				var lessons = appDb.lesson.translateResults(results);
-				
 				res.render('lesson-editor-2', {
 					title: 'Edit some Lesson',
 					lesson: lessons[0]
@@ -178,15 +169,12 @@ exports.save = function(req, res) {
 			lesson.lessonDescription,
 			lesson.lessonScreens,
 			req.params.id
-		]
+		];
 	appDb.query(sqlUpdateLesson, params, function(err, results) {
 		if (err) console.log(err);
 		if (results) console.log(results);
 		if (err) {
-			res.send({
-				success: false, 
-				message: 'query failed to execute'
-			});
+			res.send(500, 'query failed to execute');
 		} else {
 			res.send({
 				success: true,

@@ -8,10 +8,13 @@ var express = require('express')
   , lessonlistRoutes = require('./routes/lessonlistRoutes')
   , http = require('http')
   , appDb = require('./lib/appDb')
+  , isBadSql = require('./lib/is-bad-sql')
   , crypto = require('crypto')
   , fs = require('fs')
   , path = require('path')
   , postgrator = require('postgrator');
+
+  var naughtyIPs = {};
 
 
 /* ============================================================
@@ -85,7 +88,22 @@ var obsessiveLogging = function (req, res, next) {
 	next();
 };
  
- 
+  
+var redirectBannedPeople = function (req, res, next) {
+	console.log(req.url);
+	// If the IP has more than 6 violations, 
+	// and the request is for the /query url
+	// Send a 403 telling the user they are banned.
+	// Otherwise redirect them somewhere. Either to a "You are banned" page, or somewhere annoying on the internet.
+	// Of course if they have no violations or less than 6, process the request as usual.
+	if (naughtyIPs[req.connection.remoteAddress] && naughtyIPs[req.connection.remoteAddress].violations > 6 && req.url === '/query') {
+		res.send(403, "BAM! You are so banned right now");
+	} else if (naughtyIPs[req.connection.remoteAddress] && naughtyIPs[req.connection.remoteAddress].violations > 6 && (req.url !== '/query')) {
+		res.redirect(301, 'http://www.youtube.com/watch?v=oHg5SJYRHA0');
+	} else {
+		next();
+	}
+};
  
 /* ============================================================
     Express Setup and stuff
@@ -106,7 +124,7 @@ app.configure(function(){
 	app.use(express.session());
 	
 	app.use(obsessiveLogging);
-  
+	app.use(redirectBannedPeople);
 	
 	app.use(app.router);
 	app.use(require('less-middleware')({ src: __dirname + '/public' }));
@@ -433,40 +451,77 @@ app.post('/lesson/:id', lessonRoutes.save);
  *	AJAXy things
  *	
  *****************************************************************************/
-app.post('/query', function(req, res) {
+
+var checkBadSql = function (req, res, next) {
 	
 	var sqlQuery = req.body.sqlQuery || '';
-
-	if (sqlQuery.trim().length > 0) {
 	
-		appDb.query(sqlQuery, [], function(err, results) {
-			if (err) {
-				console.log('err: /query');
-				console.log(err);
-				console.log(err.message);
-				res.send({
-					success: false, 
-					message: 'Query failed because <br>' + err.message
-				});
-			} else {
-				console.log('Finished Query: ' + Date());
-				console.log(results);
-				res.send({
-					success: true,
-					results: results
-				});
-			}
-		});
+	if (isBadSql(sqlQuery)) {
+		// take note of the offenders remoteAddress (IP Address)
+		// After so many attacks, they should be silenced.
+		// We can't do this on the session object, because it'll reset on browser close/change.
 		
+		if (naughtyIPs[req.connection.remoteAddress]) {
+			naughtyIPs[req.connection.remoteAddress].violations = naughtyIPs[req.connection.remoteAddress].violations + 1;
+		} else {
+			naughtyIPs[req.connection.remoteAddress] = {violations: 1};
+		}
+		console.log(naughtyIPs);
+		
+		/*
+		if (naughtyIPs[req.connection.remoteAddress].violations === 5) {
+			delete naughtyIPs[req.connection.remoteAddress];
+		}
+		*/
+		
+		var violations = naughtyIPs[req.connection.remoteAddress].violations;
+		var message = 'That kind of SQL is not allowed. Please keep it to SELECT statements only.';
+		if (violations == 2) message = "That kind of SQL is not allowed. Please keep it to SELECT statements only.";
+		if (violations == 3) message = "That kind of SQL is not allowed. Please keep it to SELECT statements only.";
+		if (violations == 4) message = "Seriously? Try anything else funny and you will be banned";
+		if (violations == 5) message = "... And a banning would be a bummer, because we haven't coded the part where it expires yet.";
+		if (violations == 6) message = "We mean it. This is your last warning";
+		if (violations > 6) message = "NOW LOOK WHAT YOU'VE DONE! (you're banned)";
+		
+		// 403 == forbidden
+		res.send(403, message);
 	} else {
-		res.send({
-			success: false, 
-			message: 'Query not provided'
-		});
+		next();
 	}
 	
+};
+
+ 
+app.post('/query', checkBadSql, function(req, res) {
+	
+	var sqlQuery = req.body.sqlQuery || '';
+	
+	if (isBadSql(sqlQuery)) {
+		// 403 is forbidden
+		res.send(403, 'That kind of SQL is not allowed. Try anything else funny and you will be banned.');
+	} else {
 		
+		if (sqlQuery.trim().length > 0) {
+		
+			appDb.query(sqlQuery, [], function(err, results) {
+				if (err) {
+					// 400 is bad request
+					res.send(400, 'Query failed because <br>' + err.message);
+				} else {
+					res.send({
+						results: results
+					});
+				}
+			});
+			
+		} else {
+			res.send(400, 'Query was not provided');
+		}
+		
+	}
+	
 });
+
 
 
 

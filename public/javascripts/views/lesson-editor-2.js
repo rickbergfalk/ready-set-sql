@@ -188,6 +188,12 @@
 					url: '/lesson/' + lesson.lessonId,
 					data: lessonUpdate,
 					success: function() {alert('saved')},
+					error: function (jqXHR, textStatus, errorThrown) {
+						console.log(jqXHR);
+						alert(jqXHR.responseText);
+						console.log(textStatus);
+						console.log(errorThrown);
+					},
 					dataType: 'json'
 				});
 			} else {
@@ -198,6 +204,12 @@
 					success: function() {
 						alert('created');
 						window.location.href = "/edit/";
+					},
+					error: function (jqXHR, textStatus, errorThrown) {
+						console.log(jqXHR);
+						alert(jqXHR.responseText);
+						console.log(textStatus);
+						console.log(errorThrown);
 					},
 					dataType: 'json'
 				});

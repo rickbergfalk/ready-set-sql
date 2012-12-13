@@ -9,7 +9,7 @@ WITH fancylesson AS (
 		ll.name AS lessonlist_name,
 		rank()  OVER (ORDER BY ll.seq, l.seq) AS lessonOrder
 	FROM lesson l
-	JOIN lessonlist ll ON l.lessonlist_id = ll.lessonlist_id
+	LEFT JOIN lessonlist ll ON l.lessonlist_id = ll.lessonlist_id
 	ORDER BY
 		ll.seq,
 		l.seq

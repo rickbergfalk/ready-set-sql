@@ -42,7 +42,7 @@ var QueryResult = function (results) {
 
 LessonView = Backbone.View.extend({
 			
-	el: '#main-body', // was '#main-body', but we aren't going that route anymore
+	el: '#main-body', 
 	
 	model: {}, // lesson JSON
 	myCodeMirror: {},
@@ -139,6 +139,12 @@ LessonView = Backbone.View.extend({
 				data: {database: 'rickber2_nodejs_mysql_test', sqlQuery: screenData.sqlTarget},
 				success: function (data, textStatus, jqXHR) {
 					me.screenSQLResult = data.results;
+				},
+				error: function (jqXHR, textStatus, errorThrown) {
+					console.log(jqXHR);
+					console.log(jqXHR.responseText);
+					console.log(textStatus);
+					console.log(errorThrown);
 				},
 				dataType: 'json'
 			});
@@ -275,34 +281,30 @@ LessonView = Backbone.View.extend({
 		var processQueryResults = function(data, textStatus, jqXHR) {
 			console.log(data);
 			// Render the response as appropriate
-			if (data.success) {
-				if (data.results) {
-					
-					// not showing record count anymore?
-					//me.$lessonInputActionText.empty().text(data.results.length + " records returned.");
-					var queryResult = new QueryResult(data.results);
-					me.$tableContainer.empty().append(queryResult.$table);
-					$queryMessage.hide();
-					
-					// if there's target results, and we match it, then advance the screen
-					if (me.screenSQLResult) {
-						if (_.isEqual(data.results, me.screenSQLResult)) {
-							// proceed to next screen
-							me.advanceScreen();
-						} else {
-							// the query runs, but the results are not what we are looking for.
-							//me.$tableContainer.prepend('<div class="query-message">Sorry. Your query runs, but the result is incorrect.</div>');
-							$queryMessage.show().html("Sorry. Your query runs, but the result is incorrect.");
-						}	
-					}
-					
-				} else {
-					//me.$tableContainer.empty().html('<div class="query-message">No Results Returned</div>');
-					$queryMessage.show().html("No Results Returned");
+			
+			if (data.results) {
+				
+				// not showing record count anymore?
+				//me.$lessonInputActionText.empty().text(data.results.length + " records returned.");
+				var queryResult = new QueryResult(data.results);
+				me.$tableContainer.empty().append(queryResult.$table);
+				$queryMessage.hide();
+				
+				// if there's target results, and we match it, then advance the screen
+				if (me.screenSQLResult) {
+					if (_.isEqual(data.results, me.screenSQLResult)) {
+						// proceed to next screen
+						me.advanceScreen();
+					} else {
+						// the query runs, but the results are not what we are looking for.
+						//me.$tableContainer.prepend('<div class="query-message">Sorry. Your query runs, but the result is incorrect.</div>');
+						$queryMessage.show().html("Sorry. Your query runs, but the result is incorrect.");
+					}	
 				}
+				
 			} else {
-				//me.$tableContainer.empty().html('<div class="query-message">' + data.message + '</div>');
-				$queryMessage.show().html(data.message);
+				//me.$tableContainer.empty().html('<div class="query-message">No Results Returned</div>');
+				$queryMessage.show().html("No Results Returned");
 			}
 			
 		};
@@ -312,6 +314,13 @@ LessonView = Backbone.View.extend({
 			url: '/query',
 			data: {sqlQuery: this.myCodeMirror.getValue()},
 			success: processQueryResults,
+			error: function (jqXHR, textStatus, errorThrown) {
+				console.log(jqXHR);
+				console.log(jqXHR.responseText);
+				$queryMessage.show().html(jqXHR.responseText);
+				console.log(textStatus);
+				console.log(errorThrown);
+			},
 			dataType: 'json'
 		});
 		

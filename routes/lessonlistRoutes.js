@@ -25,7 +25,7 @@ exports.getAll = function(req, res) {
 	appDb.query(sqls.get('lessonlist - get all.sql'), [], function(err, results) {
 		if (err) {
 			console.log(err);
-			res.send({ success: false });
+			res.send(500, 'query failed to execute');
 		} else {
 			res.send({
 				success: true,
@@ -48,7 +48,6 @@ exports.save = function(req, res) {
 	var errs = [];
 	
 	statements.push({
-		//sql: 	"UPDATE lesson SET lessonlist_id = NULL, seq = NULL WHERE lessonlist_id = $1",
 		sql: sqls.get('lesson - clear lessonlist info by lessonlist_id.sql'),
 		params: [lessonListId]
 	});
@@ -58,7 +57,6 @@ exports.save = function(req, res) {
 	
 	for (var i = 0; i < lessonIdLength; i++) {
 		statements.push({
-			//sql: 	'UPDATE lesson SET lessonlist_id = $1, seq = $2 WHERE lesson_id = $3',
 			sql: sqls.get('lesson - set lessonlist by lesson_id.sql'),
 			params: [lessonListId, i, lessonIds[i]]
 		});
@@ -78,7 +76,7 @@ exports.save = function(req, res) {
 			// check the errors, and send response to browser accordingly.
 			console.log('all done');
 			if (errs.length) {
-				res.send({ success: false });
+				res.send(500, 'One or more of the queries went terribly wrong. This might get messy...');
 			} else {
 				res.send({ success: true });
 			}

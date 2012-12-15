@@ -12,9 +12,8 @@ var express = require('express')
   , crypto = require('crypto')
   , fs = require('fs')
   , path = require('path')
+  , banHammer = require('./lib/banHammer')
   , postgrator = require('postgrator');
-
-  var naughtyIPs = {};
 
 
 /* ============================================================
@@ -65,31 +64,7 @@ var editorsOnly = function (req, res, next) {
 	}
 };
 
-  
-var handleBannedPeople = function (req, res, next) {
-	/*
-		Object refresher:
-		naughtyIPs = {
-			"ipaddress": {
-				violations: n,
-				lastOffenseDate: Date()
-			}
-		}
-	*/
-	console.log(req.url);
-	// If the IP has more than 6 violations, 
-	// and the request is for the /query url
-	// Send a 403 telling the user they are banned.
-	// Otherwise redirect them somewhere. Either to a "You are banned" page, or somewhere annoying on the internet.
-	// Of course if they have no violations or less than 6, process the request as usual.
-	if (naughtyIPs[req.connection.remoteAddress] && naughtyIPs[req.connection.remoteAddress].violations > 5 && req.url === '/query') {
-		res.send(403, "BAM! You are so banned right now");
-	} else if (naughtyIPs[req.connection.remoteAddress] && naughtyIPs[req.connection.remoteAddress].violations > 5 && (req.url !== '/query')) {
-		res.redirect(301, 'http://www.youtube.com/watch?v=oHg5SJYRHA0');
-	} else {
-		next();
-	}
-};
+
  
 /* ============================================================
     Express Setup and stuff
@@ -109,7 +84,7 @@ app.configure(function(){
 	app.use(express.cookieParser('your secret here'));
 	app.use(express.session());
 	
-	app.use(handleBannedPeople);
+	app.use(banHammer.handleBannedPeople);
 	
 	app.use(app.router);
 	app.use(require('less-middleware')({ src: __dirname + '/public' }));
@@ -378,33 +353,15 @@ var checkBadSql = function (req, res, next) {
 	var sqlQuery = req.body.sqlQuery || '';
 	
 	if (isBadSql(sqlQuery)) {
+		
 		// take note of the offenders remoteAddress (IP Address)
 		// After so many attacks, they should be silenced.
 		// We can't do this on the session object, because it'll reset on browser close/change.
+		var offense = banHammer.recordOffense(req.connection.remoteAddress);
 		
-		if (naughtyIPs[req.connection.remoteAddress]) {
-			naughtyIPs[req.connection.remoteAddress].violations = naughtyIPs[req.connection.remoteAddress].violations + 1;
-		} else {
-			naughtyIPs[req.connection.remoteAddress] = {violations: 1};
-		}
-		console.log(naughtyIPs);
-		
-		/*
-		if (naughtyIPs[req.connection.remoteAddress].violations === 5) {
-			delete naughtyIPs[req.connection.remoteAddress];
-		}
-		*/
-		
-		var violations = naughtyIPs[req.connection.remoteAddress].violations;
-		var message = 'That kind of SQL is not allowed. Please keep it to SELECT statements only.';
-		if (violations == 2) message = "That kind of SQL is not allowed. Please keep it to SELECT statements only.";
-		if (violations == 3) message = "That kind of SQL is not allowed. Please keep it to SELECT statements only.";
-		if (violations == 4) message = "Seriously? Try anything else funny and you will be banned";
-		if (violations == 5) message = "We mean it. This is your last warning";
-		if (violations > 5) message = "NOW LOOK WHAT YOU'VE DONE! (you're banned)";
 		
 		// 403 == forbidden
-		res.send(403, message);
+		res.send(403, offense.message);
 	} else {
 		next();
 	}

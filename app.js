@@ -51,18 +51,6 @@ postgrator.setMigrationDirectory(__dirname + '/migrations');
 postgrator.setConnectionString(process.env.DATABASE_URL);
 postgrator.migrate('012');
 
-  
- 
-/* ============================================================
-    Convenience functions
-=============================================================== */
-function md5(str) {
-	return crypto.createHash('md5').update(str).digest('hex');
-};
-var hashPassword = function (password) {
-	var salt = '@n@lystSQL';
-	return md5(salt + password + salt);
-};
  
 
 
@@ -77,28 +65,26 @@ var editorsOnly = function (req, res, next) {
 	}
 };
 
-var obsessiveLogging = function (req, res, next) {
-	//console.log('remoteAddress: ' + req.connection.remoteAddress);
-	/*
-	if (req.session) {
-		console.log('*** SESSION ***');
-		console.log(req.session);
-	}
-	*/
-	next();
-};
- 
   
-var redirectBannedPeople = function (req, res, next) {
+var handleBannedPeople = function (req, res, next) {
+	/*
+		Object refresher:
+		naughtyIPs = {
+			"ipaddress": {
+				violations: n,
+				lastOffenseDate: Date()
+			}
+		}
+	*/
 	console.log(req.url);
 	// If the IP has more than 6 violations, 
 	// and the request is for the /query url
 	// Send a 403 telling the user they are banned.
 	// Otherwise redirect them somewhere. Either to a "You are banned" page, or somewhere annoying on the internet.
 	// Of course if they have no violations or less than 6, process the request as usual.
-	if (naughtyIPs[req.connection.remoteAddress] && naughtyIPs[req.connection.remoteAddress].violations > 6 && req.url === '/query') {
+	if (naughtyIPs[req.connection.remoteAddress] && naughtyIPs[req.connection.remoteAddress].violations > 5 && req.url === '/query') {
 		res.send(403, "BAM! You are so banned right now");
-	} else if (naughtyIPs[req.connection.remoteAddress] && naughtyIPs[req.connection.remoteAddress].violations > 6 && (req.url !== '/query')) {
+	} else if (naughtyIPs[req.connection.remoteAddress] && naughtyIPs[req.connection.remoteAddress].violations > 5 && (req.url !== '/query')) {
 		res.redirect(301, 'http://www.youtube.com/watch?v=oHg5SJYRHA0');
 	} else {
 		next();
@@ -123,17 +109,16 @@ app.configure(function(){
 	app.use(express.cookieParser('your secret here'));
 	app.use(express.session());
 	
-	app.use(obsessiveLogging);
-	app.use(redirectBannedPeople);
+	app.use(handleBannedPeople);
 	
 	app.use(app.router);
 	app.use(require('less-middleware')({ src: __dirname + '/public' }));
 	app.use(express.static(path.join(__dirname, 'public')));
-  
+	
 });
 
 app.configure('development', function(){
-  app.use(express.errorHandler());
+	app.use(express.errorHandler());
 });
 
 
@@ -299,70 +284,6 @@ app.get('/signin', function(req, res) {
 	res.render('sign-in');
 });
 
-app.get('/xmas', function(req, res) {
-	
-	// Function drawNames
-	// draws names for Christmas with certain rules in place. 
-	// If a rule is broken, it redraws until everything works out.
-	var drawNames = function () {
-		var kids = ['Rick', 'Tara', 'Rob', 'Kelsey', 'Anna', 'Hans', 'Natalie']
-		var paperNameSlips = kids.slice(); // this creates a copy of the kids array. 
-	
-		// for each kid, get a random name from the paperNameSlips.
-		// This name must not be the name of the kid picking the slip.
-		// This name must also not be the spouse/significant other of the kid. 
-		// If any of these rules is broken, we'll start the *whole* process over.
-		// We'll do it this way because computers can think really fast 
-		// and I don't care if it does a bunch of extra meaningless work. 
-		//
-		// take that computer.
-		var results = [];
-		var badDraw = false;
-		kids.forEach(function(kid) {
-			
-			// get a random paper slip number
-			// I stole this code from http://stackoverflow.com/a/5915122
-			var slipNumber = Math.floor(Math.random()*paperNameSlips.length); 
-			
-			// use that paper slip number and get the name for that slip.
-			// at the same time, draw that slip from the bucket so no one else can get it.
-			var slipName = paperNameSlips.splice(slipNumber, 1); 
-			
-			// Now we need to check to see if this drawing is invalid
-			results.push(kid + ' picks ' + slipName);
-			if (kid == slipName) {
-				console.log("kid can't draw own name!");
-				badDraw = true;
-			} else if (
-						(kid == 'Rick' && slipName == 'Tara') 
-						|| (kid == 'Tara' && slipName == 'Rick')
-						|| (kid == 'Anna' && slipName == 'Hans') 
-						|| (kid == 'Hans' && slipName == 'Anna')
-						|| (kid == 'Rob' && slipName == 'Kelsey') 
-						|| (kid == 'Kelsey' && slipName == 'Rob')
-					  ) {
-				console.log("Significant Other Violation: " + kid + " can't pick " + slipName);
-				badDraw = true;
-			}
-			
-		});
-		if (badDraw) {
-			return false;
-		} else {
-			return results;
-		}
-	};
-	
-	var finalList;
-	var tries = 0;
-	while (!finalList) {
-		tries = tries + 1;
-		finalList = drawNames();
-	}
-		
-	res.send({"Number of tries to get it right": tries, results: finalList});
-});
-
 app.post('/signin', function(req, res) {
 	
 	var message = false;
@@ -479,9 +400,8 @@ var checkBadSql = function (req, res, next) {
 		if (violations == 2) message = "That kind of SQL is not allowed. Please keep it to SELECT statements only.";
 		if (violations == 3) message = "That kind of SQL is not allowed. Please keep it to SELECT statements only.";
 		if (violations == 4) message = "Seriously? Try anything else funny and you will be banned";
-		if (violations == 5) message = "... And a banning would be a bummer, because we haven't coded the part where it expires yet.";
-		if (violations == 6) message = "We mean it. This is your last warning";
-		if (violations > 6) message = "NOW LOOK WHAT YOU'VE DONE! (you're banned)";
+		if (violations == 5) message = "We mean it. This is your last warning";
+		if (violations > 5) message = "NOW LOOK WHAT YOU'VE DONE! (you're banned)";
 		
 		// 403 == forbidden
 		res.send(403, message);
@@ -526,12 +446,6 @@ app.post('/query', checkBadSql, function(req, res) {
 
 
 
-
-
- 
-
-
-
  
 /*
  *	Error Routes and Stuff
@@ -539,23 +453,17 @@ app.post('/query', checkBadSql, function(req, res) {
  *****************************************************************************/
 // A Route for Creating a 500 Error (Useful to keep around)
 app.get('/500', function(req, res){
-    throw new Error('This is a 500 Error');
+	throw new Error('This is a 500 Error');
 });
 
 // A Route for Creating a 404 Error (Useful to keep around)
 app.get('/404', function(req, res){
-    throw new NotFound();
+	throw new NotFound();
 });
 
-// A Catch-all route for anything we missed. 
-// By default it'll return the root route, 
-// which will be our single-page apps main page.
-// (ALWAYS Keep this as the last route) 
-// This used to be for 404's, but there really isn't such a thing if our app only has 1 page now is there?
 //app.get('/*', function(req, res){
-//    res.redirect('/');
+	//throw new NotFound();
 //});
-
 
 function NotFound(msg){
     this.name = 'NotFound';
@@ -572,5 +480,5 @@ function NotFound(msg){
 =============================================================== */
 
 http.createServer(app).listen(app.get('port'), function(){
-  console.log("Express server listening on port " + app.get('port'));
+	console.log("Express server listening on port " + app.get('port'));
 });

@@ -401,7 +401,11 @@ app.post('/query', checkBadSql, function(req, res) {
 
 
 app.get('/req', function(req, res) {
-	res.send({ip: req.ip});
+	res.send({
+		ip: req.ip, 
+		ips: req.ips,
+		remoteAddress: req.connection.remoteAddress
+	});
 });
 
 

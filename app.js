@@ -400,7 +400,9 @@ app.post('/query', checkBadSql, function(req, res) {
 });
 
 
-
+app.get('/req', function(req, res) {
+	res.send({ip: req.ip});
+});
 
 
  

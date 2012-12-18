@@ -357,7 +357,7 @@ var checkBadSql = function (req, res, next) {
 		// take note of the offenders remoteAddress (IP Address)
 		// After so many attacks, they should be silenced.
 		// We can't do this on the session object, because it'll reset on browser close/change.
-		var offense = banHammer.recordOffense(req.connection.remoteAddress);
+		var offense = banHammer.recordOffense(req);
 		
 		
 		// 403 == forbidden

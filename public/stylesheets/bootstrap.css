@@ -4206,6 +4206,11 @@ a.badge:hover {
 .invisible {
   visibility: hidden;
 }
+pre {
+  font-family: 'InconsolataMedium', Inconsolata, monospace;
+  font-size: 16px;
+  line-height: 22px;
+}
 .about-content p {
   font-size: 18px;
   line-height: 27px;

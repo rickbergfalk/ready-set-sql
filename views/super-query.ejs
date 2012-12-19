@@ -1,0 +1,104 @@
+<% include layout-header %>
+		
+		
+	<div class="container-container light-bg">
+		<div id="hero-container" class="container">
+			
+			<div class="hero">
+				<div class="row">
+					<div class="span5">
+						<div class="content">
+							<h3 class="skinny">
+								Use CMD/CTRL + E to execute query.
+							</h3>
+						</div>
+					</div>
+					<div class="span7">
+						<div class="content">
+							<h3 class="skinny" style="text-align: right">
+								<strong>Be careful - this page has full rights to DB.</strong>
+							</h3>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="span12">
+						<div class="content" style="margin-top: -20px;">
+							
+							<pre id="editor"></pre>
+							
+						</div>
+					</div>
+				</div>
+				
+				<div class="row ">	
+					<div class="span12">
+						<div class="content">
+						
+							<pre id="query-results"></pre>
+						
+						</div>
+					</div>
+				</div>
+					
+				
+			</div>
+			
+		</div>	<!-- container -->
+	</div>
+	
+	
+	<script>
+		
+		var $editor = $('#editor');
+		var $queryResults = $('#query-results');
+		
+		var runSQL = function () {
+			
+			$.ajax({
+				type: 'post',
+				url: '/superquery',
+				data: {sqlQuery: myCodeMirror.getValue()},
+				success: function(data, textStatus, jqXHR) {
+					$queryResults.text(JSON.stringify(data.results, null, 3));
+				},
+				error: function (jqXHR, textStatus, errorThrown) {
+					console.log(jqXHR);
+					console.log(jqXHR.responseText);
+					$queryResults.html(jqXHR.responseText);
+					console.log(textStatus);
+					console.log(errorThrown);
+				},
+				dataType: 'json'
+			});
+			
+		};
+		
+		// Create CodeMirror
+		var myCodeMirror = CodeMirror($editor.get(0), {
+			lineNumbers: false, 
+			tabmode: "indent",
+			indentWithTabs : true,
+			matchBrackets: true,
+			indentUnit: 4,
+			
+			value: "",
+			mode: "text/x-mysql",
+			theme: "monokai",
+			extraKeys: {
+				"Ctrl-E": function (cm) {
+					runSQL();
+				}, 
+				"Cmd-E": function (cm) {
+					runSQL();
+				}
+			}
+		});
+	
+	</script>
+		
+
+<!-- this is part of layout-footer.ejs -->
+</div>
+</body>
+</html>

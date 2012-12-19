@@ -190,8 +190,8 @@ var editorsLinks = [
 		text: 'Lessons',
 		url: '/'
 	}, {
-		text: 'about',
-		url: '/about'
+		text: 'superquery',
+		url: '/superquery'
 	}, {
 		text: 'editor',
 		url: '/edit'
@@ -408,6 +408,32 @@ app.get('/req', function(req, res) {
 	});
 });
 
+
+app.get('/superquery', [editorsOnly], function (req, res) {
+	res.render('super-query', {title: 'Edit some SQL'});
+});
+
+app.post('/superquery', [editorsOnly], function (req, res) {
+	var sqlQuery = req.body.sqlQuery || '';
+	
+	if (sqlQuery.trim().length > 0) {
+	
+		appDb.query(sqlQuery, [], function(err, results) {
+			if (err) {
+				// 400 is bad request
+				res.send(400, 'Query failed because <br>' + err.message);
+			} else {
+				res.send({
+					results: results
+				});
+			}
+		});
+		
+	} else {
+		res.send(400, 'Query was not provided');
+	}
+	
+});
 
  
 /*

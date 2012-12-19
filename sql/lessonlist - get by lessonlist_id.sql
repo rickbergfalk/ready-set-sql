@@ -3,8 +3,8 @@ SELECT
 	name, 
 	seq, 
 	description,
-	is_visible
+	is_visible 
 FROM 
 	lessonlist 
-ORDER BY 
-	seq
+WHERE
+	lessonlist_id = $1

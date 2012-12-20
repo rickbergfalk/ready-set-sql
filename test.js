@@ -1,13 +1,26 @@
 
+
 /* 
-	Date parsing/cleaning
+	Date parsing/cleaning 2 (On the node side)
 ============================================================================ */
-console.log('\n\nDate Cleaning \n=============================\n');
+console.log('\n\nDate Cleaning (via Nodejs) \n=============================\n');
 
-var a = new Date('1962-10-05T00:00:00.000Z'.replace('T', ' ').replace('Z', ''))
+var aDate = new Date('1962-10-05T00:00:00.000Z');
 
-console.log(a);
-
+if (aDate instanceof Date) {
+	console.log('yep, aDate is a date alright');
+	var day = aDate.getDate();
+	var month = aDate.getMonth() + 1;
+	var year = aDate.getFullYear();
+	var hours = aDate.getHours();
+	var minutes = aDate.getMinutes();
+	var seconds = aDate.getSeconds();
+	
+	aDateString = month + '/' + day + '/' + year + ' ' + hours + ':' + minutes + ':' + seconds;
+	console.log(aDateString);
+} else {
+	console.log('');
+}
 
 
 /* 

@@ -13,6 +13,7 @@ var express = require('express')
   , fs = require('fs')
   , path = require('path')
   , banHammer = require('./lib/banHammer')
+  , moment = require('moment')
   , postgrator = require('postgrator');
 
 
@@ -385,6 +386,17 @@ app.post('/query', checkBadSql, function(req, res) {
 					// 400 is bad request
 					res.send(400, 'Query failed because <br>' + err.message);
 				} else {
+					// Before we send results, we should change the dates 
+					// to strings formatted to how we want them to be.
+					for (row in results) {
+						for (column in results[row]) {
+							var field = results[row][column];
+							if (field instanceof Date) {
+								var m = moment.utc(field);
+								results[row][column] = m.format('MM/DD/YYYY HH:mm:SS');
+							}
+						}
+					}
 					res.send({
 						results: results
 					});

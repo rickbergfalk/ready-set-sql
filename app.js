@@ -3,18 +3,18 @@
  * Module dependencies.
  */
 
-var express = require('express')
-  , lessonRoutes = require('./routes/lessonRoutes')
-  , lessonlistRoutes = require('./routes/lessonlistRoutes')
-  , http = require('http')
-  , appDb = require('./lib/appDb')
-  , isBadSql = require('./lib/is-bad-sql')
-  , crypto = require('crypto')
-  , fs = require('fs')
-  , path = require('path')
-  , banHammer = require('./lib/banHammer')
-  , moment = require('moment')
-  , postgrator = require('postgrator');
+var express = require('express');
+var lessonRoutes = require('./routes/lessonRoutes');
+var lessonlistRoutes = require('./routes/lessonlistRoutes');
+var http = require('http');
+var appDb = require('./lib/appDb');
+var isBadSql = require('./lib/is-bad-sql');
+var crypto = require('crypto');
+var fs = require('fs');
+var path = require('path');
+var banHammer = require('./lib/banHammer');
+var moment = require('moment');
+var postgrator = require('postgrator');
 
 
 /* ============================================================
@@ -359,7 +359,7 @@ var checkBadSql = function (req, res, next) {
 		// After so many attacks, they should be silenced.
 		// We can't do this on the session object, because it'll reset on browser close/change.
 		var offense = banHammer.recordOffense(req);
-		
+
 		
 		// 403 == forbidden
 		res.send(403, offense.message);

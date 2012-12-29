@@ -4237,6 +4237,9 @@ footer hr {
 .footer-nav a {
   margin: 0 20px;
 }
+.footer-nav span {
+  margin: 0 20px;
+}
 .final-screen-buttons {
   text-align: center;
 }

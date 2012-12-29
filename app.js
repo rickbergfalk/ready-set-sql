@@ -268,7 +268,7 @@ app.post('/signin', function(req, res) {
 		req.session.attempts = 0;
 	}
 	
-	if (req.body.passphrase === 'yes') {
+	if (req.body.passphrase === process.env.PASSPHRASE) {
 		req.session.isSignedIn = true;
 		req.session.attempts = 0;
 		app.locals.links = editorsLinks;

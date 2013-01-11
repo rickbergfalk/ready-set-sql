@@ -4432,10 +4432,6 @@ body {
   border-bottom: none;
   cursor: default;
 }
-.tab-content {
-  margin-top: 40px;
-  margin-bottom: 40px;
-}
 .lightHeading {
   color: #1dade2;
 }
@@ -4692,6 +4688,7 @@ body {
   border: 1px solid #E1E1E8;
   font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
   font-size: 12px;
+  font-style: normal;
 }
 #lesson-content .actions {
   padding: 20px;

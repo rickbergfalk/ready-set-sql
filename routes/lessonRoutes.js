@@ -1,26 +1,86 @@
-var appDb = require('../lib/appDb');
-var FileStrings = require('../lib/file-strings');
-var sqls = new FileStrings({directory: './sql/'}); 
+/* =========================================================================
+	Cool SqlRunner helper
+	Runs SQL queries stored in .sql files. 
+	Has a hook for a mapping/tranformation function to translate the pg result.rows object into something more helpful.
+============================================================================ */ 
 
-var precalc = {};
-exports.setPrecalc = function(pc) {
-	precalc = pc;
+var SqlRunner = require('../lib/sql-runner');
+var sqlRunner = new SqlRunner({
+						sqlFolderPath: 		'./sql/', 
+						connectionString: 	process.env.DATABASE_URL,
+						encoding: 			'utf8', // this is the default, and is not necessary
+						cache: 				true // TODO: Support not caching sql file contents. (process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'Production') 
+					});
+
+					
+/* =========================================================================
+	Lesson
+	Object and Map Function(s)
+	
+	Instead of creating some sort of API, I'm just going to 
+	wing it from here on out, building out the various pieces as necessary.
+	Building out a Lesson API* didn't feel right - it felt like a lot of 
+	cruft I wasn't going to use for this project. 
+	Perhaps for bigger projects it'll make more sense.
+	
+	The main thing here though is to have a "standard" Lesson object, 
+	so we can standardize the property names a bit.
+	
+	* By API, I mean a more formal and consistent method of persisting 
+	and getting Lessons from the database (data access layer?). Initially I 
+	was thinking about building stuff like the following, 
+	but decided against it because it felt like an unnecessary layer:
+	
+		- lessons.getById(id, function(err, lesson) {})
+		- lessons.create(lesson, function(err) {})
+		- lessons.getByListId(listId, function(err, lessons) {})
+		- lessons.updateLesson(lesson, function(err) {})
+		
+	These things would be more testable however...
+============================================================================ */ 
+
+var Lesson = function (options) {
+	this.lessonId			= options.lessonId;
+	this.lessonTitle 		= options.lessonTitle 		|| "";
+	this.lessonDescription 	= options.lessonDescription || "";
+	this.lessonScreens 		= options.lessonScreens 	|| "[]"; 
+	this.lessonListId 		= options.lessonListId;
+	this.lessonSeq 			= options.lessonSeq;
+	this.nextLessonId 		= options.nextLessonId;
+	this.nextLessonTitle 	= options.nextLessonTitle;
+	this.nextLessonListName = options.nextLessonListName;
 };
+
+var mapToLessons = function (results) {
+	var lessons = [];
+	results.forEach(function(record) {
+		var lesson = {
+			lessonId 			: record.lesson_id,
+			lessonTitle 		: record.title,
+			lessonDescription 	: record.description,
+			lessonScreens 		: JSON.parse(record.screens || "[]"),
+			lessonListId		: record.lessonlist_id,
+			lessonSeq			: record.seq,
+			nextLessonId 		: record.nextlesson_id,
+			nextLessonTitle 	: record.nextlesson_title,
+			nextLessonListName	: record.nextlesson_listname
+		};
+		lessons.push(new Lesson(lesson));
+	});
+	return lessons
+}
 
 
 // PUT /lesson
+// create a new lesson
 exports.create = function (req, res) {
-	// create a new lesson
 	var lesson = req.body;
-	
-	var sql = sqls.get('lesson - create new.sql');
 	var params = [
 			lesson.lessonTitle,
 			lesson.lessonDescription,
 			lesson.lessonScreens
 		];
-	
-	appDb.query(sql, params, function(err, results, fields) {
+	sqlRunner.runSqlFromFile('lesson - create new.sql', params, null, function(err, lessons) {
 		if (err) {
 			res.send({
 				success: false, 
@@ -31,20 +91,14 @@ exports.create = function (req, res) {
 				success: true
 			});
 		}
-		
-		// refresh the lesson lists on homepage
-		precalc.refreshLessonLists();
 	});
-	
 };
 
 
 // GET /lesson
+// get a list of *all* lessons
 exports.getAll = function(req, res) {
-	// get a list of *all* lessons
-	
-	var sql = sqls.get('lesson - get all.sql');
-	appDb.query(sql, [], function(err, results, fields) {
+	sqlRunner.runSqlFromFile('lesson - get all.sql', [], mapToLessons, function(err, lessons) {
 		if (err) {
 			res.send({
 				success: false, 
@@ -53,7 +107,7 @@ exports.getAll = function(req, res) {
 		} else {
 			res.send({
 				success: true,
-				lesson: results
+				lesson: lessons
 			});
 		}
 	});
@@ -61,17 +115,15 @@ exports.getAll = function(req, res) {
 
 
 // GET /lesson/unlisted
+// get unlisted lessons
 exports.getUnlisted = function(req, res) {
-	// get unlisted lessons
-	
-	var sql = sqls.get('lesson - get unlisted.sql');
-	appDb.query(sql, [], function(err, results, fields) {
+	sqlRunner.runSqlFromFile('lesson - get unlisted.sql', [], mapToLessons, function(err, lessons) {
 		if (err) {
 			res.send({ success: false });
 		} else {
 			res.send({
 				success: true,
-				lesson: appDb.lesson.translateResults(results)
+				lesson: lessons
 			});
 		}
 	});
@@ -79,13 +131,10 @@ exports.getUnlisted = function(req, res) {
 
 
 // GET /lesson/listid/:id
+// get a lesson by lessonlistid
 exports.getByListId = function(req, res) {
-	// get a lesson by lessonlistid
-	
-	var sql = sqls.get('lesson - get by lessonlist_id.sql');
 	var params = [req.params.id];
-	
-	appDb.query(sql, params, function(err, results, fields) {
+	sqlRunner.runSqlFromFile('lesson - get by lessonlist_id.sql', params, mapToLessons, function(err, lessons) {
 		if (err) {
 			res.send({
 				success: false, 
@@ -94,26 +143,22 @@ exports.getByListId = function(req, res) {
 		} else {
 			res.send({
 				success: true,
-				lesson: appDb.lesson.translateResults(results)
+				lesson: lessons
 			});
 		}
-	});
+	})
 };
 
 
 // GET /lesson/:id/:format?
+// get a lesson by lessonlistid
 exports.getByLessonId = function(req, res) {
-	// get a lesson by lessonlistid
-	
-	var sql = sqls.get('lesson - get by lesson_id.sql');		
 	var params = [req.params.id];
 	var format = req.params.format;
-	
-	appDb.query(sql, params, function(err, results, fields) {
+	sqlRunner.runSqlFromFile('lesson - get by lesson_id.sql', params, mapToLessons, function(err, lessons) {
 		if (err) {
 			res.send(500, 'query failed to execute');
 		} else {
-			var lessons = appDb.lesson.translateResults(results);
 			if (format === 'json') {
 				res.render({
 					lesson: lessons[0]
@@ -130,28 +175,25 @@ exports.getByLessonId = function(req, res) {
 
 
 // GET /edit/lesson/:id
-exports.editById = function(req, res) {
-	
-	var sql = sqls.get('lesson - get by lesson_id.sql');		
+// id is optional
+// if id is provided, we are editing a lesson, otherwise we're making a new one
+exports.editById = function(req, res) {		
 	var id = req.params.id;
-	var params = [req.params.id];
-	
+	var params = [id];
 	if (id) {
-		appDb.query(sql, params, function(err, results, fields) {
+		sqlRunner.runSqlFromFile('lesson - get by lesson_id.sql', params, mapToLessons, function(err, lessons) {
 			if (err) {
 				res.send(500, 'query failed to execute');
 			} else {
-				var lessons = appDb.lesson.translateResults(results);
 				res.render('lesson-editor-2', {
 					title: 'Edit some Lesson',
 					lesson: lessons[0]
 				});
 			}
-		});	
+		});
 	} else {
-		// this is a new lesson
 		res.render('lesson-editor-2', {
-			title: 'Edit some Lesson',
+			title: 'Create New Lesson',
 			lesson: {}
 		});
 	}	
@@ -159,18 +201,17 @@ exports.editById = function(req, res) {
 
 
 // POST /lesson/:id
+// save a lesson by ID
+// After updating a lesson we must refresh the lesson list on the homepage.
 exports.save = function(req, res) {
-	// save a lesson by ID
 	var lesson = req.body;
-	
-	var sqlUpdateLesson = sqls.get('lesson - save lesson.sql');
 	var params = [
 			lesson.lessonTitle,
 			lesson.lessonDescription,
 			lesson.lessonScreens,
 			req.params.id
 		];
-	appDb.query(sqlUpdateLesson, params, function(err, results) {
+	sqlRunner.runSqlFromFile('lesson - save lesson.sql', params, null, function(err, results) {
 		if (err) console.log(err);
 		if (results) console.log(results);
 		if (err) {
@@ -181,7 +222,5 @@ exports.save = function(req, res) {
 				message: 'saved the lesson!'
 			});
 		}
-		// refresh the lesson lists on homepage
-		precalc.refreshLessonLists();
 	});
 };

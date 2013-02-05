@@ -1,52 +1,60 @@
-var appDb = require('../lib/appDb');
-var FileStrings = require('../lib/file-strings');
-var sqls = new FileStrings({directory: './sql/'}); 
+var SqlRunner = require('../lib/sql-runner');
+var sqlRunner = new SqlRunner({
+						sqlFolderPath: 		'./sql/', 
+						connectionString: 	process.env.DATABASE_URL,
+						encoding: 			'utf8', // this is the default, and is not necessary
+						cache: 				true // TODO: Support not caching sql file contents. (process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'Production') 
+					});
 
 /* ==============================================
 	Lesson
 ================================================= */ 
 
 var Lesson = function (options) {
-	this.id 			= options.lessonId;
-	this.title 			= options.lessonTitle 		|| 'New Lesson';
-	this.description 	= options.lessonDescription || 'This is a new lesson yo';
-	this.screens 		= options.lessonScreens 	|| "[]"; 
-	// not part of the table, but relevant & may be mapped in from query
-	this.lessonSeq;
-	this.listSeq;
-	this.listName;
-	this.listId;
+	this.lessonId			= options.lessonId;
+	this.lessonTitle 		= options.lessonTitle 		|| 'New Lesson';
+	this.lessonDescription 	= options.lessonDescription || 'This is a new lesson yo';
+	this.lessonScreens 		= options.lessonScreens 	|| "[]"; 
+	this.lessonListId 		= options.lessonListId;
+	this.lessonSeq 			= options.lessonSeq;
+	this.nextLessonId 		= options.nextLessonId;
+	this.nextLessonTitle 	= options.nextLessonTitle;
+	this.nextLessonListName = options.nextLessonListName;
 };
+
+var mapToLessons = function (results) {
+	var lessons = [];
+	results.forEach(function(record) {
+		var lesson = {
+			lessonId 			: record.lesson_id,
+			lessonTitle 		: record.title,
+			lessonDescription 	: record.description,
+			lessonScreens 		: JSON.parse(record.screens || "[]"),
+			lessonListId		: record.lessonlist_id,
+			lessonSeq			: record.seq,
+			nextLessonId 		: record.nextlesson_id,
+			nextLessonTitle 	: record.nextlesson_title,
+			nextLessonListName	: record.nextlesson_listname
+		};
+		lessons.push(new Lesson(lesson));
+	});
+	return lessons
+}
 
 
 var lessonsDb = {
-	// receives results as is from database
-	// creates an array of lesson objects
-	mapResults: function(results) {
-		// loop through results, and map to an array of Lesson objects
-		// add in the handy fields, that aren't necessarily part of the Lesson object.
-		return new Lesson();
-	},
 	create: function (lesson, callback) {
-		var sql = sqls.get('lesson - create some thing.sql');
 		var params = [
 				lesson.title,
 				lesson.description,
 				lesson.screens
 			];
-		runquery(sql, params, function (err, results) {
-			callback(err);
-		});	
-	},
-	getById: function (id, callback) {
-		runquery(sqls.get('lesson - get by id.sql');, [id], function (err, results) {
-			resultLessons = lessonsDb.mapResults(results);
-			callback(err, resultLessons);
+		sqlRunner.runSql('lesson - create some thing.sql', params, mapToLessons, function (err, lessons) {
+			// got lessons here
 		});
 	},
-	getNextLesson: function (id, callback) {
-		// actually, the next lesson crap can stay in the get by id part.
-		// it'll still be an ugly query here - do we want that up front or later?
+	getById: function (id, callback) {
+		
 	},
 	save: function (lesson, callback) {
 		runquery(sqls.get('lesson - save.sql'), [], function (err, results) {

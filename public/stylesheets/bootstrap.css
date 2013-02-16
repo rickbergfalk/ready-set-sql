@@ -4586,6 +4586,9 @@ body {
   background-color: #1dade2;
   background-image: url('../images/bg_transparent_square.png');
   background-image: url('../images/grey/grey.png');
+  background-image: url('../images/lghtmesh/lghtmesh.png');
+  background-image: url('../images/diagonal-noise/diagonal-noise.png');
+  background-image: url('../images/white_carbon/white_carbon.png');
   background-color: #EEE;
 }
 #code-background {

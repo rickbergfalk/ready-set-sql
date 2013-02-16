@@ -52,7 +52,9 @@ if (!process.env.DATABASE_URL) throw new Error('process.env.DATABASE_URL is not 
 
 postgrator.setMigrationDirectory(__dirname + '/migrations');
 postgrator.setConnectionString(process.env.DATABASE_URL);
-postgrator.migrate('012');
+postgrator.migrate('013', function(err) {
+	if (err) console.log(err);
+});
 
 
 
@@ -74,13 +76,18 @@ var editorsOnly = function (req, res, next) {
 ============================================================================ */
 var app = express();
 
+app.configure('development', function(){
+	app.use(express.errorHandler());
+	app.use(express.logger('dev'));
+});
+
+
 app.configure(function(){
 	app.set('port', process.env.PORT || 3000);
 	app.set('views', __dirname + '/views');
 	app.set('view engine', 'ejs');
 	
 	app.use(express.favicon());
-	app.use(express.logger('dev'));
 	app.use(express.bodyParser());
 	app.use(express.methodOverride());
 	app.use(express.cookieParser('your secret here'));
@@ -113,7 +120,7 @@ app.configure(function(){
 	// continue passing the error, only error-handling middleware
 	// would remain being executed, however here
 	// we simply respond with an error page.
-	/*
+	
 	app.use(function(err, req, res, next){
 		// we may use properties of the error object
 		// here and next(err) appropriately, or if
@@ -123,12 +130,9 @@ app.configure(function(){
 			error: err
 		});
 	});
-	*/
+	
 });
 
-app.configure('development', function(){
-	app.use(express.errorHandler());
-});
 
 
 

@@ -1,3 +1,4 @@
+
 var QueryResult = function (results) {
 	this.results = results;
 	/*
@@ -120,6 +121,20 @@ LessonView = Backbone.View.extend({
 		var lessonId = this.model.get("lesson").lessonId;
 		
 		this.$screenText.html(screenData.screenText);
+		
+		// look for any SQL blocks - render them in codemirror
+		$('pre > code').each(function(index, element) {
+			$(this).parent().addClass('cm-s-monokai');
+			CodeMirror.runMode($(this).html(), 'text/x-mysql', $(this).parent().get(0));
+		});
+		
+		// Match any inline code elements that are NOT contained within a pre element
+		/*
+		$('code:not(pre > code)').each(function(index, element) {
+			$(this).addClass('cm-s-monokai');
+			CodeMirror.runMode($(this).html(), 'text/x-mysql', $(this).get(0));
+		});
+		*/
 		
 		if (currentScreenIndex === 0) {
 			this.$previousButton.attr('disabled', 'disabled');

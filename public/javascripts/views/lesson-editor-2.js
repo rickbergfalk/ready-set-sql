@@ -1,4 +1,50 @@
+var addTabSupport = function ($el) {
+	$el.keydown(function(e) {
+		if(e.keyCode === 9) { // tab was pressed
+			// get caret position/selection
+			var start = this.selectionStart;
+			var end = this.selectionEnd;
 
+			var $this = $(this);
+			var value = $this.val();
+
+			// set textarea value to: text before caret + tab + text after caret
+			$this.val(value.substring(0, start)
+						+ "\t"
+						+ value.substring(end));
+
+			// put caret at right position again (add one for the tab)
+			this.selectionStart = this.selectionEnd = start + 1;
+
+			// prevent the focus lose
+			e.preventDefault();
+		}
+	});
+};
+	
+
+
+marked.setOptions({
+	gfm: true,
+	tables: true,
+	breaks: false,
+	pedantic: false,
+	sanitize: false,
+	smartLists: true,
+	langPrefix: 'language-',
+	highlight: function(code, lang) {
+		if (lang === 'sql') {
+			
+			//var formatted = '';
+			//CodeMirror.runMode(code, 'text/x-mysql', function(spanText, spanClass) {
+			//	formatted = formatted + '<span class="' + spanClass + '">' + spanText + '</span>';
+			//});
+			//return formatted;
+			return code;
+		}
+		return code;
+	}
+});
 
 var screens = [];
 
@@ -7,6 +53,7 @@ var ScreenCard = function (screen, $beforeElement, lessonEditor) {
 	this.screen = screen || {};
 	
 	var screenId = uuid.v4();
+	
 	this.screenId = screenId;
 	
 	var templateHtml = $('#lesson-screen-editor-template').html();
@@ -20,7 +67,9 @@ var ScreenCard = function (screen, $beforeElement, lessonEditor) {
 		
 	}
 	
-	var $screenText = $screenCard.find('.screen-text').attr('id', screenId).val(this.screen.screenText || '');
+	
+	var $screenText = $screenCard.find('.screen-text').attr('id', screenId).val(this.screen.screenMd || this.screen.screenText || '');
+	addTabSupport($screenText);
 	var $sqlExample = $screenCard.find('.sql-example').text(this.screen.sqlExample || '');
 	var $sqlTarget = $screenCard.find('.sql-target').text(this.screen.sqlTarget || '');
 	var $startingSql = $screenCard.find('.starting-sql').text(this.screen.startingSql || '');
@@ -32,40 +81,6 @@ var ScreenCard = function (screen, $beforeElement, lessonEditor) {
 		$keepSql.prop("checked", false);
 	}
 	
-	var tinyMCEOptions = {
-		//mode : "textareas",
-		// or
-		//mode : "specific_textareas",
-		//editor_selector: "mceEditor",
-		
-		mode: "exact",
-		elements: screenId,
-		
-		//width: 400,
-		height: "400",
-		
-		// General options
-		theme : "advanced",
-		plugins : "style,table,advhr,advimage,advlink,inlinepopups,media,paste,noneditable,save",
-		
-		// Theme options
-		theme_advanced_buttons1 : "bold,italic,underline,|,justifyleft,justifycenter,justifyright,justifyfull,styleselect,formatselect",
-		theme_advanced_buttons2 : "bullist,numlist,|,outdent,indent,blockquote,|,undo,redo,|,link,unlink,image,code",
-		theme_advanced_buttons3 : "tablecontrols,|,hr,removeformat,visualaid",
-		theme_advanced_toolbar_location : "top",
-		theme_advanced_toolbar_align : "left",
-		theme_advanced_statusbar_location : "bottom",
-		
-		// Example content CSS (should be your site CSS)
-		content_css : "/stylesheets/bootstrap.css",
-		
-		save_enablewhendirty : true,
-		save_onsavecallback : function() {
-			lessonEditor.saveLesson();
-		}
-	};
-	
-	tinyMCE.init(tinyMCEOptions);
 	
 	
 	// - codemirror boxes
@@ -85,7 +100,8 @@ var ScreenCard = function (screen, $beforeElement, lessonEditor) {
 	
 	
 	this.getScreenData = function () {
-		this.screen.screenText = tinyMCE.get(screenId).getContent(); // $screenText.val();
+		this.screen.screenMd = $screenText.val();
+		this.screen.screenText = marked($screenText.val()); //editor.exportFile(); // $screenText.val(); ---------------------------------
 		this.screen.keepSql = $keepSql.is(':checked');
 		this.screen.sqlTarget = cmSqlTarget.getValue();
 		this.screen.sqlExample = cmSqlExample.getValue();

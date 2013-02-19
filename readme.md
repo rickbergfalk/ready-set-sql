@@ -9,15 +9,6 @@ Take this into consideration if you attempt to explore the inner-workings of thi
 
 ## Left to do before launch
 
-* Domain Name / Application Name
-	* Is Learn Some SQL the final name? learnsomesql.com? 
-	* lsql.com?
-	* StirredSQL?
-	* AgentSQL?
-	* SQLAgent?
-	* somesql?
-	* simplesql?
-
 * Lesson Viewer pro-tips
 	* ctrl-e to run sql
 	* ctrl+n to go to next slide
@@ -30,9 +21,12 @@ Take this into consideration if you attempt to explore the inner-workings of thi
 * Code cleanup
 	* server errors should respond in a proper http code, not report "success:false"
 	* more formal lesson/lessonlist objects? keep going round and round on how best to handle this
-	* should each lesson screen get a # url?
 	* remove backbone? I don't think I need it anymore except for the models.
 
+* Clean HTML/CSS - its pretty ugly
+
+* Bundle javascript
+	
 	
 ## Quick guide to git 
 (in case I take a large break again and forget)

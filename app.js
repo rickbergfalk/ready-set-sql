@@ -95,6 +95,18 @@ app.configure(function(){
 	
 	app.use(banHammer.handleBannedPeople);
 	
+	// Determine which links should be used (per view)
+	// (Whether or not to show editor links is directly related to whether someone is logged in or not
+	// before this I used app.locals, which meant 1 person logs in and *everyone* got the editors links)
+	app.use(function(req, res, next) {
+		if (req.session && req.session.isSignedIn) { 
+			res.locals.links = editorsLinks;
+		} else { 
+			res.locals.links = everyonesLinks;
+		}
+		next();
+	});
+	
 	app.use(app.router);
 	app.use(require('less-middleware')({ src: __dirname + '/public' }));
 	app.use(express.static(path.join(__dirname, 'public')));
@@ -155,6 +167,12 @@ var editorsLinks = [
 	{
 		text: 'Lessons',
 		url: '/'
+	}, {
+		text: 'About',
+		url: '/about'
+	}, {
+		text: 'More SQL Resources',
+		url: '/more-sql-resources'
 	}, {
 		text: 'superquery',
 		url: '/superquery'
@@ -260,7 +278,6 @@ app.get('/more-sql-resources', function(req, res) {
 
 app.get('/signout', function(req, res) {
 	req.session.destroy();
-	app.locals.links = everyonesLinks;
 	res.redirect('/');
 });
 
@@ -278,7 +295,6 @@ app.post('/signin', function(req, res) {
 	if (req.body.passphrase === process.env.PASSPHRASE) {
 		req.session.isSignedIn = true;
 		req.session.attempts = 0;
-		app.locals.links = editorsLinks;
 		res.redirect('/edit');
 	} else {
 		req.session.isSignedIn = false;

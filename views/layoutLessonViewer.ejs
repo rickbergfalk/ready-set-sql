@@ -128,8 +128,17 @@
 					</div> 
 
 					<div id="screen-text">
-						 
+						
+						<% 
+							var allScreenText = "";
+							lesson.lessonScreens.forEach(function(screen) {
+								allScreenText = allScreenText + "<div>" + screen.screenText + "</div>";
+							});						
+						%>
+						<%- allScreenText %>
+						
 					</div>
+					
 				</div>
 			</div>
 				 

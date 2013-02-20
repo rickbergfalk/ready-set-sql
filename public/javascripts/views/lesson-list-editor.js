@@ -1,32 +1,24 @@
 
 /* 	View : Lesson List Editor
 	================================================== */
-
 	
-LessonListEditorView = Backbone.View.extend({
+var LessonListEditorView = function () {
+	var me = this;
+	this.el = $('#main-body');
 	
-	el: $('#main-body'),
+	this.model = {}; // not sure yet
+	this.lists = [];
+	this.unlistedLessons = [];
+	this.listLessons = [];
+	this.listLessonIds = [];
+	this.currentListId = undefined;
 	
-	model: {}, // not sure yet
-	
-	lists: [],
-	unlistedLessons: [],
-	listLessons: [],
-	listLessonIds: [],
-	currentListId: undefined,
-		
-	initialize: function(){
-		this.render();
+	this.initialize = function () {
 		this.renderLists();
 		this.renderUnlistedLessons();
-	},
+	};
 	
-	render: function(){
-		
-	},
-	
-	renderLists: function () {
-		var me = this;
+	this.renderLists = function () {
 		/* =============================================== 	
 			Get All Lesson Lists
 					
@@ -98,15 +90,13 @@ LessonListEditorView = Backbone.View.extend({
 				if (data.lessonlists && data.lessonlists.length) {
 					me.lists = data.lessonlists;
 				}
-				me.finalizeRender();
 			},
 			dataType: 'json'
 		});
 		
-	},
+	}
 	
-	renderUnlistedLessons: function () {
-		var me = this;
+	this.renderUnlistedLessons = function () {
 		/* ===============================================
 			data.lesson: [{
 				lessonId 			
@@ -118,9 +108,6 @@ LessonListEditorView = Backbone.View.extend({
 			type: 'get',
 			url: '/lesson/unlisted',
 			success: function(data, textStatus, jqXHR) {
-				/*
-				
-				*/
 				var $ul = $('#unlisted-lessons');
 				
 				$.each(data.lesson, function (i, lesson) {
@@ -134,25 +121,12 @@ LessonListEditorView = Backbone.View.extend({
 				if (data.lesson && data.lesson.length) {
 					me.unlistedLessons = data.lesson;
 				}
-				me.finalizeRender();
 			},
 			dataType: 'json'
 		});
-	},
+	}
 	
-	finalizeRender: function() {
-		// only finalize if all the data is here.
-		if (this.lists.length > 0 && this.unlistedLessons.length > 0) {
-			//alert('yep!');
-		}
-	},
-	
-	events: {
-		"click #save-button" 		: "save"
-	},
-	
-	save: function () {
-		var me = this;
+	this.save = function () {
 		// this is an experiment. Clicking buttons is done. Lets save our list any time it changes.
 		$.ajax({
 			type: 'post',
@@ -165,4 +139,7 @@ LessonListEditorView = Backbone.View.extend({
 		});
 	}
 	
-});
+	$('#save-button').click(me.save);
+	
+	this.initialize();
+}

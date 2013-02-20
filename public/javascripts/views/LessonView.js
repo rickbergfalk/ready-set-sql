@@ -41,41 +41,30 @@ var QueryResult = function (results) {
 	}
 }
 
-LessonView = Backbone.View.extend({
-			
-	el: '#main-body', 
+var LessonView = function (lesson) {
+	var me = this;	
+	this.el = '#main-body';
+	this.model = lesson || {}; // lesson object
+	this.myCodeMirror = {}
+	this.screenCache = {};
+	this.screenSQLResult = null;
 	
-	model: {}, // lesson JSON
-	myCodeMirror: {},
-	screenCache: {},
-	screenSQLResult: null,
+	this.$screenText = $('#screen-text');
+	this.$previousButton = $('#previous-button');
+	this.$runSql = $('#run-sql');
+	this.$advanceButton = $('#advance-button');
+	this.$helpButton = $('#help-btn');
+	this.$tableContainer = $('#table-container');
+	this.$progressBar = $('#progress-bar');
+	this.$editor = $('#editor');
+	this.$subBrand = $('#sub-brand');
 	
-	initialize: function(){
-		//this.render();
-	},
-	
-	render: function(){
-		var me = this;
+	this.render = function () {
 		
 		var lessonContent = {};
 		
-		
-		// Cache all the jQuery objects
-		this.$screenText = $('#screen-text');
-		
-		this.$previousButton = $('#previous-button');
-		this.$runSql = $('#run-sql');
-		this.$advanceButton = $('#advance-button');
-		this.$helpButton = $('#help-btn');
-		
-		this.$tableContainer = $('#table-container');
-		this.$progressBar = $('#progress-bar');
-		this.$editor = $('#editor');
-		this.$subBrand = $('#sub-brand');
-		
-		this.$subBrand.text(this.model.get("lesson").lessonTitle);
-		
-		
+		this.$subBrand.text(this.model.lessonTitle);
+				
 		// Create CodeMirror
 		this.myCodeMirror = CodeMirror(this.$editor.get(0), {
 			lineNumbers: false, 
@@ -83,7 +72,6 @@ LessonView = Backbone.View.extend({
 			indentWithTabs : true,
 			matchBrackets: true,
 			indentUnit: 4,
-			
 			value: "",
 			mode: "text/x-mysql",
 			theme: "monokai",
@@ -101,24 +89,29 @@ LessonView = Backbone.View.extend({
 		// render lesson screen
 		this.renderScreen(lessonScreenObj);
 		
-	},
+		// Add events to all the stuff
+		// Now that all the functions exist, 
+		this.$advanceButton.click(me.advanceButtonClick);
+		this.$previousButton.click(me.previousScreen); // TODO - make this consistent
+		this.$runSql.click(me.runSQL);
+		this.$helpButton.click(me.help);	
+		$('#help-confirm-btn').click(me.helpConfirmed);
+	}
 	
-	cacheScreen: function() {
+	this.cacheScreen = function() {
 		// before we render anything, make sure we cache any interactions the user has made
 		// for example: SQL written, results
-		var currentScreenIndex = this.model.get("currentScreenIndex");
+		var currentScreenIndex = this.model.currentScreenIndex;
 		this.screenCache[currentScreenIndex] = {
 			screenSql: this.myCodeMirror.getValue(),
 			tableContainerHtml: this.$tableContainer.html()
 		};
-	},
+	}
 		
-	renderScreen: function(screenData) {
-		var me = this;
-		
-		var currentScreenIndex = this.model.get("currentScreenIndex");
-		var furthestScreenIndex = this.model.get("furthestScreenIndex");
-		var lessonId = this.model.get("lesson").lessonId;
+	this.renderScreen = function(screenData) {
+		var currentScreenIndex = this.model.currentScreenIndex;
+		var furthestScreenIndex = this.model.furthestScreenIndex;
+		var lessonId = this.model.lessonId;
 		
 		this.$screenText.html(screenData.screenText);
 		
@@ -214,77 +207,67 @@ LessonView = Backbone.View.extend({
 			this.disableAdvanceButton();
 			this.$screenText.append($('#template-final-lesson-screen').html());
 			$('#next-lesson-button')
-				.html("Next Lesson <br><br>" + this.model.get("lesson").nextLessonListName + ": " + this.model.get("lesson").nextLessonTitle)
-				.attr("href", "/lesson/" + this.model.get("lesson").nextLessonId);
+				.html("Next Lesson <br><br>" + this.model.nextLessonListName + ": " + this.model.nextLessonTitle)
+				.attr("href", "/lesson/" + this.model.nextLessonId);
 		}
 		
 		// update the progress bar
-		this.$progressBar.width(this.model.percentComplete());
+		me.$progressBar.width(this.model.percentComplete());
 		
-	},
+	}
 	
-	enableAdvanceButton: function () {
-		this.$advanceButton.removeAttr('disabled').addClass('btn-primary').children().addClass('icon-white');
-	},
+	this.enableAdvanceButton = function () {
+		me.$advanceButton.removeAttr('disabled').addClass('btn-primary').children().addClass('icon-white');
+	}
 	
-	disableAdvanceButton: function () {
-		this.$advanceButton.attr('disabled', 'disabled').removeClass('btn-primary').children().removeClass('icon-white');
-	},
+	this.disableAdvanceButton = function () {
+		me.$advanceButton.attr('disabled', 'disabled').removeClass('btn-primary').children().removeClass('icon-white');
+	}
 	
-	enableSqlButtons: function () {
-		this.$runSql.removeAttr('disabled').addClass('btn-primary').children().addClass('icon-white');
-		this.$helpButton.removeAttr('disabled');
-	},
-	disableSqlButtons: function () {
-		this.$runSql.attr('disabled', 'disabled').removeClass('btn-primary').children().removeClass('icon-white');
-		this.$helpButton.attr('disabled', 'disabled');
-	},
+	this.enableSqlButtons = function () {
+		me.$runSql.removeAttr('disabled').addClass('btn-primary').children().addClass('icon-white');
+		me.$helpButton.removeAttr('disabled');
+	}
 	
-	events: {
-		"click #advance-button"		: "advanceButtonClick",
-		"click #previous-button"	: "previousScreen",
-		"click #run-sql"			: "runSQL",
-		"click #help-btn" 			: "help",
-		"click #help-confirm-btn" 	: "helpConfirmed"
-	},
+	this.disableSqlButtons = function () {
+		me.$runSql.attr('disabled', 'disabled').removeClass('btn-primary').children().removeClass('icon-white');
+		me.$helpButton.attr('disabled', 'disabled');
+	}
 	
-	advanceButtonClick: function (event) {
-		
+	this.advanceButtonClick = function (event) {
 		// check to see if advance-button is not disabled
-		// even though advance-button is disabled, click event could still register via icon :(
+		// Because even though advance-button is disabled, click event could still register via icon :(
 		if (!$(event.target).parent().is(':disabled')) {
-			this.advanceScreen();
+			me.advanceScreen();
 		}
-	},
+	}
 	
-	advanceScreen: function( event ){
-		this.cacheScreen();
-		this.renderScreen(this.model.getNextScreen());
-	},
+	this.advanceScreen = function( event ){
+		me.cacheScreen();
+		me.renderScreen(me.model.getNextScreen());
+	}
 	
-	previousScreen: function (event) {
-		this.cacheScreen();
-		this.renderScreen(this.model.getPreviousScreen());
-	}, 
+	this.previousScreen = function (event) {
+		me.cacheScreen();
+		me.renderScreen(me.model.getPreviousScreen());
+	}
 	
-	clearQueryResults: function () {
-		this.$tableContainer.empty();
-	},
+	this.clearQueryResults = function () {
+		me.$tableContainer.empty();
+	}
 	
-	help: function () {
+	this.help = function () {
 		// Opens the help modal.
 		// Right now this happens automatically via bootstrap. May need to come here if there are problems?
-	},
+	}
 	
-	helpConfirmed: function () {
+	this.helpConfirmed = function () {
 		// takes target SQL and pastes it into the codemirror input box.
-		var currentScreen = this.model.currentLessonScreen();
-		this.myCodeMirror.setValue(currentScreen.sqlTarget);
-	},
+		var currentScreen = me.model.currentLessonScreen();
+		me.myCodeMirror.setValue(currentScreen.sqlTarget);
+	}
 	
-	runSQL: function ( event ){
-		var me = this;
-		
+	this.runSQL = function (event) {
 		var $queryMessage = $('#query-message');
 		$queryMessage.hide();
 		
@@ -295,10 +278,7 @@ LessonView = Backbone.View.extend({
 		
 		var processQueryResults = function(data, textStatus, jqXHR) {
 			console.log(data);
-			// Render the response as appropriate
-			
 			if (data.results) {
-				
 				// not showing record count anymore?
 				//me.$lessonInputActionText.empty().text(data.results.length + " records returned.");
 				var queryResult = new QueryResult(data.results);
@@ -316,18 +296,16 @@ LessonView = Backbone.View.extend({
 						$queryMessage.show().html("Sorry. Your query runs, but the result is incorrect.");
 					}	
 				}
-				
 			} else {
 				//me.$tableContainer.empty().html('<div class="query-message">No Results Returned</div>');
 				$queryMessage.show().html("No Results Returned");
 			}
-			
 		};
 		
 		$.ajax({
 			type: 'post',
 			url: '/query',
-			data: {sqlQuery: this.myCodeMirror.getValue()},
+			data: {sqlQuery: me.myCodeMirror.getValue()},
 			success: processQueryResults,
 			error: function (jqXHR, textStatus, errorThrown) {
 				console.log(jqXHR);
@@ -340,4 +318,5 @@ LessonView = Backbone.View.extend({
 		});
 		
 	}
-});
+	
+};

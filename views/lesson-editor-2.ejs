@@ -10,14 +10,14 @@
 						<div class="control-group">
 							<label class="control-label">Lesson Title</label>
 							<div class="controls">
-								<input id="lesson-title" type="text"  value="<%- lesson.lessonTitle || ' ' %>" />
+								<input id="lesson-title" type="text"  value="<%- lesson.lessonTitle || " " %>" />
 							</div>
 						</div>
 						
 						<div class="control-group">
 							<label class="control-label" for="lesson-description">Lesson Description</label>
 							<div class="controls">
-								<textarea class="input" id="lesson-description" rows="5" ><%= lesson.lessonDescription || '' %></textarea>
+								<textarea class="input" id="lesson-description" rows="5" ><%= lesson.lessonDescription || "" %></textarea>
 							</div>
 						</div>
 					</div>
@@ -55,11 +55,8 @@
 	
 	<script>
 		$(function() {
-			
 			var lessonEditor = new LessonEditor("main-body", <%-  JSON.stringify(lesson) %>);
-			
-		});
-			
+		});	
 	</script>
 	
 	<style>
@@ -148,8 +145,6 @@
 									<p class="help-block">If a SQL Target is provided, the user will be required to write SQL that gets the same result in order to advance to the next screen.</p>
 								</div>
 							</div>
-							
-							
 							
 						</div>
 					</div>

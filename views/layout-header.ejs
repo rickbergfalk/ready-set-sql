@@ -37,9 +37,10 @@
 	<!-- Javascript at the bottom for fast page loading
 	================================================== -->
 	<script src="/javascripts/everyone.js"></script>
+	<% if (isEditor) { %>
 	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"></script>
 	<script src="/javascripts/editor-addons.js"></script>
-	
+	<% } %>
 	<script type="text/javascript">
 		var _gaq = _gaq || [];
 		_gaq.push(['_setAccount', 'UA-32751028-1']);

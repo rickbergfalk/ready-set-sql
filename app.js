@@ -101,8 +101,10 @@ app.configure(function(){
 	app.use(function(req, res, next) {
 		if (req.session && req.session.isSignedIn) { 
 			res.locals.links = editorsLinks;
+			res.locals.isEditor = true;
 		} else { 
 			res.locals.links = everyonesLinks;
+			res.locals.isEditor = false;
 		}
 		next();
 	});

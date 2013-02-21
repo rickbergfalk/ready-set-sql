@@ -30,7 +30,7 @@ var QueryResult = function (results) {
 	var firstrow = results[0] || {};
 	for (column in firstrow) {
 		$('<th>' + column + '</th>').appendTo(this.$headTr);
-	}
+	} 
 	
 	for (record in results) {
 		var $tr = $('<tr>');
@@ -39,7 +39,7 @@ var QueryResult = function (results) {
 		}
 		$tr.appendTo(this.$tbody);
 	}
-}
+} 
 
 var LessonView = function (lesson) {
 	var me = this;	
@@ -65,8 +65,7 @@ var LessonView = function (lesson) {
 				
 		// Create CodeMirror
 		this.myCodeMirror = CodeMirror(this.$editor.get(0), {
-			lineNumbers: false, 
-			//tabmode: "indent",
+			lineNumbers: false,  
 			indentWithTabs : true,
 			matchBrackets: true,
 			indentUnit: 4,

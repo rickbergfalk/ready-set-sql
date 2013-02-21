@@ -57,7 +57,7 @@ var ScreenCard = function (screen, $beforeElement, lessonEditor) {
 	this.screenId = screenId;
 	
 	var templateHtml = $('#lesson-screen-editor-template').html();
-	var $screenCard = $(templateHtml);
+	var $screenCard = $($.trim(templateHtml));
 	this.$screenCard = $screenCard;
 	
 	if ($beforeElement) {

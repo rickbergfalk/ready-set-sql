@@ -491,7 +491,52 @@ body {
 			}
 			
 			
+			#code-container #editor {
+				position: absolute;
+				top: 0;
+				bottom: 0;
+				left: 0;
+				right: 0;
+				margin: 0;
+			}
+			
+			#editor .CodeMirror {
+				position: absolute;
+				top: 10px;
+				left: 10px;
+				bottom: 10px;
+				right: 10px;
+			}
+			
+			.CodeMirror {
+				font-family: monospace;
+				font-family: 'InconsolataMedium', Inconsolata, monospace;
+				font-size: 16px;
+				line-height: 22px;
+			}
+			
+			/*
+			
+			.CodeMirror-scroll {
+				//height: 100%;
+				//overflow-x: auto;
+				//width: 100%
+				overflow: auto;
+				position: relative;
+			}
 
+			.lesson-viewer .CodeMirror-scroll {
+				overflow: auto;
+				position: absolute;
+				top: 10px;
+				right: 10px;
+				bottom: 10px;
+				left: 10px;
+			}
+			*/
+			
+			
+			
 	#results-background {
 		position: absolute;
 		top: 50%;
@@ -654,25 +699,6 @@ body {
 
 
 
-
-
-
-.CodeMirror-scroll {
-	//height: 100%;
-	//overflow-x: auto;
-	//width: 100%
-	overflow: auto;
-	position: relative;
-}
-
-.lesson-viewer .CodeMirror-scroll {
-	overflow: auto;
-	position: absolute;
-	top: 10px;
-	right: 10px;
-	bottom: 10px;
-	left: 10px;
-}
 
 
 

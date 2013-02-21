@@ -11,15 +11,19 @@ module.exports = function(grunt) {
 			dist: {
 				files: {
 					'public/javascripts/everyone.js': [
-						'public/javascripts/vendor/jquery-1.7.1.min.js',
+						'public/javascripts/vendor/jquery-1.9.1.min.js',
+						'public/javascripts/vendor/jquery-migrate-1.1.1.js',
 						'public/javascripts/vendor/bootstrap.min.js',
 						'public/javascripts/vendor/underscore-min.js',
-						'public/javascripts/vendor/codemirror-2.24-sql-runmode.js',
+						//'public/javascripts/vendor/codemirror-2.24-sql-runmode.js',
+						'public/javascripts/vendor/codemirror-3.02.js',
+						'public/javascripts/vendor/codemirror-3.02-addon-runmode.js',
+						'public/javascripts/vendor/codemirror-3.02-mode-sql.js',
 						'public/javascripts/models/lesson.js',
 						'public/javascripts/views/lesson-view.js'
 					],
 					'public/javascripts/editor-addons.js': [
-						// TODO - Add jQuery UI here
+						'public/javascripts/vendor/jquery-ui-1.10.1.custom.min.js',
 						'public/javascripts/vendor/marked.js', 
 						'public/javascripts/vendor/uuid.js',
 						'public/javascripts/views/lesson-list-editor.js',

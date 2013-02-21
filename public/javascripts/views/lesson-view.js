@@ -61,19 +61,17 @@ var LessonView = function (lesson) {
 	
 	this.render = function () {
 		
-		var lessonContent = {};
-		
 		this.$subBrand.text(this.model.lessonTitle);
 				
 		// Create CodeMirror
 		this.myCodeMirror = CodeMirror(this.$editor.get(0), {
 			lineNumbers: false, 
-			tabmode: "indent",
+			//tabmode: "indent",
 			indentWithTabs : true,
 			matchBrackets: true,
 			indentUnit: 4,
 			value: "",
-			mode: "text/x-mysql",
+			mode: "text/x-plsql",
 			theme: "monokai",
 			extraKeys: {
 				"Ctrl-E": function (cm) {

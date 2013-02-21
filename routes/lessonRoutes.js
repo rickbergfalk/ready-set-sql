@@ -185,14 +185,14 @@ exports.editById = function(req, res) {
 			if (err) {
 				res.send(500, 'query failed to execute');
 			} else {
-				res.render('lesson-editor-2', {
+				res.render('lesson-editor', {
 					title: 'Edit some Lesson',
 					lesson: lessons[0]
 				});
 			}
 		});
 	} else {
-		res.render('lesson-editor-2', {
+		res.render('lesson-editor', {
 			title: 'Create New Lesson',
 			lesson: {}
 		});

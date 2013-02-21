@@ -48,17 +48,33 @@ module.exports = function(grunt) {
 					'public/javascripts/editor-addons.min.js': ['public/javascripts/editor-addons.js']
 				}
 			}
+		},
+		watch: {
+			scripts: {
+				files: [
+						'public/javascripts/vendor/*.js',
+						'public/javascripts/models/*.js',
+						'public/javascripts/views/*.js'
+					],
+				tasks: ['concat', 'uglify'],
+				options: {
+					debounceDelay: 200,
+					interrupt: true	
+				}
+			}
 		}
 	});
 
 	// Load the plugin that provides the concat and uglify task.
 	grunt.loadNpmTasks('grunt-contrib-concat');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
+	grunt.loadNpmTasks('grunt-contrib-watch');
 	
 	// Default task(s).
 	// when running "grunt" or "grunt default" it will run this task
 	// specify others if you want I guess...
 	// You could specify an uglify task only and run it as "grunt uglify"
 	grunt.registerTask('default', ['concat', 'uglify']);
+	
 
 };

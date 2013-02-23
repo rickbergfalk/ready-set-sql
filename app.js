@@ -88,6 +88,7 @@ app.configure(function(){
 	app.set('view engine', 'ejs');
 	
 	app.use(express.favicon());
+	if (process.env.NODE_ENV === 'production') app.use(express.compress());
 	app.use(express.bodyParser());
 	app.use(express.methodOverride());
 	app.use(express.cookieParser('your secret here'));
@@ -99,6 +100,7 @@ app.configure(function(){
 	// (Whether or not to show editor links is directly related to whether someone is logged in or not
 	// before this I used app.locals, which meant 1 person logs in and *everyone* got the editors links)
 	app.use(function(req, res, next) {
+		res.locals.dotMinIfProduction = (process.env.NODE_ENV === 'production' ? ".min" : "");
 		if (req.session && req.session.isSignedIn) { 
 			res.locals.links = editorsLinks;
 			res.locals.isEditor = true;
@@ -188,26 +190,6 @@ var editorsLinks = [
 ];
 app.locals.links = everyonesLinks;
 app.locals.title = 'Learn some SQL'; // Default title if none is provided
-app.locals.makeTable = function (columns, rows) {
-	var html = '<table class="table table-demo table-bordered table-striped" style="">'
-	html = html + '<thead><tr>';
-	for (var c = 0; c < columns; c++) {
-		html = html + '<th>   </th>';
-	}
-	// close table header row, start body
-	html = html + '</tr></thead><tbody>';
-	for (var r = 0; r < rows; r++) {
-		var rowHtml = '<tr>'
-		for (var c = 0; c < columns; c++) {
-			rowHtml = rowHtml + '<td> </td>';
-		}
-		rowHtml = rowHtml + '</tr>';
-		html = html + rowHtml;
-	}
-	// clost body and table
-	html = html + '</tbody></table>';
-	return html;
-};
 
 
 

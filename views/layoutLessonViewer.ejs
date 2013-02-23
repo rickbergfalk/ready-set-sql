@@ -5,16 +5,15 @@
 <!--[if (gte IE 9)|!(IE)]><!--><html lang="en"> <!--<![endif]-->
 <head>
 
-	<!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame 
-       Remove this if you use the .htaccess -->
-	<!--<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">-->
+	<!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame. Remove this if you use the .htaccess -->
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   
 	<!-- Basic Page Needs
 	================================================== -->
 	<meta charset="utf-8">
 	<title><%= title + " lesson | " + lesson.lessonTitle %></title>
 	<meta name="description" content="AnalystSQL helps you learn SQL practical to Everyday Analysts using interactive tutorials and a baseball database.">
-	<meta name="author" content="Rick Bergfalk, AnalystSQL.com">
+	<meta name="author" content="Rick Bergfalk, LearnSomeSQL.com">
 	<!--[if lt IE 9]>
 		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 	<![endif]-->
@@ -36,7 +35,7 @@
 	
 	<!-- Javascript at the bottom for fast page loading
 	================================================== -->
-	<script src="/javascripts/everyone.js"></script>
+	<script src="/javascripts/everyone<%= dotMinIfProduction %>.js"></script>
 	
 	<script type="text/javascript">
 		var _gaq = _gaq || [];

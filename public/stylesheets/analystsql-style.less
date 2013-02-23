@@ -14,14 +14,6 @@ pre {
 	line-height: 27px;
 }
 
-.table-demo th {
-	background-color: #f4f4f4;
-}
-.table-demo {
-	white-space: pre;
-	border: 2px solid @tronBlue;
-	.box-shadow(0 3px 7px rgba(100,100,100,0.3));
-}
 
 footer hr {
 	margin: 18px 10px;
@@ -61,7 +53,7 @@ footer hr {
 }
 
 .hero {
-	margin-top: 60px;
+	margin-top: 100px;
 	margin-bottom: 70px;
 }
 
@@ -122,9 +114,12 @@ body {
 }
 
 #main-body {
-	//.blue-checkered-bg;
-	background-color: #d1d1d1;
-	background-color: #fafafa;
+	background-color: #FCFCFC;
+}
+
+.hero-subtext {
+	text-align: center;
+	font-size: 22px;
 }
 
 .page-wide-gray {
@@ -259,7 +254,7 @@ a.brand:hover h2 {
 	color: #005580;
 }
 
-.big-homepage-heading {
+.card-title {
 	font-size: 36px;
 	line-height: 50px;
 }
@@ -357,6 +352,118 @@ body {
 	right: 8px;
 	bottom: 8px;
 }
+
+
+
+
+// Logo
+// -----------------------------------------------------
+.logo {
+	font-family: 'RobotoLight', Arial;
+	position: relative;
+	height: 200px;
+	color: #000;
+	/* http://www.cssrex.com/tips-tricks/how-to-create-3d-text-using-css3/ */
+	
+	text-shadow: 
+		0 1px 0 #bbb,
+		0 2px 0 #b9b9b9,
+		0 3px 0 #aaa,
+		0 4px 1px rgba(0,0,0,.1),
+		0 0 3px rgba(0,0,0,.1),
+		0 1px 3px rgba(0,0,0,.3),
+		0 3px 5px rgba(0,0,0,.2),
+		0 5px 10px rgba(0,0,0,.25),
+		0 10px 10px rgba(0,0,0,.2),
+		0 20px 20px rgba(0,0,0,.15);
+}
+.logo .learn {
+	position: absolute;
+	font-size: 94px;
+	line-height: 94px;
+	letter-spacing: 7px
+}
+.logo .some {
+	position: absolute;
+	font-size: 94px;
+	line-height: 94px;
+	top: 88px;
+}
+.logo .sql {
+	position: absolute;
+	font-size: 200px;
+	line-height: 200px;
+	left: 260px;
+	top: 5px;
+}
+
+
+
+
+// Home Page Design
+// -----------------------------------------------------
+.lessons {
+	padding-bottom: 60px;
+}
+.lesson-list-lesson-link {
+	font-family: 'RobotoLight', Arial;
+	font-size: 24px;
+	line-height: 38px;
+}
+.hr-lesson-list {
+	margin: 10px 0;
+}
+.card {
+	padding: 20px;
+	border: 1px solid #888;
+	background-color: #fefefe;
+	margin-top: 40px;
+	margin-bottom: 40px;
+	-webkit-box-shadow: 0 8px 6px -6px black;
+	-moz-box-shadow: 0 8px 6px -6px black;
+	box-shadow: 
+		0 2px 0 -1px #DDD,
+		0 4px 0 -2px #CCC,
+		0 6px 0 -3px #BBB,
+		0 4px 1px rgba(0,0,0,.1),
+		0 0 3px rgba(0,0,0,.1),
+		0 1px 3px rgba(0,0,0,.3),
+		0 3px 5px rgba(0,0,0,.2),
+		0 5px 10px rgba(0,0,0,.25),
+		0 10px 10px rgba(0,0,0,.2),
+		0 20px 20px rgba(0,0,0,.15);
+	box-shadow: 
+		0 2px 0 -1px #DDD,
+		0 4px 0 -2px #CCC,
+		0 6px 0 -3px #BBB,
+		0 4px 1px rgba(0,0,0,.05),
+		0 0 3px rgba(0,0,0,.05),
+		0 1px 3px rgba(0,0,0,.15),
+		0 3px 5px rgba(0,0,0,.1),
+		0 5px 10px rgba(0,0,0,.15),
+		0 10px 10px rgba(0,0,0,.1),
+		0 20px 20px rgba(0,0,0,.07);
+}
+.card-description {
+	margin-top: 20px;
+}
+.card-description p {
+	font-family: 'RobotoLight', Arial;
+	font-size: 18px;
+	line-height: 27px;
+}
+.light-bg {
+	background-image: url('../images/lghtmesh/lghtmesh.png');
+	background-image: url('../images/diagonal-noise/diagonal-noise.png');
+	background-image: url('../images/white_carbon/white_carbon.png');
+	background-image: url('../images/grid/grid.png');
+	background-image: url('../images/grey/grey.png');
+}
+
+
+
+
+
 
 
 

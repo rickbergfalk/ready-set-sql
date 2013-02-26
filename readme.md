@@ -14,7 +14,9 @@ Take this into consideration if you attempt to explore the inner-workings of thi
 	* ctrl+n to go to next slide
 	* etc.
 	
-* Lesson Viewer table map?
+* Lesson Viewer table map
+
+* More SQL Resources should be in footer, not main nav
 
 * Make Real Lessons
 
@@ -24,8 +26,6 @@ Take this into consideration if you attempt to explore the inner-workings of thi
 	* remove backbone? I don't think I need it anymore except for the models.
 
 * Clean HTML/CSS - its pretty ugly
-
-* Bundle javascript
 	
 	
 ## Quick guide to git 

@@ -5320,7 +5320,8 @@ footer hr {
   display: none;
 }
 #sub-brand {
-  margin-left: 20px;
+  margin-left: 150px;
+  margin-top: 6px;
 }
 .hero {
   margin-top: 100px;
@@ -5635,6 +5636,33 @@ body {
   line-height: 200px;
   left: 260px;
   top: 5px;
+}
+.brand-logo {
+  font-family: 'RobotoLight', Arial;
+  position: relative;
+  height: 40px;
+  color: #FFF;
+  text-shadow: 0 1px 0 #bbb;
+}
+.brand-logo .learn {
+  position: absolute;
+  font-size: 18.8px;
+  line-height: 18.8px;
+  letter-spacing: 1px;
+}
+.brand-logo .some {
+  position: absolute;
+  font-size: 18.8px;
+  line-height: 18.8px;
+  top: 17.6px;
+  letter-spacing: 1px;
+}
+.brand-logo .sql {
+  position: absolute;
+  font-size: 40px;
+  line-height: 40px;
+  left: 54px;
+  top: 1px;
 }
 .lessons {
   padding-bottom: 60px;

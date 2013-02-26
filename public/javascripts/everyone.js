@@ -5818,6 +5818,24 @@ var LessonView = function (lesson) {
 				}, 
 				"Cmd-E": function (cm) {
 					me.runSQL();
+				},
+				"Ctrl-Left": function (cm) {
+					me.previousScreen();
+				},
+				"Cmd-Left": function (cm) {
+					me.previousScreen();
+				},
+				"Ctrl-Right": function (cm) {
+					me.advanceButtonClick();
+				},
+				"Cmd-Right": function (cm) {
+					me.advanceButtonClick();
+				},
+				"Ctrl-Enter": function (cm) {
+					me.runSQL();
+				},
+				"Cmd-Enter": function (cm) {
+					me.runSQL();
 				}
 			}
 		});
@@ -5831,8 +5849,10 @@ var LessonView = function (lesson) {
 		this.$advanceButton.click(me.advanceButtonClick);
 		this.$previousButton.click(me.previousScreen); // TODO - make this consistent
 		this.$runSql.click(me.runSQL);
-		this.$helpButton.click(me.help);	
+		//this.$helpButton.click(me.help);	
 		$('#help-confirm-btn').click(me.helpConfirmed);
+		
+		
 	}
 	
 	this.cacheScreen = function() {
@@ -5881,15 +5901,12 @@ var LessonView = function (lesson) {
 			$.ajax({
 				type: 'post',
 				url: '/query',
-				data: {database: 'rickber2_nodejs_mysql_test', sqlQuery: screenData.sqlTarget},
+				data: {sqlQuery: screenData.sqlTarget},
 				success: function (data, textStatus, jqXHR) {
 					me.screenSQLResult = data.results;
 				},
 				error: function (jqXHR, textStatus, errorThrown) {
-					console.log(jqXHR);
-					console.log(jqXHR.responseText);
-					console.log(textStatus);
-					console.log(errorThrown);
+					alert("uh-oh. Something seems to be wrong with our interactive query functionality. Sorry about that...");
 				},
 				dataType: 'json'
 			});
@@ -5974,7 +5991,10 @@ var LessonView = function (lesson) {
 	this.advanceButtonClick = function (event) {
 		// check to see if advance-button is not disabled
 		// Because even though advance-button is disabled, click event could still register via icon :(
-		if (!$(event.target).parent().is(':disabled')) {
+		// NOTE: This can't be moved into the .advanceScreen method, 
+		// as that is used elsewhere to advance the screen after a query matches the desired result.
+		// TODO: Should we give the editor focus?
+		if (!me.$advanceButton.is(':disabled')) {
 			me.advanceScreen();
 		}
 	}
@@ -5985,8 +6005,10 @@ var LessonView = function (lesson) {
 	}
 	
 	this.previousScreen = function (event) {
-		me.cacheScreen();
-		me.renderScreen(me.model.getPreviousScreen());
+		if (me.model.currentScreenIndex > 0) {
+			me.cacheScreen();
+			me.renderScreen(me.model.getPreviousScreen());
+		}
 	}
 	
 	this.clearQueryResults = function () {
@@ -6014,7 +6036,6 @@ var LessonView = function (lesson) {
 		$queryMessage.show().html('<div class="query-message">Running query...</div>');
 		
 		var processQueryResults = function(data, textStatus, jqXHR) {
-			console.log(data);
 			if (data.results) {
 				// not showing record count anymore?
 				//me.$lessonInputActionText.empty().text(data.results.length + " records returned.");
@@ -6045,11 +6066,7 @@ var LessonView = function (lesson) {
 			data: {sqlQuery: me.myCodeMirror.getValue()},
 			success: processQueryResults,
 			error: function (jqXHR, textStatus, errorThrown) {
-				console.log(jqXHR);
-				console.log(jqXHR.responseText);
-				$queryMessage.show().html(jqXHR.responseText);
-				console.log(textStatus);
-				console.log(errorThrown);
+				alert("uh-oh. Something seems to be wrong with our interactive query functionality. Sorry about that...");
 			},
 			dataType: 'json'
 		});

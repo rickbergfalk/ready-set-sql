@@ -82,10 +82,7 @@ exports.create = function (req, res) {
 		];
 	sqlRunner.runSqlFromFile('lesson - create new.sql', params, null, function(err, lessons) {
 		if (err) {
-			res.send({
-				success: false, 
-				message: 'query failed to execute'
-			});
+			res.send(500, 'Failed to create new lesson');
 		} else {
 			res.send({
 				success: true
@@ -97,16 +94,13 @@ exports.create = function (req, res) {
 
 // GET /lesson
 // get a list of *all* lessons
+// I don't think this is actually used anywhere... (would be on home screen, but it has its own thing going on)
 exports.getAll = function(req, res) {
 	sqlRunner.runSqlFromFile('lesson - get all.sql', [], mapToLessons, function(err, lessons) {
 		if (err) {
-			res.send({
-				success: false, 
-				message: 'query failed to execute'
-			});
+			res.send(500, 'Failed to get all lessons');
 		} else {
 			res.send({
-				success: true,
 				lesson: lessons
 			});
 		}
@@ -119,7 +113,7 @@ exports.getAll = function(req, res) {
 exports.getUnlisted = function(req, res) {
 	sqlRunner.runSqlFromFile('lesson - get unlisted.sql', [], mapToLessons, function(err, lessons) {
 		if (err) {
-			res.send({ success: false });
+			res.send(500, 'Failed to get unlisted lessons');
 		} else {
 			res.send({
 				success: true,
@@ -136,10 +130,7 @@ exports.getByListId = function(req, res) {
 	var params = [req.params.id];
 	sqlRunner.runSqlFromFile('lesson - get by lessonlist_id.sql', params, mapToLessons, function(err, lessons) {
 		if (err) {
-			res.send({
-				success: false, 
-				message: 'query failed to execute'
-			});
+			res.send(500, 'Failed to get lessons for that lesson list');
 		} else {
 			res.send({
 				success: true,
@@ -157,7 +148,7 @@ exports.getByLessonId = function(req, res) {
 	var format = req.params.format;
 	sqlRunner.runSqlFromFile('lesson - get by lesson_id.sql', params, mapToLessons, function(err, lessons) {
 		if (err) {
-			res.send(500, 'query failed to execute');
+			res.send(500, 'Failed to get that lesson');
 		} else {
 			if (format === 'json') {
 				res.render({
@@ -183,7 +174,7 @@ exports.editById = function(req, res) {
 	if (id) {
 		sqlRunner.runSqlFromFile('lesson - get by lesson_id.sql', params, mapToLessons, function(err, lessons) {
 			if (err) {
-				res.send(500, 'query failed to execute');
+				res.send(500, 'Failed to get that lesson');
 			} else {
 				res.render('lesson-editor', {
 					title: 'Edit some Lesson',
@@ -215,7 +206,7 @@ exports.save = function(req, res) {
 		if (err) console.log(err);
 		if (results) console.log(results);
 		if (err) {
-			res.send(500, 'query failed to execute');
+			res.send(500, 'Failed to save lesson');
 		} else {
 			res.send({
 				success: true,

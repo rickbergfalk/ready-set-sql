@@ -211,10 +211,10 @@ var LessonEditor = function (id, lesson) {
 					}, 400);
 				},
 				error: function (jqXHR, textStatus, errorThrown) {
-					console.log(jqXHR);
+					//console.log(jqXHR);
 					alert(jqXHR.responseText);
-					console.log(textStatus);
-					console.log(errorThrown);
+					//console.log(textStatus);
+					//console.log(errorThrown);
 				},
 				dataType: 'json'
 			});
@@ -228,10 +228,10 @@ var LessonEditor = function (id, lesson) {
 					window.location.href = "/edit/";
 				},
 				error: function (jqXHR, textStatus, errorThrown) {
-					console.log(jqXHR);
+					//console.log(jqXHR);
 					alert(jqXHR.responseText);
-					console.log(textStatus);
-					console.log(errorThrown);
+					//console.log(textStatus);
+					//console.log(errorThrown);
 				},
 				dataType: 'json'
 			});

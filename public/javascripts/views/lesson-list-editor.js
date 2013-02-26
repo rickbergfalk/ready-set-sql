@@ -81,6 +81,12 @@ var LessonListEditorView = function () {
 								}).disableSelection();
 								
 							},
+							error: function (jqXHR, textStatus, errorThrown) {
+								//console.log(jqXHR);
+								alert(jqXHR.responseText);
+								//console.log(textStatus);
+								//console.log(errorThrown);
+							},
 							dataType: 'json'
 						});
 					});
@@ -90,6 +96,12 @@ var LessonListEditorView = function () {
 				if (data.lessonlists && data.lessonlists.length) {
 					me.lists = data.lessonlists;
 				}
+			},
+			error: function (jqXHR, textStatus, errorThrown) {
+				//console.log(jqXHR);
+				alert(jqXHR.responseText);
+				//console.log(textStatus);
+				//console.log(errorThrown);
 			},
 			dataType: 'json'
 		});
@@ -122,12 +134,17 @@ var LessonListEditorView = function () {
 					me.unlistedLessons = data.lesson;
 				}
 			},
+			error: function (jqXHR, textStatus, errorThrown) {
+				//console.log(jqXHR);
+				alert(jqXHR.responseText);
+				//console.log(textStatus);
+				//console.log(errorThrown);
+			},
 			dataType: 'json'
 		});
 	}
 	
 	this.save = function () {
-		// this is an experiment. Clicking buttons is done. Lets save our list any time it changes.
 		$.ajax({
 			type: 'post',
 			url: '/lessonlist/id/' + me.currentListId,

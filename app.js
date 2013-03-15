@@ -4,7 +4,6 @@
 ============================================================================ */  
 var express = require('express');
 var http = require('http');
-var crypto = require('crypto');
 var fs = require('fs');
 var path = require('path');
 var moment = require('moment'); // a date library
@@ -30,6 +29,10 @@ if (!process.env.NODE_ENV || !process.env.DATABASE_URL) {
 		});
 	} catch (err) {
 		console.log(err);
+		console.log("");
+		console.log("One or more environment variables are missing.");
+		console.log("For proper operation, please ensure NODE_ENV, DATABASE_URL, and PASSPHRASE are set");
+		console.log("To bootstrap the environment variables during application start, a .env file may be used.");
 	}
 }
 
@@ -160,6 +163,9 @@ var everyonesLinks = [
 		text: 'Lessons',
 		url: '/'
 	}, {
+		text: 'Table Map',
+		url: '/table-map'
+	}, {
 		text: 'About',
 		url: '/about'
 	}, {
@@ -253,6 +259,11 @@ app.get('/', function(req, res){
 
 app.get('/about', function(req, res) {
 	res.render('About', {});
+});
+
+app.get('/table-map', function (req, res) {
+	res.locals.title = 'Table Map | Learn some SQL';
+	res.render('table-map');
 });
 
 app.get('/more-sql-resources', function(req, res) {

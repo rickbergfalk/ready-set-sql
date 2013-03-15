@@ -3,6 +3,55 @@
 // -----------------------------------------------------
 
 
+@media print {
+    .card {
+		border: none !important;
+		-webkit-box-shadow: none !important;
+		-moz-box-shadow: none !important;
+		box-shadow: none !important;
+		margin-top: 0px !important;
+	}
+	
+	#nav-menu {
+		display: none !important;
+	}
+	
+	.main-nav {
+		border: none !important;
+	}
+	
+	a[href]:after, abbr[title]:after {
+		content: "" !important;
+	}
+	
+	#table-map-title {
+		position: absolute;
+		top: 0px;
+		right: 30px;
+	}
+	
+	footer {
+		border: none !important;
+	}
+	
+	footer hr {
+		display: none !important;
+	}
+	
+	footer .footer-nav:first-child {
+		display: none !important;
+	}
+	
+	body {
+		padding-bottom: 0px !important;
+	}
+	
+	.container-container {
+		padding-top: 0px !important;
+	}
+}
+
+
 pre {
 	font-family: 'InconsolataMedium', Inconsolata, monospace;
 	font-size: 16px;

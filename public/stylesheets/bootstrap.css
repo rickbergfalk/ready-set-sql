@@ -5658,14 +5658,30 @@ body {
   text-shadow: 0 1px 0 #bbbbbb, 0 2px 0 #b9b9b9, 0 3px 0 #aaaaaa, 0 4px 1px rgba(0, 0, 0, 0.1), 0 0 3px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.3), 0 3px 5px rgba(0, 0, 0, 0.2), 0 5px 10px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.2), 0 20px 20px rgba(0, 0, 0, 0.15);
 }
 .logo .learn {
+  /*
+	position: absolute;
+	font-size: 94px;
+	line-height: 94px;
+	letter-spacing: 7px;
+	*/
+
+  top: 15px;
   position: absolute;
-  font-size: 94px;
-  line-height: 94px;
-  letter-spacing: 7px;
+  font-size: 70px;
+  line-height: 70px;
+  letter-spacing: 6px;
 }
 .logo .some {
+  /*
+	position: absolute;
+	font-size: 94px;
+	line-height: 94px;
+	top: 88px;
+	*/
+
+  letter-spacing: 12px;
   position: absolute;
-  font-size: 94px;
+  font-size: 74px;
   line-height: 94px;
   top: 88px;
 }

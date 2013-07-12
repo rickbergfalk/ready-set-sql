@@ -10,12 +10,12 @@
     "npm": "1.1.x"
   },
   "dependencies": {
-    "express": "3.0.0",
+    "express": "3.3.x",
     "ejs": "*",
     "less-middleware": "*",
     "postgrator": "0.0.11",
-    "pg": "0.8.6",
-    "moment": "1.7.2"
+    "pg": "0.8.x",
+    "moment": "1.7.x"
   },
   "devDependencies": {
     "grunt": "0.4.0",

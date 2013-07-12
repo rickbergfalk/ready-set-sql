@@ -188,7 +188,6 @@ var editorsLinks = [
 		url: '/signout'
 	}
 ];
-app.locals.links = everyonesLinks;
 app.locals.title = 'Learn some SQL'; // Default title if none is provided
 
 

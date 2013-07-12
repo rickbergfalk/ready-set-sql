@@ -168,9 +168,6 @@ var everyonesLinks = [
 	}, {
 		text: 'About',
 		url: '/about'
-	}, {
-		text: 'More SQL Resources',
-		url: '/more-sql-resources'
 	}
 ];
 var editorsLinks = [
@@ -180,9 +177,6 @@ var editorsLinks = [
 	}, {
 		text: 'About',
 		url: '/about'
-	}, {
-		text: 'More SQL Resources',
-		url: '/more-sql-resources'
 	}, {
 		text: 'superquery',
 		url: '/superquery'

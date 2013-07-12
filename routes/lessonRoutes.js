@@ -151,9 +151,7 @@ exports.getByLessonId = function(req, res) {
 			res.send(500, 'Failed to get that lesson');
 		} else {
 			if (format === 'json') {
-				res.render({
-					lesson: lessons[0]
-				});
+				res.json(lessons[0]);
 			} else {
 				res.render('layoutLessonViewer.ejs', {
 					title: 'Learn some SQL',

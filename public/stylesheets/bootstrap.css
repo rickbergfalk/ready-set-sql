@@ -52,7 +52,7 @@
   clear: both;
 }
 .hide-text {
-  font: 0/0 a;
+  font: NaN a;
   color: transparent;
   text-shadow: none;
   background-color: transparent;
@@ -5380,6 +5380,8 @@ footer hr {
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fffbb450', endColorstr='#fff89406', GradientType=0);
   border-color: #f89406 #f89406 #ad6704;
   *background-color: #f89406;
+  /* Darken IE7 buttons by default so they stand out more given they won't have borders */
+
   color: #ffffff;
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
   background-color: #1a9fd0;

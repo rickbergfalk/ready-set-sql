@@ -51,7 +51,10 @@
 					
 						<br><br><br><br>		
 
-						<pre><code>
+<pre class="cm-s-monokai"><br>    <span class="cm-keyword">SELECT</span> <br>        a_column, <br>        another_column <br>    <span class="cm-keyword">FROM</span> <br>        a_table <br>    <span class="cm-keyword">WHERE</span> <br>        a_column = <span class="cm-string">'some value'</span> <br>        <span class="cm-keyword">AND</span> some_other_column &gt; <span class="cm-number">42</span><br>        <br></pre>
+						
+<!--
+<pre><code class="sample-code">
 	SELECT 
 		some_column, 
 		some_other_column 
@@ -60,10 +63,9 @@
 	WHERE 
 		some_column = 'some value' 
 		AND some_other_column > 42
-
 		
 </code></pre>
-					
+-->					
 						<br><br><br><br><br><br><br><br><br>
 						
 						<img src="/images/postgres-logo.png" />
@@ -79,5 +81,10 @@
 			
 		</div>	
 	</div>
-	
+	<script>
+		$(function() {
+			$(".sample-code").parent().addClass('cm-s-monokai');
+			CodeMirror.runMode($(".sample-code").text(), 'text/x-mysql', $(".sample-code").parent().get(0));
+		});
+	</script>
 <% include layout-footer %>

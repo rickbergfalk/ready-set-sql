@@ -338,7 +338,7 @@ app.get('/lesson', lessonRoutes.getAll);
 app.get('/lesson/unlisted', lessonRoutes.getUnlisted);
 app.get('/lesson/listid/:id', lessonRoutes.getByListId);
 app.get('/lesson/:id/:format?', lessonRoutes.getByLessonId);
-app.get('/edit/lesson/:id?', lessonRoutes.editById);
+app.get('/edit/lesson/:id?', [editorsOnly], lessonRoutes.editById);
 app.post('/lesson/:id', lessonRoutes.save);
 
  

@@ -5674,17 +5674,11 @@ var Lesson = function (lesson) {
 	this.furthestScreenIndex 	= 0;
 	
 	this.currentLessonScreen = function () {
-		var lessonScreen = this.lessonScreens[this.currentScreenIndex];
-		lessonScreen.lessonTitle = this.lessonTitle; // TODO - Why is this here?
-		return lessonScreen;
+		return this.lessonScreens[this.currentScreenIndex];
 	}
 	
 	this.isLastScreen = function () {
-		if (this.lessonScreens.length === Number(this.currentScreenIndex + 1)) {
-			return true;	// TODO - This is redundant, and can be cleaned up (although, I do like its explicit-ness)
-		} else {
-			return false;
-		}
+		return (this.lessonScreens.length === Number(this.currentScreenIndex + 1));
 	}
 	
 	var roundNumber = function (num, dec) {
@@ -5715,7 +5709,6 @@ var Lesson = function (lesson) {
 	
 	this.getLessonScreen = function (screenIndex) {
 		var lessonScreen = this.lessonScreens[screenIndex];
-		lessonScreen.lessonTitle = this.lessonTitle; // TODO - Why is this here?
 		// maintain screen index
 		this.currentScreenIndex = screenIndex;
 		var furthestIndex = this.furthestScreenIndex;

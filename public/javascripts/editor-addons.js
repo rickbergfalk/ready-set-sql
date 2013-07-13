@@ -1609,6 +1609,7 @@ var ScreenCard = function (screen, $beforeElement, lessonEditor) {
 			if (screens[i].screenId === screenId) {
 				// this is this screen, so we need to splice the new screen in before it
 				screens.splice(i, 0, newScreenCard);
+				i = screensLength;
 			}
 		}
 	}
@@ -1691,7 +1692,7 @@ var LessonEditor = function (id, lesson) {
 				success: function() {
 					$('#main-body').css({'background-color': '#ACD894'});
 					setTimeout(function() {
-						$('#main-body').animate({backgroundColor: '#FAFAFA'}, 1000);
+						$('#main-body').css({'background-color': '#FAFAFA'});
 					}, 400);
 				},
 				error: function (jqXHR, textStatus, errorThrown) {
@@ -1708,7 +1709,6 @@ var LessonEditor = function (id, lesson) {
 				url: '/lesson',
 				data: lessonUpdate,
 				success: function() {
-					alert('created');
 					window.location.href = "/edit/";
 				},
 				error: function (jqXHR, textStatus, errorThrown) {

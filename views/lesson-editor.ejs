@@ -26,6 +26,10 @@
 				<div class="span3">
 					<div class="form-actions">
 						<button id="btn-save-lesson" class="btn btn-primary">Save (ctrl + s)</button>
+						<br><br>
+						<% if (lesson.lessonId) { %>
+							<a href="/lesson/<%= lesson.lessonId %>" class="btn">Test Lesson</a>
+						<% } %>
 					</div>
 				</div>
 				

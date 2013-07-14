@@ -5758,6 +5758,21 @@ body {
   background-image: url('../images/grid/grid.png');
   background-image: url('../images/grey/grey.png');
 }
+.lesson-screen-card {
+  background-color: #efefef;
+  padding: 20px;
+  border: 1px solid #CCC;
+}
+.myeditor {
+  font-family: InconsolataMedium, Inconsolata, monospace;
+  font-size: 16px;
+  padding: 10px;
+  line-height: 1.4em;
+  margin: 0;
+  padding: 4px;
+  min-height: 400px;
+  width: 100%;
+}
 .meter {
   height: 8px;
   background: #444;

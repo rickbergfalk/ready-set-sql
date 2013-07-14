@@ -37,7 +37,6 @@
 }
 .main-background {
   background-color: #1dade2;
-  background-image: url('../images/bg_transparent_square.png');
 }
 .clearfix {
   *zoom: 1;
@@ -5435,12 +5434,10 @@ footer hr {
 }
 html {
   background-color: #1dade2;
-  background-image: url('../images/bg_transparent_square.png');
 }
 body {
   padding-bottom: 40px;
   background-color: #1dade2;
-  background-image: url('../images/bg_transparent_square.png');
 }
 .main-nav {
   padding: 14px 30px 8px;
@@ -5450,7 +5447,7 @@ body {
   backbround-color: #F0E0CB;
   background-color: #1dade2;
   background-image: url('../images/bg_transparent_square.png');
-  background-image: url('../images/bg_transparent_square.png'), -webkit-linear-gradient(top, #1dade2, #178ab4);
+  background-image: -webkit-linear-gradient(top, #1dade2, #178ab4);
   border-bottom: 1px solid #A3A3A3;
 }
 #nav-menu a {
@@ -5607,7 +5604,6 @@ p {
 body {
   padding-bottom: 40px;
   background-color: #1dade2;
-  background-image: url('../images/bg_transparent_square.png');
 }
 .lesson-card {
   background-color: #FFF;
@@ -5752,11 +5748,9 @@ body {
   line-height: 27px;
 }
 .light-bg {
-  background-image: url('../images/lghtmesh/lghtmesh.png');
-  background-image: url('../images/diagonal-noise/diagonal-noise.png');
-  background-image: url('../images/white_carbon/white_carbon.png');
-  background-image: url('../images/grid/grid.png');
   background-image: url('../images/grey/grey.png');
+  background-image: url('../images/squairy_light/squairy_light.png');
+  background-image: url('../images/pw_pattern/pw_pattern.png');
 }
 .lesson-screen-card {
   background-color: #efefef;
@@ -5827,9 +5821,8 @@ body {
   background-color: #1dade2;
   background-image: url('../images/bg_transparent_square.png');
   background-image: url('../images/grey/grey.png');
-  background-image: url('../images/lghtmesh/lghtmesh.png');
-  background-image: url('../images/diagonal-noise/diagonal-noise.png');
-  background-image: url('../images/white_carbon/white_carbon.png');
+  background-image: url('../images/squairy_light/squairy_light.png');
+  background-image: url('../images/pw_pattern/pw_pattern.png');
   background-color: #EEE;
 }
 #code-background {

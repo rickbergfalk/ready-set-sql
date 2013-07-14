@@ -175,16 +175,19 @@ var editorsLinks = [
 		text: 'Lessons',
 		url: '/'
 	}, {
+		text: 'Table Map',
+		url: '/table-map'
+	}, {
 		text: 'About',
 		url: '/about'
 	}, {
-		text: 'superquery',
+		text: 'Superquery',
 		url: '/superquery'
 	}, {
-		text: 'editor',
+		text: 'Editor',
 		url: '/edit'
 	}, {
-		text: 'sign out',
+		text: 'Sign Out',
 		url: '/signout'
 	}
 ];

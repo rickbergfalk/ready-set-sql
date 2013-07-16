@@ -326,7 +326,7 @@ var LessonView = function (lesson) {
 			data: {sqlQuery: me.myCodeMirror.getValue()},
 			success: processQueryResults,
 			error: function (jqXHR, textStatus, errorThrown) {
-				alert("uh-oh. Something seems to be wrong with our interactive query functionality. Sorry about that...");
+				$queryMessage.show().html(jqXHR.responseText);
 			},
 			dataType: 'json'
 		});

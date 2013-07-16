@@ -346,7 +346,7 @@ var checkBadSql = function (req, res, next) {
 		// We can't do this on the session object, because it'll reset on browser close/change.
 		var offense = banMiddleware.recordOffense(req);
 		// 403 == forbidden
-		res.send(403, offense.message);
+		res.send(400, offense.message);
 	} else {
 		next();
 	}

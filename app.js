@@ -38,7 +38,7 @@ if (!process.env.NODE_ENV || !process.env.DATABASE_URL) {
 
 
 var isBadSql = require('./lib/is-bad-sql');
-var banHammer = require('./lib/banHammer');
+var banMiddleware = require('./lib/ban-middleware');
 var lessonRoutes = require('./routes/lessonRoutes');
 var lessonlistRoutes = require('./routes/lessonlistRoutes');
 
@@ -97,7 +97,7 @@ app.configure(function(){
 	app.use(express.cookieParser('your secret here'));
 	app.use(express.session());
 	
-	app.use(banHammer.handleBannedPeople);
+	app.use(banMiddleware.handleBannedPeople);
 	
 	// Determine which links should be used (per view)
 	// (Whether or not to show editor links is directly related to whether someone is logged in or not
@@ -344,7 +344,7 @@ var checkBadSql = function (req, res, next) {
 		// take note of the offenders remoteAddress (IP Address)
 		// After so many attacks, they should be silenced.
 		// We can't do this on the session object, because it'll reset on browser close/change.
-		var offense = banHammer.recordOffense(req);
+		var offense = banMiddleware.recordOffense(req);
 		// 403 == forbidden
 		res.send(403, offense.message);
 	} else {

@@ -280,31 +280,19 @@ app.get('/signin', function(req, res) {
 
 app.post('/signin', function(req, res) {
 	var message;
-	if (req.session.attempts === undefined) {
-		req.session.attempts = 0;
-	}
 	if (req.body.passphrase === process.env.PASSPHRASE) {
 		req.session.isSignedIn = true;
-		req.session.attempts = 0;
 		res.redirect('/edit');
 	} else {
 		req.session.isSignedIn = false;
-		req.session.attempts = req.session.attempts + 1;
-		if (req.session.attempts === 1) {
-			message = "That's not the passphrase";
-		} else if (req.session.attempts > 1) {
-			message = "That's not the passphrase either";
-		}
 		res.render('sign-in', {
 			title: 'Learn some SQL',
-			message: message,
+			message: 'That is not the passphrase',
 			session: req.session
 		});
 	}		
 });
 
-
-// mostly a client-side driven page
 app.get('/edit', [editorsOnly], function (req, res) {
 	res.render('lesson-list-editor', {title: 'Edit some SQL'});
 });
@@ -367,45 +355,31 @@ var checkBadSql = function (req, res, next) {
  
 app.post('/query', checkBadSql, function(req, res) {
 	var sqlQuery = req.body.sqlQuery || '';
-	if (isBadSql(sqlQuery)) {
-		// 403 is forbidden
-		res.send(403, 'That kind of SQL is not allowed. Try anything else funny and you will be banned.');
-	} else {
-		if (sqlQuery.trim().length > 0) {
-			sqlRunner.runSql(sqlQuery, [], null, function(err, results) {
-				if (err) {
-					// 400 is bad request
-					res.send(400, 'Query failed because <br>' + err.message);
-				} else {
-					// Before we send results, we should change the dates 
-					// to strings formatted to how we want them to be.
-					for (row in results) {
-						for (column in results[row]) {
-							var field = results[row][column];
-							if (field instanceof Date) {
-								var m = moment.utc(field);
-								results[row][column] = m.format('MM/DD/YYYY HH:mm:SS');
-							}
+	if (sqlQuery.trim().length > 0) {
+		sqlRunner.runSql(sqlQuery, [], null, function(err, results) {
+			if (err) {
+				// 400 is bad request
+				res.send(400, 'Query failed because <br>' + err.message);
+			} else {
+				// Before we send results, we should change the dates 
+				// to strings formatted to how we want them to be.
+				for (row in results) {
+					for (column in results[row]) {
+						var field = results[row][column];
+						if (field instanceof Date) {
+							var m = moment.utc(field);
+							results[row][column] = m.format('MM/DD/YYYY HH:mm:SS');
 						}
 					}
-					res.send({
-						results: results
-					});
 				}
-			});
-		} else {
-			res.send(400, 'Query was not provided');
-		}
+				res.send({
+					results: results
+				});
+			}
+		});
+	} else {
+		res.send(400, 'Query was not provided');
 	}
-});
-
-
-app.get('/req', function(req, res) {
-	res.send({
-		ip: req.ip, 
-		ips: req.ips,
-		remoteAddress: req.connection.remoteAddress
-	});
 });
 
 

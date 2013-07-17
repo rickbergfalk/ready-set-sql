@@ -1591,7 +1591,7 @@ marked.setOptions({
 	gfm: true,
 	tables: true,
 	breaks: false,
-	pedantic: true,
+	pedantic: false,
 	sanitize: false,
 	smartLists: true,
 	langPrefix: 'language-',
@@ -1663,7 +1663,6 @@ var ScreenCard = function (screen, $beforeElement, lessonEditor) {
 	this.getScreenData = function () {
 		this.screen.screenMd = $screenText.val();
 		this.screen.screenText = marked($screenText.val()); //editor.exportFile(); // $screenText.val(); ---------------------------------
-		console.log(this.screen.screenText);
 		this.screen.keepSql = $keepSql.is(':checked');
 		this.screen.sqlTarget = cmSqlTarget.getValue();
 		this.screen.startingSql = cmStartingSql.getValue();

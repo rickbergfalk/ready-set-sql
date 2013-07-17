@@ -5940,12 +5940,6 @@ var LessonView = function (lesson) {
 			}
 		}
 		
-		// if there is a SQL example, render it via Codemirror's runMode.
-		if (screenData.sqlExample) {
-			var $pre = $('<pre>' + screenData.sqlExample + '</pre>').appendTo(me.$screenText).addClass('cm-s-monokai');
-			CodeMirror.runMode(screenData.sqlExample, 'text/x-mysql', $pre.get(0));
-		}
-		
 		// if this is the last screen, disable the next button
 		// the user should be presented with different actions to follow
 		// 		- go to next lesson

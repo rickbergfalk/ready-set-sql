@@ -70,7 +70,6 @@ var ScreenCard = function (screen, $beforeElement, lessonEditor) {
 	
 	var $screenText = $screenCard.find('.screen-text').attr('id', screenId).val(this.screen.screenMd || this.screen.screenText || '');
 	addTabSupport($screenText);
-	var $sqlExample = $screenCard.find('.sql-example').text(this.screen.sqlExample || '');
 	var $sqlTarget = $screenCard.find('.sql-target').text(this.screen.sqlTarget || '');
 	var $startingSql = $screenCard.find('.starting-sql').text(this.screen.startingSql || '');
 	var $keepSql = $screenCard.find('.keep-sql');
@@ -94,7 +93,6 @@ var ScreenCard = function (screen, $beforeElement, lessonEditor) {
 		tabMode: "indent"//,					// TODO: update this?
 		//extraKeys: {"Tab": "indentAuto"}
 	};
-	var cmSqlExample = CodeMirror.fromTextArea($sqlExample.get(0), codeMirrorOptions);
 	var cmStartingSql = CodeMirror.fromTextArea($startingSql.get(0), codeMirrorOptions);
 	var cmSqlTarget =   CodeMirror.fromTextArea($sqlTarget.get(0), codeMirrorOptions);
 	
@@ -104,7 +102,6 @@ var ScreenCard = function (screen, $beforeElement, lessonEditor) {
 		this.screen.screenText = marked($screenText.val()); //editor.exportFile(); // $screenText.val(); ---------------------------------
 		this.screen.keepSql = $keepSql.is(':checked');
 		this.screen.sqlTarget = cmSqlTarget.getValue();
-		this.screen.sqlExample = cmSqlExample.getValue();
 		this.screen.startingSql = cmStartingSql.getValue();
 		return this.screen;
 	}

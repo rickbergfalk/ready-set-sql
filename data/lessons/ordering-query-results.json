@@ -1,0 +1,71 @@
+{
+  "lessonId": "ordering-query-results",
+  "lessonTitle": "Ordering Query Results",
+  "lessonDescription": "SELECT statements will return query results in whatever order the Database feels is most efficient. You can take control using the ORDER BY clause.",
+  "lessonScreens": [
+    {
+      "screenTitle": "this is a test",
+      "screenText": "<p>When you get a set of results back from the database, the order of those results is determined by whatever was efficient for the database. </p>\n<p>To specify the order of the result set, we use the <code>ORDER BY</code> clause. Let&#39;s pull up the customer table again for reference.</p>\n<pre><code>SELECT *\nFROM customer</code></pre>\n",
+      "keepSql": "false",
+      "sqlTarget": "SELECT *\nFROM customer",
+      "sqlExample": "SELECT *\nFROM customer",
+      "startingSql": "",
+      "screenNumber": "0",
+      "screenMd": "When you get a set of results back from the database, the order of those results is determined by whatever was efficient for the database. \n\nTo specify the order of the result set, we use the ```ORDER BY``` clause. Let's pull up the customer table again for reference.\n\n```\nSELECT *\nFROM customer\n```"
+    },
+    {
+      "screenText": "<p>Note that the query results are ordered by the id of the table.</p>\n<p>To specify an order, simply list one or more columns behind the <code>ORDER BY</code> clause. Try this query out in your editor to list all customers sorted by last name:</p>\n<pre><code>SELECT * \nFROM customer\nORDER BY last_name</code></pre>\n",
+      "keepSql": "true",
+      "sqlTarget": "SELECT * \nFROM customer\nORDER BY last_name",
+      "sqlExample": "SELECT * \nFROM customer\nORDER BY last_name",
+      "startingSql": "",
+      "screenNumber": "1",
+      "screenMd": "Note that the query results are ordered by the id of the table.\n\nTo specify an order, simply list one or more columns behind the ```ORDER BY``` clause. Try this query out in your editor to list all customers sorted by last name:\n\n```\nSELECT * \nFROM customer\nORDER BY last_name\n```"
+    },
+    {
+      "screenMd": "Notice that the ordering of last name is alphabetical, or ascending order. We can change the direction of the order by specifying ```ASC``` or ```DESC``` after the column. \n\nBy default, results are sorted in *ascending* order. Lets sort last_name by *descending* order.\n\n```\nSELECT * \nFROM customer\nORDER BY last_name DESC\n```",
+      "screenText": "<p>Notice that the ordering of last name is alphabetical, or ascending order. We can change the direction of the order by specifying <code>ASC</code> or <code>DESC</code> after the column. </p>\n<p>By default, results are sorted in <em>ascending</em> order. Lets sort last_name by <em>descending</em> order.</p>\n<pre><code>SELECT * \nFROM customer\nORDER BY last_name DESC</code></pre>\n",
+      "keepSql": "true",
+      "sqlTarget": "SELECT * \nFROM customer\nORDER BY last_name DESC",
+      "sqlExample": "SELECT * \nFROM customer\nORDER BY last_name DESC",
+      "startingSql": "",
+      "screenNumber": "2"
+    },
+    {
+      "screenMd": "Ordering the result set isn't limited to just one column either. We can sort on multiple columns. \n\nLet's try listing customer city and name, first sorting by city in ascending order, then last name in descending order. Simply list the columns out with a comma between them, just like you would in the ```SELECT``` clause. (remember that the ```ASC``` is completely optional here)\n\n```\nSELECT city, last_name, first_name\nFROM customer\nORDER BY city ASC, last_name DESC\n```",
+      "screenText": "<p>Ordering the result set isn&#39;t limited to just one column either. We can sort on multiple columns. </p>\n<p>Let&#39;s try listing customer city and name, first sorting by city in ascending order, then last name in descending order. Simply list the columns out with a comma between them, just like you would in the <code>SELECT</code> clause. (remember that the <code>ASC</code> is completely optional here)</p>\n<pre><code>SELECT city, last_name, first_name\nFROM customer\nORDER BY city ASC, last_name DESC</code></pre>\n",
+      "keepSql": "true",
+      "sqlTarget": "SELECT city, last_name, first_name\nFROM customer\nORDER BY city ASC, last_name DESC",
+      "sqlExample": "SELECT city, last_name, first_name\nFROM customer\nORDER BY city ASC, last_name DESC",
+      "startingSql": "",
+      "screenNumber": "3"
+    },
+    {
+      "screenMd": "It isn't just text-based columns that can be sorted. Dates and numbers can be too using the same syntax. \n\nFor a better example of this functionality, lets take a look at the pizza_order table.\n\n```\nSELECT * \nFROM pizza_order\n```",
+      "screenText": "<p>It isn&#39;t just text-based columns that can be sorted. Dates and numbers can be too using the same syntax. </p>\n<p>For a better example of this functionality, lets take a look at the pizza_order table.</p>\n<pre><code>SELECT * \nFROM pizza_order</code></pre>\n",
+      "keepSql": "true",
+      "sqlTarget": "SELECT * \nFROM pizza_order",
+      "sqlExample": "SELECT * \nFROM pizza_order",
+      "startingSql": "",
+      "screenNumber": "4"
+    },
+    {
+      "screenMd": "As you might have expected, the pizza_order table contains information about each pizza order, with various dates and total amount. \n\n**Challenge**: Change the ordering of this query by total amount, listing the most expensive pizza orders first.\n ",
+      "screenText": "<p>As you might have expected, the pizza_order table contains information about each pizza order, with various dates and total amount. </p>\n<p><strong>Challenge</strong>: Change the ordering of this query by total amount, listing the most expensive pizza orders first.</p>\n",
+      "keepSql": "true",
+      "sqlTarget": "SELECT * \nFROM pizza_order\nORDER BY total_amount DESC",
+      "sqlExample": "",
+      "startingSql": "",
+      "screenNumber": "5"
+    },
+    {
+      "screenMd": "Pretty easy right? We'll touch on more ordering techniques as we progress through the other tutorials. ",
+      "screenText": "<p>Pretty easy right? We&#39;ll touch on more ordering techniques as we progress through the other tutorials. </p>\n",
+      "keepSql": "true",
+      "sqlTarget": "",
+      "sqlExample": "",
+      "startingSql": "",
+      "screenNumber": "6"
+    }
+  ]
+}

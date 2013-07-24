@@ -8,7 +8,8 @@ var fs = require('fs');
 var path = require('path');
 var moment = require('moment'); // a date library
 var postgrator = require('postgrator');
-
+var lessons = require('./models/lessons');
+var lessonLists = require('./models/lesson-lists');
 
 /* =========================================================================
     load some environment variables if they are not present
@@ -41,6 +42,12 @@ var isBadSql = require('./lib/is-bad-sql');
 var banMiddleware = require('./lib/ban-middleware');
 var lessonRoutes = require('./routes/lessonRoutes');
 var lessonlistRoutes = require('./routes/lessonlistRoutes');
+
+// pass lessons model thing to lessonRoutes
+lessonRoutes.setLessons(lessons);
+lessonRoutes.setLessonLists(lessonLists);
+lessonlistRoutes.setLessons(lessons);
+lessonlistRoutes.setLessonLists(lessonLists);
 
 var SqlRunner = require('./lib/sql-runner');
 var sqlRunner = new SqlRunner({	connectionString: process.env.DATABASE_URL }); 
@@ -104,6 +111,10 @@ app.configure(function(){
 	// before this I used app.locals, which meant 1 person logs in and *everyone* got the editors links)
 	app.use(function(req, res, next) {
 		res.locals.dotMinIfProduction = (process.env.NODE_ENV === 'production' ? ".min" : "");
+		res.locals.lessonListIdOrder = [
+			'the-basics',
+			'filtering-results'
+		];
 		if (req.session && req.session.isSignedIn) { 
 			res.locals.links = editorsLinks;
 			res.locals.isEditor = true;
@@ -202,55 +213,42 @@ app.locals.title = 'Learn some SQL'; // Default title if none is provided
 /* ============================================
 	lessonlists: [
 		{
-			listid: n,
-			listname: '',
+			listId: n,
+			listName: '',
 			listDescription: '',
 			lessons: [
 				{
-					listid,
-					listname,
-					listdescription,
-					listseq,
-					lessonid,
-					lessontitle,
-					lessondescription,
-					lessonseq
+					listId,
+					listName,
+					listDescription,
+					listSeq,
+					lessonId,
+					lessonTitle,
+					lessonDescription,
+					lessonSeq
 				}
 			]
 		}
 	]
 =============================================== */
 app.get('/', function(req, res){
-	var sql = "SELECT ll.lessonlist_id AS listId, ll.name AS listName, ll.description AS listDescription, ll.seq AS listSeq, l.lesson_id AS lessonId, l.title AS lessonTitle, l.description AS lessonDescription, l.seq AS lessonSeq FROM lesson l JOIN lessonlist ll ON l.lessonlist_id = ll.lessonlist_id ORDER BY ll.seq, l.seq";
-	sqlRunner.runSql(sql, [], null, function(err, results) {
-		if (err) {
-			throw new Error('Homepage LessonLists query failure');
-		} else {
-			var lessonLists = [];
-			var lessonListCounter = -1;
-			
-			for (i = 0; i < results.length; i++) {
-				var lesson = results[i];
-				
-				if (lessonLists[lessonListCounter] && lessonLists[lessonListCounter].listname == lesson.listname) {
-					lessonLists[lessonListCounter].lessons.push(lesson);
-				} else {
-					// we've approached a new list. Increment the lessonListcounter
-					lessonListCounter = lessonListCounter + 1;
-					// if currentList has lessons
-					lessonLists[lessonListCounter] = {};
-					lessonLists[lessonListCounter].listid = lesson.listid;
-					lessonLists[lessonListCounter].listname = lesson.listname;
-					lessonLists[lessonListCounter].listDescription = lesson.listdescription;
-					lessonLists[lessonListCounter].lessons = [];
-					lessonLists[lessonListCounter].lessons.push(lesson);
-				}
-			}
-			
-			res.locals.lessonLists = lessonLists;
-			res.render('index', {});
-		}
-	});	
+	var returnLessonLists = [];
+	var lessonListIdOrder = res.locals.lessonListIdOrder;
+	for (var ll = 0; ll < lessonListIdOrder.length; ll++) {
+		var lessonListId = lessonListIdOrder[ll];
+		var lessonList = lessonLists.get(lessonListId);
+		lessonList.lessons = [];
+		// get all the lessons for this lessonList
+		for (var i = 0; i < lessonList.lessonIds.length; i++) {
+			var lessonId = lessonList.lessonIds[i];
+			var lesson = lessons.get(lessonId);
+			if (lesson) lessonList.lessons.push(lesson);
+		};
+		returnLessonLists.push(lessonList);
+	};
+	//console.log(JSON.stringify(returnLessonLists, null, 2));
+	res.locals.lessonLists = returnLessonLists;
+	res.render('index', {});
 });
 
 app.get('/about', function(req, res) {
@@ -324,8 +322,8 @@ app.post('/lessonlist/id/:id', lessonlistRoutes.save);
 /* =========================================================================
 	Lesson
 ============================================================================ */
-app.put('/lesson', lessonRoutes.create);
-app.get('/lesson', lessonRoutes.getAll);
+//app.put('/lesson', lessonRoutes.create);
+//app.get('/lesson', lessonRoutes.getAll);
 app.get('/lesson/unlisted', lessonRoutes.getUnlisted);
 app.get('/lesson/listid/:id', lessonRoutes.getByListId);
 app.get('/lesson/:id/:format?', lessonRoutes.getByLessonId);

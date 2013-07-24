@@ -1439,7 +1439,7 @@ var LessonListEditorView = function () {
 				
 				$.each(data.lessonlists, function (i, lessonList) {
 					var $li = $('<li></li>').appendTo($ul);
-					var $a = $('<a>' + lessonList.name + '</a>').appendTo($li);
+					var $a = $('<a>' + lessonList.listName + '</a>').appendTo($li);
 					
 					$a.click(function(e) {
 						e.preventDefault();
@@ -1447,7 +1447,7 @@ var LessonListEditorView = function () {
 						
 						var $ul = $('#list-lessons').empty();
 						me.listLessons = [];
-						me.currentListId = lessonList.lessonlist_id;
+						me.currentListId = lessonList.listId;
 						
 						/* ===============================================
 							data.lesson: [{
@@ -1460,7 +1460,7 @@ var LessonListEditorView = function () {
 						================================================== */
 						$.ajax({
 							type: 'get',
-							url: '/lesson/listid/' + lessonList.lessonlist_id,
+							url: '/lesson/listid/' + lessonList.listId,
 							success: function(data, textStatus, jqXHR) {
 								
 								me.listLessons = data.lesson;
@@ -1541,7 +1541,7 @@ var LessonListEditorView = function () {
 				//console.log(textStatus);
 				//console.log(errorThrown);
 			},
-			dataType: 'json'
+			dataType: 'json' 
 		});
 	}
 	
@@ -1757,7 +1757,13 @@ var LessonEditor = function (id, lesson) {
 			lessonId: 		lesson.lessonId,
 			lessonTitle:	$('#lesson-title').val(),
 			lessonDescription: $('#lesson-description').val(),
-			lessonScreens: 	JSON.stringify(screenArray)
+			lessonScreens: screenArray
+		}
+		
+		// create a lessonId if one doesn't exist
+		if (!lesson.lessonId) {
+			lesson.lessonId = $("#lesson-title").val().trim().toLowerCase().replace(/ +/g,'-').replace(/[^a-z0-9-_]/g,'').trim();
+			
 		}
 		
 		if (lesson.lessonId) {
@@ -1780,6 +1786,7 @@ var LessonEditor = function (id, lesson) {
 				dataType: 'json'
 			});
 		} else {
+			// should never reach this point anymore
 			$.ajax({
 				type: 'put',
 				url: '/lesson',

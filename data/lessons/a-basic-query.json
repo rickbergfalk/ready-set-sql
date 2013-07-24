@@ -1,0 +1,78 @@
+{
+  "lessonId": "a-basic-query",
+  "lessonTitle": "A Basic Query",
+  "lessonDescription": "Introduction to our database, and some basic SELECT statements to go with.",
+  "lessonScreens": [
+    {
+      "screenTitle": "Welcome!",
+      "screenText": "<p>Ready to learn some SQL? </p>\n<p>We&#39;ll be using a small pizza delivery database using a PostgreSQL server. Now that sounds a bit boring, but we&#39;ve tried to keep it interesting. </p>\n<p>If you haven&#39;t done so already, you may want to print off a copy of our table map, or put it up on another screen. It may come in handy and serve as a nice visual as to how the database is structured.</p>\n<p>Click next to continue</p>\n",
+      "keepSql": false,
+      "sqlTarget": "",
+      "sqlExample": "",
+      "startingSql": "",
+      "screenNumber": 0,
+      "screenMd": "Ready to learn some SQL? \n\nWe'll be using a small pizza delivery database using a PostgreSQL server. Now that sounds a bit boring, but we've tried to keep it interesting. \n\nIf you haven't done so already, you may want to print off a copy of our table map, or put it up on another screen. It may come in handy and serve as a nice visual as to how the database is structured.\n\nClick next to continue"
+    },
+    {
+      "screenTitle": "InfoOnly Screen Type",
+      "screenText": "<p>Let&#39;s get started!</p>\n<p>To view data in a table, we use the <code>SELECT</code> statement. It isn&#39;t the best name, as we aren&#39;t choosing data necessarily... We&#39;re just viewing it, getting a list of results from a query.</p>\n<p>Let&#39;s start exploring some tables. Try this query out in the editor, and then click run to see what it returns...</p>\n<pre><code>SELECT * FROM pizza</code></pre>\n",
+      "keepSql": false,
+      "sqlTarget": "SELECT * FROM pizza",
+      "sqlExample": "SELECT * FROM pizza",
+      "startingSql": "-- Type your query over here\n\n",
+      "screenNumber": 1,
+      "screenMd": "Let's get started!\n\nTo view data in a table, we use the ```SELECT``` statement. It isn't the best name, as we aren't choosing data necessarily... We're just viewing it, getting a list of results from a query.\n\nLet's start exploring some tables. Try this query out in the editor, and then click run to see what it returns...\n\n```\nSELECT * FROM pizza\n```"
+    },
+    {
+      "screenTitle": "InfoOnly Screen Type",
+      "screenText": "<p>Congrats! You just wrote the simplest form of a SQL <code>SELECT</code> statement there is.</p>\n<p>See that grid of results? That&#39;s all the contents of the table. <code>SELECT * FROM tablename</code> simply displays all the rows and columns of a table specified in the <code>FROM</code> clause.</p>\n",
+      "keepSql": true,
+      "sqlTarget": "",
+      "sqlExample": "",
+      "startingSql": "",
+      "screenNumber": 2,
+      "screenMd": "Congrats! You just wrote the simplest form of a SQL ```SELECT``` statement there is.\n\nSee that grid of results? That's all the contents of the table. ```SELECT * FROM tablename``` simply displays all the rows and columns of a table specified in the ```FROM``` clause.\n"
+    },
+    {
+      "screenTitle": "Writing SQL",
+      "screenText": "<p>Lets try another one. How about the <code>customer</code> table?</p>\n<pre><code>SELECT * FROM customer</code></pre>\n",
+      "sqlTarget": "SELECT * FROM customer",
+      "startingSql": "",
+      "keepSql": true,
+      "sqlExample": "SELECT * FROM customer",
+      "screenNumber": 3,
+      "screenMd": "Lets try another one. How about the ```customer``` table?\n\n```\nSELECT * FROM customer\n```"
+    },
+    {
+      "screenTitle": "Well Done!",
+      "screenText": "<p>As you might have expected, the <code>customer</code> table contains some information on each customer that orders pizza.</p>\n",
+      "keepSql": true,
+      "sqlTarget": "",
+      "sqlExample": "",
+      "startingSql": "",
+      "screenNumber": 4,
+      "screenMd": "As you might have expected, the ```customer``` table contains some information on each customer that orders pizza."
+    },
+    {
+      "screenText": "<p><code>SELECT *</code> is handy, but sometimes you don&#39;t need to see every column from each table you query.</p>\n<p>Let&#39;s look at the <code>customer</code> table again, but instead of the <code>*</code> let&#39;s list the specific columns we want to look at, separating each one with a comma.</p>\n<pre><code>SELECT first_name, last_name, city\nFROM customer</code></pre>\n",
+      "keepSql": false,
+      "sqlTarget": "SELECT first_name, last_name, city\nFROM customer",
+      "sqlExample": "SELECT first_name, last_name, city\nFROM customer",
+      "startingSql": "",
+      "screenNumber": 5,
+      "screenMd": "```SELECT *``` is handy, but sometimes you don't need to see every column from each table you query.\n\nLet's look at the ```customer``` table again, but instead of the ```*``` let's list the specific columns we want to look at, separating each one with a comma.\n\n```\nSELECT first_name, last_name, city\nFROM customer\n```"
+    },
+    {
+      "screenText": "<p>Surprise! The result set contains only the columns listed, displayed using the column order used in the query.</p>\n<p>The <code>SELECT</code> statement is easy and all, but there is so much more we can do with it. Before we get to those more advanced features though, let&#39;s cover some SQL formatting options.</p>\n<p>If you are already familiar with formatting your SQL in style, feel free to skip ahead.</p>\n",
+      "keepSql": true,
+      "sqlTarget": "",
+      "sqlExample": "",
+      "startingSql": "",
+      "screenNumber": 6,
+      "screenMd": "Surprise! The result set contains only the columns listed, displayed using the column order used in the query.\n\nThe ```SELECT``` statement is easy and all, but there is so much more we can do with it. Before we get to those more advanced features though, let's cover some SQL formatting options.\n\nIf you are already familiar with formatting your SQL in style, feel free to skip ahead."
+    }
+  ],
+  "nextLessonId": 2,
+  "nextLessonTitle": "Format and Style",
+  "nextLessonListName": "The Basics"
+}

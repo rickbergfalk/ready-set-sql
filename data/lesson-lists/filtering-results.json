@@ -1,0 +1,10 @@
+{
+  "listId": "filtering-results",
+  "listName": "Filtering Results",
+  "listDescription": "Most of the time you don't want to view all the data froma table - you just want some of it. That's where query filters come in. Restrict data returned by the query using the WHERE clause.",
+  "lessonIds": [
+    "the-equals-operator",
+    "in-equals-a-list-of-values",
+    "less-than-greater-than-and-between"
+  ]
+}

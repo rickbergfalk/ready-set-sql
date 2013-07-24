@@ -16,7 +16,8 @@
     "postgrator": "0.0.11",
     "pg": "0.8.x",
     "moment": "1.7.x",
-	"marked": "*"
+	"marked": "*",
+	"uuid": "*"
   },
   "devDependencies": {
     "grunt": "0.4.0",

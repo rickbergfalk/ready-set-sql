@@ -1,0 +1,7 @@
+{
+  "listId": "aggregating-data",
+  "listName": "Aggregating Data",
+  "listDescription": "Learn to COUNT, SUM, and AVERAGE data across a set of records. Also learn about the GROUP BY clause. And maybe even filtering aggregates with the HAVING clause.",
+  "lessonIds": [
+  ]
+}

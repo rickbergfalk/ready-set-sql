@@ -1,0 +1,10 @@
+{
+  "listId": "the-basics",
+  "listName": "The Basics Change",
+  "listDescription": "Learn how to view the data from a table using the SELECT statement. Show all columns or just some of them.",
+  "lessonIds": [
+    "a-basic-query",
+    "format-and-style",
+    "ordering-query-results"
+  ]
+}

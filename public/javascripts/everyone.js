@@ -5948,7 +5948,8 @@ var LessonView = function (lesson) {
 			this.disableAdvanceButton();
 			this.$screenText.append($('#template-final-lesson-screen').html());
 			$('#next-lesson-button')
-				.html("Next Lesson <br><br>" + this.model.nextLessonListName + ": " + this.model.nextLessonTitle)
+				//.html("Next Lesson <br><br>" + this.model.nextLessonListName + ": " + this.model.nextLessonTitle)
+				.html("Next Lesson <br><br>" + this.model.nextLessonTitle)
 				.attr("href", "/lesson/" + this.model.nextLessonId);
 		}
 		

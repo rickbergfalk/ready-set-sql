@@ -38,7 +38,7 @@ var LessonListEditorView = function () {
 				
 				$.each(data.lessonlists, function (i, lessonList) {
 					var $li = $('<li></li>').appendTo($ul);
-					var $a = $('<a>' + lessonList.name + '</a>').appendTo($li);
+					var $a = $('<a>' + lessonList.listName + '</a>').appendTo($li);
 					
 					$a.click(function(e) {
 						e.preventDefault();
@@ -46,7 +46,7 @@ var LessonListEditorView = function () {
 						
 						var $ul = $('#list-lessons').empty();
 						me.listLessons = [];
-						me.currentListId = lessonList.lessonlist_id;
+						me.currentListId = lessonList.listId;
 						
 						/* ===============================================
 							data.lesson: [{
@@ -59,7 +59,7 @@ var LessonListEditorView = function () {
 						================================================== */
 						$.ajax({
 							type: 'get',
-							url: '/lesson/listid/' + lessonList.lessonlist_id,
+							url: '/lesson/listid/' + lessonList.listId,
 							success: function(data, textStatus, jqXHR) {
 								
 								me.listLessons = data.lesson;
@@ -140,7 +140,7 @@ var LessonListEditorView = function () {
 				//console.log(textStatus);
 				//console.log(errorThrown);
 			},
-			dataType: 'json'
+			dataType: 'json' 
 		});
 	}
 	

@@ -1,1 +1,0 @@
-SELECT l.lessonlist_id, l.seq, l.lesson_id, l.title, l.description FROM lesson l WHERE l.lessonlist_id = $1 ORDER BY l.seq

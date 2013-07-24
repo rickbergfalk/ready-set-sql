@@ -1,0 +1,7 @@
+{
+  "listId": "working-with-multiple-tables",
+  "listName": "Working with Multiple Tables",
+  "listDescription": "The JOIN clause. One of the strengths of a relational database is being able to connect data together and query from multiple tables at once.",
+  "lessonIds": [
+  ]
+}

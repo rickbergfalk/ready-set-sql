@@ -194,7 +194,13 @@ var LessonEditor = function (id, lesson) {
 			lessonId: 		lesson.lessonId,
 			lessonTitle:	$('#lesson-title').val(),
 			lessonDescription: $('#lesson-description').val(),
-			lessonScreens: 	JSON.stringify(screenArray)
+			lessonScreens: screenArray
+		}
+		
+		// create a lessonId if one doesn't exist
+		if (!lesson.lessonId) {
+			lesson.lessonId = $("#lesson-title").val().trim().toLowerCase().replace(/ +/g,'-').replace(/[^a-z0-9-_]/g,'').trim();
+			
 		}
 		
 		if (lesson.lessonId) {
@@ -217,6 +223,7 @@ var LessonEditor = function (id, lesson) {
 				dataType: 'json'
 			});
 		} else {
+			// should never reach this point anymore
 			$.ajax({
 				type: 'put',
 				url: '/lesson',

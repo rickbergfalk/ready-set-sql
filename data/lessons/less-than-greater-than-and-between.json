@@ -1,0 +1,97 @@
+{
+  "lessonId": "less-than-greater-than-and-between",
+  "lessonTitle": "Less Than, Greater Than, and everything in BETWEEN",
+  "lessonDescription": "Sometimes you aren't looking for specific values, but for a range. Or maybe you want to make a comparison.  ",
+  "lessonScreens": [
+    {
+      "screenText": "<p>TEST</p>\n<p>Sometimes you aren&#39;t looking for specific values, but rather a range of data. Maybe records with an amount greater than a value, or less than a value. Or maybe between 2 values. </p>\n<p>We aren&#39;t just restricted to numbers either - this stuff comes in handy when working with dates. </p>\n<p>Let&#39;s refresh our memory of what&#39;s in the pizza_order table.</p>\n<pre><code>SELECT * \nFROM pizza_order</code></pre>\n",
+      "keepSql": "false",
+      "sqlTarget": "SELECT * FROM pizza_order",
+      "sqlExample": "",
+      "startingSql": "",
+      "screenNumber": "0",
+      "screenMd": "TEST\n\nSometimes you aren't looking for specific values, but rather a range of data. Maybe records with an amount greater than a value, or less than a value. Or maybe between 2 values. \n\nWe aren't just restricted to numbers either - this stuff comes in handy when working with dates. \n\nLet's refresh our memory of what's in the pizza_order table.\n\n```\nSELECT * \nFROM pizza_order\n```"
+    },
+    {
+      "screenMd": "Let's pull all the pizza orders under 10 dollars. And let's also order the data by total amount in ascending order\n\n```\nSELECT * \nFROM pizza_order\nWHERE total_amount < 10\nORDER BY total_amount\n```",
+      "screenText": "<p>Let&#39;s pull all the pizza orders under 10 dollars. And let&#39;s also order the data by total amount in ascending order</p>\n<pre><code>SELECT * \nFROM pizza_order\nWHERE total_amount &lt; 10\nORDER BY total_amount</code></pre>\n",
+      "keepSql": "true",
+      "sqlTarget": "SELECT * \nFROM pizza_order\nWHERE total_amount < 10\nORDER BY total_amount",
+      "sqlExample": "",
+      "startingSql": "",
+      "screenNumber": "1"
+    },
+    {
+      "screenMd": "And how about expensive orders? Say maybe anything over $50? \n\n```\nSELECT * \nFROM pizza_order\nWHERE total_amount > 50\nORDER BY total_amount\n```",
+      "screenText": "<p>And how about expensive orders? Say maybe anything over $50? </p>\n<pre><code>SELECT * \nFROM pizza_order\nWHERE total_amount &gt; 50\nORDER BY total_amount</code></pre>\n",
+      "keepSql": "true",
+      "sqlTarget": "SELECT * \nFROM pizza_order\nWHERE total_amount > 50\nORDER BY total_amount",
+      "sqlExample": "",
+      "startingSql": "",
+      "screenNumber": "2"
+    },
+    {
+      "screenMd": "Say something about the data here, to reinforce that we aren't just running these queries to see if they run. We should want to look at the data.",
+      "screenText": "<p>Say something about the data here, to reinforce that we aren&#39;t just running these queries to see if they run. We should want to look at the data.</p>\n",
+      "keepSql": "true",
+      "sqlTarget": "",
+      "sqlExample": "",
+      "startingSql": "",
+      "screenNumber": "3"
+    },
+    {
+      "screenMd": "So what about getting the data missed in these last 2 queries? How do we go about getting orders $10 or more, and $50 and under?\n\nWe can go about that in a couple different ways. One of which is using more than 1 WHERE condition. We do this by using the AND keyword.\n\n```\nSELECT *\nFROM pizza_order\nWHERE \n\ttotal_amount >= 10\n\tAND total_amount <= 50\n```",
+      "screenText": "<p>So what about getting the data missed in these last 2 queries? How do we go about getting orders $10 or more, and $50 and under?</p>\n<p>We can go about that in a couple different ways. One of which is using more than 1 WHERE condition. We do this by using the AND keyword.</p>\n<pre><code>SELECT *\nFROM pizza_order\nWHERE \n    total_amount &gt;= 10\n    AND total_amount &lt;= 50</code></pre>\n",
+      "keepSql": "true",
+      "sqlTarget": "SELECT *\nFROM pizza_order\nWHERE \n\ttotal_amount >= 10\n\tAND total_amount <= 50",
+      "sqlExample": "",
+      "startingSql": "",
+      "screenNumber": "4"
+    },
+    {
+      "screenMd": "There are a couple new things about this query:\n\nSee the combination of ```>=``` and ```<=```? By combining greater-than and equals, we are asking to get any total amounts greater than or equal to the total amount requested. Same for less-than-or-equal-to.\n\nThe ```AND``` keyword adds a condition to our ```WHERE``` clause, telling the database server that *both* these conditions must be true for a record to be included in the results. \n\nWe'll cover using multiple conditions in the ```WHERE``` clause in a later lesson.",
+      "screenText": "<p>There are a couple new things about this query:</p>\n<p>See the combination of <code>&gt;=</code> and <code>&lt;=</code>? By combining greater-than and equals, we are asking to get any total amounts greater than or equal to the total amount requested. Same for less-than-or-equal-to.</p>\n<p>The <code>AND</code> keyword adds a condition to our <code>WHERE</code> clause, telling the database server that <em>both</em> these conditions must be true for a record to be included in the results. </p>\n<p>We&#39;ll cover using multiple conditions in the <code>WHERE</code> clause in a later lesson.</p>\n",
+      "keepSql": "true",
+      "sqlTarget": "",
+      "sqlExample": "",
+      "startingSql": "",
+      "screenNumber": "5"
+    },
+    {
+      "screenMd": "SQL offers us a shortcut to all this though with the ```BETWEEN``` operator.\n\n```\nSELECT * \nFROM pizza_order\nWHERE total_amount BETWEEN 10 AND 50\n```\n\nThe benefit of using ```BETWEEN``` is that it is more readable than ```some_column >= value AND some_column <= value```. It's also easier to use and remember. \n\nThere isn't any rule that says you should use one over the other, it's purely a matter of preference.\t",
+      "screenText": "<p>SQL offers us a shortcut to all this though with the <code>BETWEEN</code> operator.</p>\n<pre><code>SELECT * \nFROM pizza_order\nWHERE total_amount BETWEEN 10 AND 50</code></pre>\n<p>The benefit of using <code>BETWEEN</code> is that it is more readable than <code>some_column &gt;= value AND some_column &lt;= value</code>. It&#39;s also easier to use and remember. </p>\n<p>There isn&#39;t any rule that says you should use one over the other, it&#39;s purely a matter of preference.    </p>\n",
+      "keepSql": "true",
+      "sqlTarget": "SELECT * \nFROM pizza_order\nWHERE total_amount BETWEEN 10 AND 50",
+      "sqlExample": "",
+      "startingSql": "",
+      "screenNumber": "6"
+    },
+    {
+      "screenMd": "These operators come in handy when working with dates as well. \nTry the following statement in your editor:\n\n``` \nSELECT *\nFROM pizza_order\nWHERE order_date BETWEEN '03/07/2013' AND '03/13/2013 23:59:59'\n```\n\nKnow what it's asking for?",
+      "screenText": "<p>These operators come in handy when working with dates as well. \nTry the following statement in your editor:</p>\n<pre><code>SELECT *\nFROM pizza_order\nWHERE order_date BETWEEN &#39;03/07/2013&#39; AND &#39;03/13/2013 23:59:59&#39;</code></pre>\n<p>Know what it&#39;s asking for?</p>\n",
+      "keepSql": "true",
+      "sqlTarget": "SELECT *\nFROM pizza_order\nWHERE order_date BETWEEN '03/07/2013' AND '03/13/2013 23:59:59'",
+      "sqlExample": "",
+      "startingSql": "",
+      "screenNumber": "7"
+    },
+    {
+      "screenMd": "It looks like we've just selected pizza orders for the week of 3/7 - 3/13. \n\nNotice how when working with dates, you need to also consider time if the column also stored time. In most cases, providing a date of '03/07/2013' is really asking for '03/07/2013 00:00:00'.",
+      "screenText": "<p>It looks like we&#39;ve just selected pizza orders for the week of 3/7 - 3/13. </p>\n<p>Notice how when working with dates, you need to also consider time if the column also stored time. In most cases, providing a date of &#39;03/07/2013&#39; is really asking for &#39;03/07/2013 00:00:00&#39;.</p>\n",
+      "keepSql": "true",
+      "sqlTarget": "",
+      "sqlExample": "",
+      "startingSql": "",
+      "screenNumber": "8"
+    },
+    {
+      "screenMd": "That about wraps up greater than, less than, and BETWEEN. Continue on for even more operators!",
+      "screenText": "<p>That about wraps up greater than, less than, and BETWEEN. Continue on for even more operators!</p>\n",
+      "keepSql": "true",
+      "sqlTarget": "",
+      "sqlExample": "",
+      "startingSql": "",
+      "screenNumber": "9"
+    }
+  ]
+}

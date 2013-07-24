@@ -1,82 +1,46 @@
-/* =========================================================================
-	Cool SqlRunner helper
-	Runs SQL queries stored in .sql files. 
-	Has a hook for a mapping/tranformation function to translate the pg result.rows object into something more helpful.
-============================================================================ */ 
+var lessons;
+var lessonLists;
 
-var SqlRunner = require('../lib/sql-runner');
-var sqlRunner = new SqlRunner({
-						sqlFolderPath: 		'./sql/', 
-						connectionString: 	process.env.DATABASE_URL,
-						encoding: 			'utf8', // this is the default, and is not necessary
-						cache: 				true // TODO: Support not caching sql file contents. (process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'Production') 
-					});
-
-
+exports.setLessons = function (les) {
+	lessons = les;
+};
+exports.setLessonLists = function (li) {
+	lessonLists = li;
+};
 
 
 // GET /lessonlist
 // get a list of *all* lessonlists
 exports.getAll = function(req, res) {
-	sqlRunner.runSqlFromFile('lessonlist - get all.sql', [], null, function(err, results) {
-		if (err) {
-			console.log(err);
-			res.send(500, 'query failed to execute');
-		} else {
-			res.send({
-				success: true,
-				lessonlists: results
-			});
-		}
+	var results = [];
+	var lessonListIdOrder = res.locals.lessonListIdOrder;
+	for (var i = 0; i < lessonListIdOrder.length; i++) {
+		var lessonListId = lessonListIdOrder[i];
+		var lessonList = lessonLists.get(lessonListId);
+		if (lessonList) results.push(lessonList);
+	}
+	console.log(results);
+	res.send({
+		lessonlists: results
 	});
 };
-
 
 // POST /lessonlist/id/:id
 // save lessonlist by lessonlistId
 exports.save = function(req, res) {
-	
 	var lessonListId = req.params.id;
 	var lessonIds = req.body.lessonIds;
+	console.log(lessonListId);
 	console.log(lessonIds);
-	
-	var statements = [];
-	var errs = [];
-	
-	statements.push({
-		sql: 'lesson - clear lessonlist info by lessonlist_id.sql',
-		params: [lessonListId]
-	});
-	
-	var lessonIdLength = 0;
-	if (lessonIds) lessonIdLength = lessonIds.length;
-	
-	for (var i = 0; i < lessonIdLength; i++) {
-		statements.push({
-			sql: 'lesson - set lessonlist by lesson_id.sql',
-			params: [lessonListId, i, lessonIds[i]]
+	var lessonList = lessonLists.get(lessonListId);
+	if (lessonList) {
+		lessonList.lessonIds = lessonIds;
+		if (lessonList.lessons) delete lessonList['lessons'];
+		lessonLists.save(lessonList, function (err) {
+			if (err) res.send(500, "failure saving that lessonlist");
+			else res.send({ success: true });
 		});
+	} else {
+		res.send(500, 'Couldnt find lessonlist ' + lessonListId);
 	}
-	
-	var runNextStatement = function () {
-		if (statements.length) {
-			// we still have a sql query to run
-			var next = statements.shift();
-			console.log(next);
-			sqlRunner.runSqlFromFile(next.sql, next.params, null, function(err, results) {
-				if (err) errs.push(err);
-				runNextStatement();
-			});
-		} else {
-			// we are all done running sql. 
-			// check the errors, and send response to browser accordingly.
-			if (errs.length) {
-				res.send(500, 'One or more of the queries went terribly wrong. This might get messy...');
-			} else {
-				res.send({ success: true });
-			}
-		}
-	}
-	runNextStatement();
-	
 };

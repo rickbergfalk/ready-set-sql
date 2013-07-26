@@ -4,13 +4,13 @@
   "lessonDescription": "Sometimes you aren't looking for specific values, but for a range. Or maybe you want to make a comparison.  ",
   "lessonScreens": [
     {
-      "screenText": "<p>TEST</p>\n<p>Sometimes you aren&#39;t looking for specific values, but rather a range of data. Maybe records with an amount greater than a value, or less than a value. Or maybe between 2 values. </p>\n<p>We aren&#39;t just restricted to numbers either - this stuff comes in handy when working with dates. </p>\n<p>Let&#39;s refresh our memory of what&#39;s in the pizza_order table.</p>\n<pre><code>SELECT * \nFROM pizza_order</code></pre>\n",
-      "keepSql": "false",
+      "screenText": "<p>Sometimes you aren&#39;t looking for specific values, but rather a range of data. Maybe records with an amount greater than a value, or less than a value. Or maybe between 2 values. </p>\n<p>We aren&#39;t just restricted to numbers either - this stuff comes in handy when working with dates. </p>\n<p>Let&#39;s refresh our memory of what&#39;s in the pizza_order table.</p>\n<pre><code>SELECT * \nFROM pizza_order</code></pre>\n",
+      "keepSql": "true",
       "sqlTarget": "SELECT * FROM pizza_order",
       "sqlExample": "",
       "startingSql": "",
       "screenNumber": "0",
-      "screenMd": "TEST\n\nSometimes you aren't looking for specific values, but rather a range of data. Maybe records with an amount greater than a value, or less than a value. Or maybe between 2 values. \n\nWe aren't just restricted to numbers either - this stuff comes in handy when working with dates. \n\nLet's refresh our memory of what's in the pizza_order table.\n\n```\nSELECT * \nFROM pizza_order\n```"
+      "screenMd": "Sometimes you aren't looking for specific values, but rather a range of data. Maybe records with an amount greater than a value, or less than a value. Or maybe between 2 values. \n\nWe aren't just restricted to numbers either - this stuff comes in handy when working with dates. \n\nLet's refresh our memory of what's in the pizza_order table.\n\n```\nSELECT * \nFROM pizza_order\n```"
     },
     {
       "screenMd": "Let's pull all the pizza orders under 10 dollars. And let's also order the data by total amount in ascending order\n\n```\nSELECT * \nFROM pizza_order\nWHERE total_amount < 10\nORDER BY total_amount\n```",

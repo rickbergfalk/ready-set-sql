@@ -112,7 +112,10 @@ app.configure(function(){
 		res.locals.dotMinIfProduction = (process.env.NODE_ENV === 'production' ? ".min" : "");
 		res.locals.lessonListIdOrder = [
 			'the-basics',
-			'filtering-results'
+			'filtering-results',
+			'working-with-multiple-tables',
+			'aggregating-data',
+			'tips-and-tricks'
 		];
 		if (req.session && req.session.isSignedIn) { 
 			res.locals.links = editorsLinks;

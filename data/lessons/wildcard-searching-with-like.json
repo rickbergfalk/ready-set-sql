@@ -1,0 +1,71 @@
+{
+  "lessonId": "wildcard-searching-with-like",
+  "lessonTitle": " Wildcard Searching with LIKE",
+  "lessonDescription": "Want to search for a fragment of text within a column? You can do that in SQL with the LIKE operator.",
+  "lessonScreens": [
+    {
+      "screenMd": "We've already covered that you can filter a query based on a certain text value using the equals operator, but what if you wanted to only knew some of the text you were looking for? Or maybe you wanted records that contained a certain phrase? \n\nSQL has you covered with the easy-to-use ```LIKE``` operator. ",
+      "screenText": "<p>We&#39;ve already covered that you can filter a query based on a certain text value using the equals operator, but what if you wanted to only knew some of the text you were looking for? Or maybe you wanted records that contained a certain phrase? </p>\n<p>SQL has you covered with the easy-to-use <code>LIKE</code> operator. </p>\n",
+      "keepSql": "true",
+      "sqlTarget": "",
+      "startingSql": "",
+      "screenNumber": "0"
+    },
+    {
+      "screenMd": "Let's refer back to the Pizza table.\n\n```\nSELECT * FROM pizza\n```",
+      "screenText": "<p>Let&#39;s refer back to the Pizza table.</p>\n<pre><code>SELECT * FROM pizza</code></pre>\n",
+      "keepSql": "true",
+      "sqlTarget": "SELECT * FROM pizza",
+      "startingSql": "",
+      "screenNumber": "1"
+    },
+    {
+      "screenMd": "Notice how the value pizzas start with the word 'Value'?\n\nWe could easily query them by doing the following:\n\n```\nSELECT *\nFROM pizza\nWHERE pizza_name LIKE 'Value%'\n```\n\nGo ahead and give it a try.",
+      "screenText": "<p>Notice how the value pizzas start with the word &#39;Value&#39;?</p>\n<p>We could easily query them by doing the following:</p>\n<pre><code>SELECT *\nFROM pizza\nWHERE pizza_name LIKE &#39;Value%&#39;</code></pre>\n<p>Go ahead and give it a try.</p>\n",
+      "keepSql": "true",
+      "sqlTarget": "SELECT *\nFROM pizza\nWHERE pizza_name LIKE 'Value%'",
+      "startingSql": "",
+      "screenNumber": "2"
+    },
+    {
+      "screenMd": "The ```%``` character acts as a wildcard, matching any one or more characters, or possibly no characters at all. Notice how we still use single quotes, and how the text we do provide is still case sensitive (remember that not all databases are case sensitive, but the one we are using is).",
+      "screenText": "<p>The <code>%</code> character acts as a wildcard, matching any one or more characters, or possibly no characters at all. Notice how we still use single quotes, and how the text we do provide is still case sensitive (remember that not all databases are case sensitive, but the one we are using is).</p>\n",
+      "keepSql": "true",
+      "sqlTarget": "",
+      "startingSql": "",
+      "screenNumber": "3"
+    },
+    {
+      "screenMd": "To match any single character, the ```_``` character is used. \n\nThis query isn't practical, but it gives you an idea of how it can be used:\n\n```\nSELECT * \nFROM pizza\nWHERE pizza_name LIKE '_alue _h__se'\n```\n\nCan you guess the pizza that we're referring to?",
+      "screenText": "<p>To match any single character, the <code>_</code> character is used. </p>\n<p>This query isn&#39;t practical, but it gives you an idea of how it can be used:</p>\n<pre><code>SELECT * \nFROM pizza\nWHERE pizza_name LIKE &#39;_alue _h__se&#39;</code></pre>\n<p>Can you guess the pizza that we&#39;re referring to?</p>\n",
+      "keepSql": "true",
+      "sqlTarget": "SELECT * \nFROM pizza\nWHERE pizza_name LIKE '_alue _h__se'",
+      "startingSql": "",
+      "screenNumber": "4"
+    },
+    {
+      "screenMd": "Value Cheese!\n\nFeel free to combine the ```%``` and ```_``` wildcard characters however you like.",
+      "screenText": "<p>Value Cheese!</p>\n<p>Feel free to combine the <code>%</code> and <code>_</code> wildcard characters however you like.</p>\n",
+      "keepSql": "true",
+      "sqlTarget": "",
+      "startingSql": "",
+      "screenNumber": "5"
+    },
+    {
+      "screenMd": "**Challenge:**\n\nList the customer_ids of customers that contain the text \"Ave\" in their address. Remember the table and column names? (If not, check out the table map, or click \"show answer\" if you don't really care.)",
+      "screenText": "<p><strong>Challenge:</strong></p>\n<p>List the customer_ids of customers that contain the text &quot;Ave&quot; in their address. Remember the table and column names? (If not, check out the table map, or click &quot;show answer&quot; if you don&#39;t really care.)</p>\n",
+      "keepSql": "true",
+      "sqlTarget": "SELECT customer_id\nFROM customer\nWHERE address LIKE '%Ave%'",
+      "startingSql": "",
+      "screenNumber": "6"
+    },
+    {
+      "screenMd": "Great job!\n\nThis is all we'll cover on the LIKE operator, but before we end we should give you a bit of a heads up - Some database systems add functionality to the LIKE operator, sometimes adding wildcard abilities or even changing the characters used for wildcards all together (we're talking about you Microsoft Access). \n\nIf you ever think you might need to get fancy with a wildcard search, consider reading up on the particular database you're working with. ",
+      "screenText": "<p>Great job!</p>\n<p>This is all we&#39;ll cover on the LIKE operator, but before we end we should give you a bit of a heads up - Some database systems add functionality to the LIKE operator, sometimes adding wildcard abilities or even changing the characters used for wildcards all together (we&#39;re talking about you Microsoft Access). </p>\n<p>If you ever think you might need to get fancy with a wildcard search, consider reading up on the particular database you&#39;re working with. </p>\n",
+      "keepSql": "false",
+      "sqlTarget": "",
+      "startingSql": "",
+      "screenNumber": "7"
+    }
+  ]
+}

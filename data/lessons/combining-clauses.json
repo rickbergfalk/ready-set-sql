@@ -1,0 +1,15 @@
+{
+  "lessonId": "combining-clauses",
+  "lessonTitle": " Combining Clauses",
+  "lessonDescription": "Use more than one query filter with AND and OR keywords",
+  "lessonScreens": [
+    {
+      "screenMd": "Is query filter what we should call them? Where clauses? Operators? \n\nBasically, filter on more than 1 thing.",
+      "screenText": "<p>Is query filter what we should call them? Where clauses? Operators? </p>\n<p>Basically, filter on more than 1 thing.</p>\n",
+      "keepSql": "false",
+      "sqlTarget": "",
+      "startingSql": "",
+      "screenNumber": "0"
+    }
+  ]
+}

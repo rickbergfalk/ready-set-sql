@@ -5,6 +5,8 @@
   "lessonIds": [
     "the-equals-operator",
     "in-equals-a-list-of-values",
-    "less-than-greater-than-and-between"
+    "less-than-greater-than-and-between",
+    "wildcard-searching-with-like",
+    "combining-clauses"
   ]
 }

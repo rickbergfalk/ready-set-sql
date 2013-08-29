@@ -1,0 +1,23 @@
+{
+  "lessonId": "and-and-or-order-of-operations",
+  "lessonTitle": " AND and OR Order of Operations",
+  "lessonDescription": "Once you start using 3 or more conditions in a WHERE clause, mixing ANDs and ORs, you'll probably want to use parenthesis to ensure the query returns what you're looking for.",
+  "lessonScreens": [
+    {
+      "screenMd": "At some point you'll be writing a query with 3 or more ```WHERE``` clause conditions. If they are all combined with ```AND``` or ```OR``` keywords, the expected result is fairly straight forward. \n\nBut what happens when you start combining ANDs and ORs?",
+      "screenText": "<p>At some point you&#39;ll be writing a query with 3 or more <code>WHERE</code> clause conditions. If they are all combined with <code>AND</code> or <code>OR</code> keywords, the expected result is fairly straight forward. </p>\n<p>But what happens when you start combining ANDs and ORs?</p>\n",
+      "keepSql": "false",
+      "sqlTarget": "",
+      "startingSql": "",
+      "screenNumber": "0"
+    },
+    {
+      "screenMd": "",
+      "screenText": "",
+      "keepSql": "false",
+      "sqlTarget": "",
+      "startingSql": "",
+      "screenNumber": "1"
+    }
+  ]
+}

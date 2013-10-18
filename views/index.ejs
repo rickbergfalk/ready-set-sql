@@ -1,16 +1,60 @@
 <% include layout-header %>
+	
+	<style>
 		
-	<div class="container-container light-bg">
+	</style>
+	
+	<div class="container-container">
 		<div class="container">
 			
 			<div class="hero">
 				
 				<div class="row">
+					<div class="span5 ">
+						<!--
+						<div class="logo">
+							<span class="learn">READY</span>
+							<span class="some">SET SQL</span>
+						</div>
+						-->
+						<br><br><br>
+						<h3 class="skinny hero-subtext">
+							Free Interactive SQL Query Tutorials. No experience necessary.<br><a href="/about">Learn more.</a>
+						</h3>
+					</div>
+					<div class="span7">
+						
+						
+<pre class="right-perspective">
+<code id="home-editor" class="sample-code">
+	SELECT 
+		some_column, 
+		some_other_column 
+	FROM 
+		some_table 
+	WHERE 
+		some_column = 'some value' 
+		AND some_other_column > 42
+		
+</code>
+</pre>
+						
+						
+					</div>
+				</div>
+				<script>
+					// Create CodeMirror
+					var home = $('#home-editor').get(0);
+					$(".sample-code").parent().addClass('cm-s-monokai');
+					CodeMirror.runMode($(".sample-code").text(), 'text/x-mysql', $(".sample-code").parent().get(0));
+				</script>
+				<!--
+				<div class="row">
 					<div class="span8 offset2">
 						
 						<div class="logo">
-							<span class="learn">LEARN</span>
-							<span class="some">SOME</span>
+							<span class="learn">READY</span>
+							<span class="some">SET</span>
 							<span class="sql">SQL</span>
 						</div>
 						
@@ -24,7 +68,7 @@
 						</h3>
 					</div>
 				</div>
-				
+				-->
 			</div>
 			
 			<div class="lessons">

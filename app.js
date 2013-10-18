@@ -203,8 +203,8 @@ var editorsLinks = [
 		url: '/signout'
 	}
 ];
-app.locals.title = 'Learn some SQL'; // Default title if none is provided
-
+app.locals.title = 'Ready Set SQL'; // Default title if none is provided
+app.locals.bodyClass = "";
 
 
 /* =========================================================================
@@ -249,7 +249,7 @@ app.get('/', function(req, res){
 	};
 	//console.log(JSON.stringify(returnLessonLists, null, 2));
 	res.locals.lessonLists = returnLessonLists;
-	res.render('index', {});
+	res.render('index', {bodyClass: ""});
 });
 
 app.get('/about', function(req, res) {
@@ -257,12 +257,12 @@ app.get('/about', function(req, res) {
 });
 
 app.get('/table-map', function (req, res) {
-	res.locals.title = 'Table Map | Learn some SQL';
+	res.locals.title = 'Table Map | ' + app.locals.title;
 	res.render('table-map');
 });
 
 app.get('/more-sql-resources', function(req, res) {
-	res.locals.title = 'More SQL Resources | Learn some SQL';
+	res.locals.title = 'More SQL Resources | ' + app.locals.title;
 	res.render('more-sql-resources');
 });
 
@@ -272,7 +272,7 @@ app.get('/signout', function(req, res) {
 });
 
 app.get('/signin', function(req, res) {
-	res.locals.title = 'Are you Rick? | Learn some SQL';
+	res.locals.title = 'Are you Rick? | ' + app.locals.title;
 	res.locals.message = false;
 	res.render('sign-in');
 });
@@ -285,7 +285,6 @@ app.post('/signin', function(req, res) {
 	} else {
 		req.session.isSignedIn = false;
 		res.render('sign-in', {
-			title: 'Learn some SQL',
 			message: 'That is not the passphrase',
 			session: req.session
 		});
@@ -293,7 +292,7 @@ app.post('/signin', function(req, res) {
 });
 
 app.get('/edit', [editorsOnly], function (req, res) {
-	res.render('lesson-list-editor', {title: 'Edit some SQL'});
+	res.render('lesson-list-editor', {title: 'Edit some SQL | ' + app.locals.title});
 });
 
 app.get('/migrate/:version', [editorsOnly], function (req, res) {

@@ -62,13 +62,23 @@ module.exports = function(grunt) {
 				
 		},
 		watch: {
-			scripts: {
+			js: {
 				files: [
 						'public/javascripts/vendor/*.js',
 						'public/javascripts/models/*.js',
 						'public/javascripts/views/*.js'
 					],
-				tasks: ['concat', 'less', 'uglify'],
+				tasks: ['concat', 'uglify'],
+				options: {
+					debounceDelay: 200,
+					interrupt: true	
+				}
+			},
+			less: {
+				files: [
+						'public/stylesheets/*.less'
+					],
+				tasks: ['less'],
 				options: {
 					debounceDelay: 200,
 					interrupt: true	
@@ -88,6 +98,5 @@ module.exports = function(grunt) {
 	// specify others if you want I guess...
 	// You could specify an uglify task only and run it as "grunt uglify"
 	grunt.registerTask('default', ['concat', 'uglify', 'less']);
-	
 
 };

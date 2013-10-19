@@ -1,8 +1,11 @@
-#Learn Some SQL (working title)
+# Ready Set SQL (working title)
 
-Learn Some SQL is a nodejs webapp providing a platform for learning SQL. In particular PostgreSQL. 
+Ready Set SQL is a nodejs webapp providing a platform for learning SQL. In particular PostgreSQL. 
 
-This is the Heroku/Postgres-compatible, non-client-MVC, and simplified version of my previous attempt at this. As such, the code probably has lots of artifacts from the learning process and the many rewrites due to me changing my mind and experimenting. Take this into consideration if you attempt to explore the inner-workings of this application, or extend it for your own uses.
+This is the Heroku/Postgres-compatible, non-client-MVC, and simplified version of my previous attempt at this. 
+As such, the code probably has lots of artifacts from the learning process and the many rewrites due to me changing my mind 
+and experimenting. Take this into consideration if you attempt to explore the inner-workings of this application, or extend 
+it for your own uses.
 
 
 ## Project Structure
@@ -17,11 +20,14 @@ The move to JSON also provides one less thing to have to migrate to another data
 
 Side-bonus: Because we read all the data, we can just cache the lesson data in memory assuming we never run this in more than one process (only 1 dyno in heroku)
 
+
 ## Left to do before launch
+
+* Clean up CSS/finalize style
 
 * Lesson Viewer pro-tips
 	* ctrl-e to run sql
 	* ctrl+n to go to next slide
 	* etc.
+	
 * Finish Lessons
-* Get a new name (Learn Some SQL has been taken)

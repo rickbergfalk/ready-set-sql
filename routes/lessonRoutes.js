@@ -89,7 +89,8 @@ exports.getByLessonId = function(req, res) {
 			res.json(lesson);
 		} else {
 			res.render('layoutLessonViewer.ejs', {
-				title: 'Learn some SQL',
+				title: lesson.lessonTitle + " | Ready Set SQL",
+				description: lesson.lessonDescription,
 				lesson: lesson
 			});
 		}

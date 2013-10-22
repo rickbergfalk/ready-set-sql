@@ -203,10 +203,16 @@ var editorsLinks = [
 		url: '/signout'
 	}
 ];
-app.locals.title = 'Ready Set SQL'; // Default title if none is provided
+
+// Defaults for pages and stuff if not provided
+app.locals.title = "Ready Set SQL";
+app.locals.author = "Rick Bergfalk, ReadySetSQL.com"
 app.locals.bodyClass = "";
+app.locals.description = "Learn SQL useful for reports and data analysis with Ready Set SQL. "
+					   + "Free interactive tutorials teach you the basics of the SQL SELECT statement for beginners, " 
+					   + "as well as advanced techniques for the experienced SQL user.";
 
-
+					   
 /* =========================================================================
     The Routes
 ============================================================================ */
@@ -253,6 +259,7 @@ app.get('/', function(req, res){
 });
 
 app.get('/about', function(req, res) {
+	res.locals.title = 'About | ' + app.locals.title;
 	res.render('About', {});
 });
 
@@ -272,7 +279,7 @@ app.get('/signout', function(req, res) {
 });
 
 app.get('/signin', function(req, res) {
-	res.locals.title = 'Are you Rick? | ' + app.locals.title;
+	res.locals.title = 'Editors Only | ' + app.locals.title;
 	res.locals.message = false;
 	res.render('sign-in');
 });

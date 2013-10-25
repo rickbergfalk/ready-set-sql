@@ -1,6 +1,6 @@
 /* =========================================================================
 	Module dependencies.
-============================================================================ */  
+============================================================================ */
 var express = require('express');
 var http = require('http');
 var fs = require('fs');
@@ -14,7 +14,7 @@ var lessonLists = require('./models/lesson-lists');
     load some environment variables if they are not present
 	This really should be outside the app, 
 	and in a separate app running script... but...
-============================================================================ */  
+============================================================================ */
 if (!process.env.NODE_ENV || !process.env.DATABASE_URL) {
 	console.log('Environment variable is missing - loading the .env');
 	try {
@@ -85,7 +85,7 @@ var editorsOnly = function (req, res, next) {
 ============================================================================ */
 var app = express();
 
-app.configure('development', function(){
+app.configure('development', function () {
 	app.use(express.errorHandler());
 	app.use(express.logger('dev'));
 });

@@ -1,5 +1,5 @@
-// Variables.less
-// Variables to customize the look and feel of Bootstrap
+// App Variables
+// variables to customize bootstrap, plus stuff used in app styles
 // -----------------------------------------------------
 
 @font-face {
@@ -14,30 +14,8 @@
 }
 
 
-@font-face {
-    font-family: 'RobotoRegular';
-    src: url('fonts/Roboto-Regular-webfont.eot');
-    src: url('fonts/Roboto-Regular-webfont.eot?#iefix') format('embedded-opentype'),
-         url('fonts/Roboto-Regular-webfont.woff') format('woff'),
-         url('fonts/Roboto-Regular-webfont.ttf') format('truetype'),
-         url('fonts/Roboto-Regular-webfont.svg#RobotoRegular') format('svg');
-    font-weight: normal;
-    font-style: normal;
-}
 
-
-@font-face {
-    font-family: 'RobotoThin';
-    src: url('fonts/Roboto-Thin-webfont.eot');
-    src: url('fonts/Roboto-Thin-webfont.eot?#iefix') format('embedded-opentype'),
-         url('fonts/Roboto-Thin-webfont.woff') format('woff'),
-         url('fonts/Roboto-Thin-webfont.ttf') format('truetype'),
-         url('fonts/Roboto-Thin-webfont.svg#RobotoThin') format('svg');
-    font-weight: normal;
-    font-style: normal;
-
-}
-
+// Light is 300 weight
 @font-face {
     font-family: 'RobotoLight';
     src: url('fonts/Roboto-Light-webfont.eot');
@@ -50,13 +28,21 @@
 
 }
 
-//@bgImage: url('../images/bg_transparent_square.png');
-@bgImage: url('../images/bg_transparent_square.png');
+// Regular is 400 weight
+@font-face {
+    font-family: 'RobotoRegular';
+    src: url('fonts/Roboto-Regular-webfont.eot');
+    src: url('fonts/Roboto-Regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/Roboto-Regular-webfont.woff') format('woff'),
+         url('fonts/Roboto-Regular-webfont.ttf') format('truetype'),
+         url('fonts/Roboto-Regular-webfont.svg#RobotoRegular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
 
 .main-background {
-	//#0E71A8
 	background-color: darken(@tronBlue, 5%);
-	//background-image: @bgImage;
 }
 
 // GLOBAL VALUES
@@ -91,7 +77,7 @@
 // Scaffolding
 // -------------------------
 @bodyBackground:        @white;
-@textColor:             @grayDark;
+@textColor:             @grayDarker;
  
 
 // Links
@@ -102,7 +88,7 @@
 
 // Typography
 // -------------------------
-@sansFontFamily:        'RobotoRegular', "Helvetica Neue", Helvetica, Arial, sans-serif;
+@sansFontFamily:        'RobotoLight', 'RobotoRegular', "Helvetica Neue", Helvetica, Arial, sans-serif;
 @serifFontFamily:       Georgia, "Times New Roman", Times, serif;
 @monoFontFamily:        Menlo, Monaco, Consolas, "Courier New", monospace;
 

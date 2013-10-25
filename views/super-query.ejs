@@ -1,23 +1,21 @@
 <% include layout-header %>
 <div id="main-body">
 		
-		
 	<div class="container-container light-bg">
 		<div id="hero-container" class="container">
-			
-			<div class="hero">
+			<div class="">
 				<div class="row">
-					<div class="span5">
+					<div class="span6">
 						<div class="content">
 							<h3 class="skinny">
 								Use CMD/CTRL + E to execute query.
 							</h3>
 						</div>
 					</div>
-					<div class="span7">
+					<div class="span6">
 						<div class="content">
 							<h3 class="skinny" style="text-align: right">
-								<strong>Be careful - this page has full rights to DB.</strong>
+								<strong>CAUTION - this has full rights to DB.</strong>
 							</h3>
 						</div>
 					</div>
@@ -25,37 +23,26 @@
 				<div class="row">
 					<div class="span12">
 						<div class="content" style="margin-top: -20px;">
-							
 							<pre id="super-editor"></pre>
-							
 						</div>
 					</div>
 				</div>
-				
 				<div class="row ">	
 					<div class="span12">
 						<div class="content">
-						
 							<pre id="query-results"></pre>
-						
 						</div>
 					</div>
 				</div>
-					
-				
 			</div>
-			
 		</div>	<!-- container -->
 	</div>
 	
-	
 	<script>
-		
 		var $editor = $('#super-editor');
 		var $queryResults = $('#query-results');
 		
 		var runSQL = function () {
-			
 			$.ajax({
 				type: 'post',
 				url: '/superquery',
@@ -72,7 +59,6 @@
 				},
 				dataType: 'json'
 			});
-			
 		};
 		
 		// Create CodeMirror
@@ -82,7 +68,6 @@
 			indentWithTabs : true,
 			matchBrackets: true,
 			indentUnit: 4,
-			
 			value: "",
 			mode: "text/x-mysql",
 			theme: "monokai",
@@ -95,11 +80,7 @@
 				}
 			}
 		});
-	
 	</script>
 		
-
-<!-- this is part of layout-footer.ejs -->
 </div>
-</body>
-</html>
+<% include layout-footer %>

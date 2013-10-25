@@ -1,24 +1,20 @@
 <% include layout-header %>
 
 <div class="container">
-			<div class="hero">
-				
-				<div class="row">
-					<div class="span5 ">
-						<!--
-						<div class="logo">
-							<span class="learn">READY</span>
-							<span class="some">SET SQL</span>
-						</div>
-						-->
-						<br><br><br>
-						<h3 class="skinny hero-subtext">
-							Free Interactive SQL Query Tutorials. No experience necessary.<br><a href="/about">Learn more.</a>
-						</h3>
-					</div>
-					<div class="span7">
-						
-						
+	<div class="hero">
+		<div class="row">
+			<div class="span5">
+				<br>
+				<br>
+				<br>
+				<h3 class="skinny hero-subtext">
+					Free Interactive SQL Query Tutorials. No experience necessary.
+					<br>
+					<a href="/about">Learn more.</a>
+				</h3>
+			</div>
+			<div class="span7">
+
 <pre class="right-perspective">
 <code id="home-editor" class="sample-code">
 	SELECT 
@@ -29,51 +25,25 @@
 	WHERE 
 		some_column = 'some value' 
 		AND some_other_column > 42
-		
 </code>
 </pre>
-						
-						
-					</div>
-				</div>
-				<script>
-					// Create CodeMirror
-					var home = $('#home-editor').get(0);
-					$(".sample-code").parent().addClass('cm-s-monokai');
-					CodeMirror.runMode($(".sample-code").text(), 'text/x-mysql', $(".sample-code").parent().get(0));
-				</script>
-				<!--
-				<div class="row">
-					<div class="span8 offset2">
-						
-						<div class="logo">
-							<span class="learn">READY</span>
-							<span class="some">SET</span>
-							<span class="sql">SQL</span>
-						</div>
-						
-					</div>
-				</div>
-				
-				<div class="row">
-					<div class="span8 offset2">
-						<h3 class="skinny hero-subtext">
-							Free Interactive SQL Query Tutorials. No experience necessary.<br><a href="/about">Learn more.</a>
-						</h3>
-					</div>
-				</div>
-				-->
+			
 			</div>
+		</div> <!-- row -->
+	</div>
 </div>
 
+<script>
+	// Create CodeMirror
+	var home = $('#home-editor').get(0);
+	$(".sample-code").parent().addClass('cm-s-monokai');
+	CodeMirror.runMode($(".sample-code").text(), 'text/x-mysql', $(".sample-code").parent().get(0));
+</script>
 
 <div id="main-body">
 	
 	<div class="container-container">
 		<div class="container">
-			
-			
-			
 			<div class="lessons">
 			
 				<% for (var ll = 0; ll < lessonLists.length; ll++) { %>
@@ -98,7 +68,6 @@
 									<div class="span8" style="padding-left: 50px;">
 										<% for (var i = 0; i < lessonList.lessons.length; i++ ) { %>
 											<% var lesson = lessonList.lessons[i]; %>
-											
 											<h3 class="lightHeading">
 												<a class="lesson-list-lesson-link" href="/lesson/<%= lesson.lessonId %>" class=""><%= lesson.lessonTitle %></a>
 											</h3>
@@ -116,11 +85,10 @@
 					</div>
 				
 				<% } %> <!-- end for each lessonList -->
-			
-			</div>
-			
-		</div>	<!-- container -->
-	</div>
+				
+			</div> <!-- .lessons -->
+		</div>	<!-- .container -->
+	</div> <!-- .container-container -->
 	
 </div> <!-- #main-body -->	
 <% include layout-footer %>

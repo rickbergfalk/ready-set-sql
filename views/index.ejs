@@ -25,6 +25,7 @@
 	WHERE 
 		some_column = 'some value' 
 		AND some_other_column > 42
+
 </code>
 </pre>
 			
@@ -66,7 +67,15 @@
 										</div>
 									</div>
 									<div class="span8" style="padding-left: 50px;">
-										<% for (var i = 0; i < lessonList.lessons.length; i++ ) { %>
+										<% if (lessonList.lessons.length == 0) { %>
+                                            <div>
+                                                <p>
+                                                    <br>
+                                                    <i>More lessons coming soon - Check back later.</i>
+                                                </p>  
+                                            </div>
+                                        <% } %>
+                                        <% for (var i = 0; i < lessonList.lessons.length; i++ ) { %>
 											<% var lesson = lessonList.lessons[i]; %>
 											<h3 class="lightHeading">
 												<a class="lesson-list-lesson-link" href="/lesson/<%= lesson.lessonId %>" class=""><%= lesson.lessonTitle %></a>

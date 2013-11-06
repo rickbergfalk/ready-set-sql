@@ -1,1 +1,0 @@
-ALTER TABLE lessonlist DROP COLUMN description;

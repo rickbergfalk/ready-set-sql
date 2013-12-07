@@ -12,7 +12,7 @@
     "express": "3.3.x",
     "ejs": "0.8.x",
     "postgrator": "0.0.x",
-    "pg": "0.8.x",
+    "pg": "2.8.x",
     "moment": "1.7.x"
   },
   "devDependencies": {

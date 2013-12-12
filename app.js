@@ -245,6 +245,7 @@ app.get('/', function(req, res){
 		var lessonListId = lessonListIdOrder[ll];
 		var lessonList = lessonLists.get(lessonListId);
 		lessonList.lessons = [];
+		if (!lessonList.lessonIds) lessonList.lessonIds = [];
 		// get all the lessons for this lessonList
 		for (var i = 0; i < lessonList.lessonIds.length; i++) {
 			var lessonId = lessonList.lessonIds[i];

@@ -1,23 +1,87 @@
 {
   "lessonId": "and-and-or-order-of-operations",
   "lessonTitle": " AND and OR Order of Operations",
-  "lessonDescription": "Once you start using 3 or more conditions in a WHERE clause, mixing ANDs and ORs, you'll probably want to use parenthesis to ensure the query returns what you're looking for.",
+  "lessonDescription": "Once you start using 3 or more conditions in a WHERE clause, mixing ANDs and ORs, you'll probably want to use parentheses to ensure the query returns what you're looking for.",
   "lessonScreens": [
     {
-      "screenMd": "At some point you'll be writing a query with 3 or more ```WHERE``` clause conditions. If they are all combined with ```AND``` or ```OR``` keywords, the expected result is fairly straight forward. \n\nBut what happens when you start combining ANDs and ORs?",
-      "screenText": "<p>At some point you&#39;ll be writing a query with 3 or more <code>WHERE</code> clause conditions. If they are all combined with <code>AND</code> or <code>OR</code> keywords, the expected result is fairly straight forward. </p>\n<p>But what happens when you start combining ANDs and ORs?</p>\n",
-      "keepSql": "false",
-      "sqlTarget": "",
+      "screenMd": "At some point you'll be writing a query with 3 or more ```WHERE``` clause conditions. If they are all combined with ```AND``` or ```OR``` keywords, the expected result is fairly straight forward. \n\nBut what happens when you start combining ```AND``` and ```OR```? Let's do some experimentation with the pizza_order table to find out.\n\nLet's start with the following query:\n\n```sql\nSELECT *\nFROM \n\tpizza_order\nWHERE \n\ttotal_amount > 20\n```",
+      "screenText": "<p>At some point you&#39;ll be writing a query with 3 or more <code>WHERE</code> clause conditions. If they are all combined with <code>AND</code> or <code>OR</code> keywords, the expected result is fairly straight forward. </p>\n<p>But what happens when you start combining <code>AND</code> and <code>OR</code>? Let&#39;s do some experimentation with the pizza_order table to find out.</p>\n<p>Let&#39;s start with the following query:</p>\n<pre><code class=\"language-sql\">SELECT *\nFROM \n    pizza_order\nWHERE \n    total_amount &gt; 20</code></pre>\n",
+      "keepSql": "true",
+      "sqlTarget": "SELECT *\nFROM \n\tpizza_order\nWHERE \n\ttotal_amount > 20",
       "startingSql": "",
       "screenNumber": "0"
     },
     {
-      "screenMd": "",
-      "screenText": "",
-      "keepSql": "false",
-      "sqlTarget": "",
+      "screenMd": "Let's add another ```WHERE``` clause condition, limiting the results to just customer_id 10001\n\n```sql\nSELECT *\nFROM \n\tpizza_order\nWHERE \n\ttotal_amount > 20\n\tAND customer_id = 10001\n```",
+      "screenText": "<p>Let&#39;s add another <code>WHERE</code> clause condition, limiting the results to just customer_id 10001</p>\n<pre><code class=\"language-sql\">SELECT *\nFROM \n    pizza_order\nWHERE \n    total_amount &gt; 20\n    AND customer_id = 10001</code></pre>\n",
+      "keepSql": "true",
+      "sqlTarget": "SELECT *\nFROM \n\tpizza_order\nWHERE \n\ttotal_amount > 20\n\tAND customer_id = 10001",
       "startingSql": "",
       "screenNumber": "1"
+    },
+    {
+      "screenMd": "Now the results contain pizza orders by customer 10001 over $20. \n\nLet's add another condition using ```OR```, limiting the order_ids to earlier than 1008.\n\n```sql\nSELECT *\nFROM \n\tpizza_order\nWHERE \n\ttotal_amount > 20\n\tAND customer_id = 10001\n\tOR order_id < 1008\n```\n\nAny ideas how this will change the results?",
+      "screenText": "<p>Now the results contain pizza orders by customer 10001 over $20. </p>\n<p>Let&#39;s add another condition using <code>OR</code>, limiting the order_ids to earlier than 1008.</p>\n<pre><code class=\"language-sql\">SELECT *\nFROM \n    pizza_order\nWHERE \n    total_amount &gt; 20\n    AND customer_id = 10001\n    OR order_id &lt; 1008</code></pre>\n<p>Any ideas how this will change the results?</p>\n",
+      "keepSql": "true",
+      "sqlTarget": "SELECT *\nFROM \n\tpizza_order\nWHERE \n\ttotal_amount > 20\n\tAND customer_id = 10001\n\tOR order_id < 1008",
+      "startingSql": "",
+      "screenNumber": "2"
+    },
+    {
+      "screenMd": "Now the results contain all pizza orders before order_id 1008, regardless of amount or who placed the order. \n\nOrder 1009 is still included because it satisfied the first two ```WHERE``` clause conditions: being placed by customer_id 10001 and having a total amount > 20.\n\nIn a way, there are two kinds of results here: Orders prior to order_id < 1008 and orders placed by customer_id 10001 that are > $20\n",
+      "screenText": "<p>Now the results contain all pizza orders before order_id 1008, regardless of amount or who placed the order. </p>\n<p>Order 1009 is still included because it satisfied the first two <code>WHERE</code> clause conditions: being placed by customer_id 10001 and having a total amount &gt; 20.</p>\n<p>In a way, there are two kinds of results here: Orders prior to order_id &lt; 1008 and orders placed by customer_id 10001 that are &gt; $20</p>\n",
+      "keepSql": "true",
+      "sqlTarget": "",
+      "startingSql": "",
+      "screenNumber": "3"
+    },
+    {
+      "screenMd": "Let's switch the ```AND``` and ```OR``` keywords and see what happens.\n\n```sql\nSELECT *\nFROM \n\tpizza_order\nWHERE \n\ttotal_amount > 20\n\tOR customer_id = 10001\n\tAND order_id < 1008\n```",
+      "screenText": "<p>Let&#39;s switch the <code>AND</code> and <code>OR</code> keywords and see what happens.</p>\n<pre><code class=\"language-sql\">SELECT *\nFROM \n    pizza_order\nWHERE \n    total_amount &gt; 20\n    OR customer_id = 10001\n    AND order_id &lt; 1008</code></pre>\n",
+      "keepSql": "true",
+      "sqlTarget": "SELECT *\nFROM \n\tpizza_order\nWHERE \n\ttotal_amount > 20\n\tOR customer_id = 10001\n\tAND order_id < 1008",
+      "startingSql": "",
+      "screenNumber": "4"
+    },
+    {
+      "screenMd": "It looks like the results have changed. \n\nLike complex math equations, SQL operators have an order of operation. How are these results figured?\n\nAre the results pizza orders more than $20 or for customer 10001, with all of them having an order id prior to 1008? \n\nOr do the results contain pizza orders either more than $20 or for customer 10001 prior to order id 1008?\n\nConfused? Does this give you a headache to think about? ",
+      "screenText": "<p>It looks like the results have changed. </p>\n<p>Like complex math equations, SQL operators have an order of operation. How are these results figured?</p>\n<p>Are the results pizza orders more than $20 or for customer 10001, with all of them having an order id prior to 1008? </p>\n<p>Or do the results contain pizza orders either more than $20 or for customer 10001 prior to order id 1008?</p>\n<p>Confused? Does this give you a headache to think about? </p>\n",
+      "keepSql": "true",
+      "sqlTarget": "",
+      "startingSql": "",
+      "screenNumber": "5"
+    },
+    {
+      "screenMd": "Don't worry if you are, because it *is confusing*. \n\nLucky for us, we can use parentheses to clarify what we mean. The results this query returned are as if the following parentheses are in place. \n\n```sql\nWHERE \n\ttotal_amount > 20\n\tOR (\n\t\tcustomer_id = 10001 \n\t\tAND order_id < 1008\t\n\t) \n```\n\nGo ahead and add the parentheses to your ```WHERE``` clause.",
+      "screenText": "<p>Don&#39;t worry if you are, because it <em>is confusing</em>. </p>\n<p>Lucky for us, we can use parentheses to clarify what we mean. The results this query returned are as if the following parentheses are in place. </p>\n<pre><code class=\"language-sql\">WHERE \n    total_amount &gt; 20\n    OR (\n        customer_id = 10001 \n        AND order_id &lt; 1008    \n    )</code></pre>\n<p>Go ahead and add the parentheses to your <code>WHERE</code> clause.</p>\n",
+      "keepSql": "true",
+      "sqlTarget": "SELECT *\nFROM \n\tpizza_order\nWHERE \n\ttotal_amount > 20\n\tOR (\n\t\tcustomer_id = 10001\n\t\tAND order_id < 1008\n\t)",
+      "startingSql": "",
+      "screenNumber": "6"
+    },
+    {
+      "screenMd": "Notice that the results did not change.\n\nNot only are the parentheses useful for our own understanding, we can change the order of operations (if you will) of the conditions in the ```WHERE``` clause itself by changing them around.\n\nLet's move the parentheses around a bit:\n\n```sql\nWHERE \n\t(\n\t\ttotal_amount > 20\n\t\tOR customer_id = 10001 \n\t)\n\tAND order_id < 1008 \n```",
+      "screenText": "<p>Notice that the results did not change.</p>\n<p>Not only are the parentheses useful for our own understanding, we can change the order of operations (if you will) of the conditions in the <code>WHERE</code> clause itself by changing them around.</p>\n<p>Let&#39;s move the parentheses around a bit:</p>\n<pre><code class=\"language-sql\">WHERE \n    (\n        total_amount &gt; 20\n        OR customer_id = 10001 \n    )\n    AND order_id &lt; 1008</code></pre>\n",
+      "keepSql": "true",
+      "sqlTarget": "SELECT *\nFROM \n\tpizza_order\nWHERE \n\t(\n\t\ttotal_amount > 20\n\t\tOR customer_id = 10001 \n\t)\n\tAND order_id < 1008 ",
+      "startingSql": "",
+      "screenNumber": "7"
+    },
+    {
+      "screenMd": "Changing the parentheses placement completely redefines the filter used in the query. \n\nThe query now returns pizza orders prior to order_id 1008 that are either more than $20 or belong to customer 10001",
+      "screenText": "<p>Changing the parentheses placement completely redefines the filter used in the query. </p>\n<p>The query now returns pizza orders prior to order_id 1008 that are either more than $20 or belong to customer 10001</p>\n",
+      "keepSql": "true",
+      "sqlTarget": "",
+      "startingSql": "",
+      "screenNumber": "8"
+    },
+    {
+      "screenMd": "Not only are parentheses useful for our own comprehension of a particular SQL query, but we can also use them to change the conditional logic of the query.\n\nAs a general guideline, if you have more than 3 ```WHERE``` clause conditions, and you are using both ```AND``` and ```OR```, use parentheses to clarify the intended logic to be used. \n\nYour future self and others reading your SQL will thank you. ",
+      "screenText": "<p>Not only are parentheses useful for our own comprehension of a particular SQL query, but we can also use them to change the conditional logic of the query.</p>\n<p>As a general guideline, if you have more than 3 <code>WHERE</code> clause conditions, and you are using both <code>AND</code> and <code>OR</code>, use parentheses to clarify the intended logic to be used. </p>\n<p>Your future self and others reading your SQL will thank you. </p>\n",
+      "keepSql": "true",
+      "sqlTarget": "",
+      "startingSql": "",
+      "screenNumber": "9"
     }
   ]
 }

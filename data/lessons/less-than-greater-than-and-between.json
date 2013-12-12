@@ -31,8 +31,8 @@
       "screenNumber": "2"
     },
     {
-      "screenMd": "Say something about the data here, to reinforce that we aren't just running these queries to see if they run. We should want to look at the data.",
-      "screenText": "<p>Say something about the data here, to reinforce that we aren&#39;t just running these queries to see if they run. We should want to look at the data.</p>\n",
+      "screenMd": "It looks like there are 4 orders over $50, and they all belong to customer 10002.",
+      "screenText": "<p>It looks like there are 4 orders over $50, and they all belong to customer 10002.</p>\n",
       "keepSql": "true",
       "sqlTarget": "",
       "sqlExample": "",
@@ -67,8 +67,8 @@
       "screenNumber": "6"
     },
     {
-      "screenMd": "These operators come in handy when working with dates as well. \nTry the following statement in your editor:\n\n``` \nSELECT *\nFROM pizza_order\nWHERE order_date BETWEEN '03/07/2013' AND '03/13/2013 23:59:59'\n```\n\nKnow what it's asking for?",
-      "screenText": "<p>These operators come in handy when working with dates as well. \nTry the following statement in your editor:</p>\n<pre><code>SELECT *\nFROM pizza_order\nWHERE order_date BETWEEN &#39;03/07/2013&#39; AND &#39;03/13/2013 23:59:59&#39;</code></pre>\n<p>Know what it&#39;s asking for?</p>\n",
+      "screenMd": "These operators come in handy when working with dates as well. \nTry the following statement in your editor:\n\n``` \nSELECT *\nFROM pizza_order\nWHERE order_date BETWEEN '03/07/2013' AND '03/13/2013 23:59:59'\n```\n\nCan you guess what the query is asking for?",
+      "screenText": "<p>These operators come in handy when working with dates as well. \nTry the following statement in your editor:</p>\n<pre><code>SELECT *\nFROM pizza_order\nWHERE order_date BETWEEN &#39;03/07/2013&#39; AND &#39;03/13/2013 23:59:59&#39;</code></pre>\n<p>Can you guess what the query is asking for?</p>\n",
       "keepSql": "true",
       "sqlTarget": "SELECT *\nFROM pizza_order\nWHERE order_date BETWEEN '03/07/2013' AND '03/13/2013 23:59:59'",
       "sqlExample": "",
@@ -76,8 +76,8 @@
       "screenNumber": "7"
     },
     {
-      "screenMd": "It looks like we've just selected pizza orders for the week of 3/7 - 3/13. \n\nNotice how when working with dates, you need to also consider time if the column also stored time. In most cases, providing a date of '03/07/2013' is really asking for '03/07/2013 00:00:00'.",
-      "screenText": "<p>It looks like we&#39;ve just selected pizza orders for the week of 3/7 - 3/13. </p>\n<p>Notice how when working with dates, you need to also consider time if the column also stored time. In most cases, providing a date of &#39;03/07/2013&#39; is really asking for &#39;03/07/2013 00:00:00&#39;.</p>\n",
+      "screenMd": "It looks like we've just selected pizza orders for the week of 3/7 - 3/13. \n\nNotice how when working with dates, you need to also consider time if the column stores both date and time (sometimes called a datetime). In most cases, providing a date of '03/07/2013' is really asking for '03/07/2013 00:00:00'.",
+      "screenText": "<p>It looks like we&#39;ve just selected pizza orders for the week of 3/7 - 3/13. </p>\n<p>Notice how when working with dates, you need to also consider time if the column stores both date and time (sometimes called a datetime). In most cases, providing a date of &#39;03/07/2013&#39; is really asking for &#39;03/07/2013 00:00:00&#39;.</p>\n",
       "keepSql": "true",
       "sqlTarget": "",
       "sqlExample": "",
@@ -85,8 +85,8 @@
       "screenNumber": "8"
     },
     {
-      "screenMd": "That about wraps up greater than, less than, and BETWEEN. Continue on for even more operators!",
-      "screenText": "<p>That about wraps up greater than, less than, and BETWEEN. Continue on for even more operators!</p>\n",
+      "screenMd": "That about wraps up greater than, less than, and BETWEEN. Continue on for even more WHERE clause operators!",
+      "screenText": "<p>That about wraps up greater than, less than, and BETWEEN. Continue on for even more WHERE clause operators!</p>\n",
       "keepSql": "true",
       "sqlTarget": "",
       "sqlExample": "",

@@ -4,8 +4,8 @@
   "lessonDescription": "Use more than one filter in the WHERE clause with AND and OR keywords",
   "lessonScreens": [
     {
-      "screenMd": "Sometimes one query filter won't be enough. To use multiple conditions in the ```WHERE``` clause, use ```AND``` and/or ```OR``` keywords.\n\nLet's bring up the ```pizza_order``` table. Type the following into your SQL editor:\n\n```\nSELECT * \nFROM pizza_order\n```\n ",
-      "screenText": "<p>Sometimes one query filter won&#39;t be enough. To use multiple conditions in the <code>WHERE</code> clause, use <code>AND</code> and/or <code>OR</code> keywords.</p>\n<p>Let&#39;s bring up the <code>pizza_order</code> table. Type the following into your SQL editor:</p>\n<pre><code>SELECT * \nFROM pizza_order</code></pre>\n",
+      "screenMd": "Sometimes one query filter won't be enough. To use multiple conditions in the ```WHERE``` clause, we use the ```AND``` and/or ```OR``` keywords.\n\nLet's bring up the ```pizza_order``` table. Type the following into your SQL editor:\n\n```\nSELECT * \nFROM pizza_order\n```\n ",
+      "screenText": "<p>Sometimes one query filter won&#39;t be enough. To use multiple conditions in the <code>WHERE</code> clause, we use the <code>AND</code> and/or <code>OR</code> keywords.</p>\n<p>Let&#39;s bring up the <code>pizza_order</code> table. Type the following into your SQL editor:</p>\n<pre><code>SELECT * \nFROM pizza_order</code></pre>\n",
       "keepSql": "true",
       "sqlTarget": "SELECT * \nFROM pizza_order",
       "startingSql": "",
@@ -44,16 +44,16 @@
       "screenNumber": "4"
     },
     {
-      "screenMd": "Nothing. We know that there are pizza orders under $20 and over $70, what gives? \n\nThe problem is with the ```AND``` keyword. Remember, each record gets tested with all the conditions in the ```WHERE``` clause. In this query, we are testing each record twice. Each record only has 1 total_amount number, and it can only either be under 20 or over 70 (or possibly somewhere in between). \n\nA single number can't meet both those conditions, so no records were returned. \n\nI'll take part of the responsibility though, as I asked the question a little funny. \n\n**Challenge:** Can you fix the query to return pizza orders either under $20 *or* over $70?",
-      "screenText": "<p>Nothing. We know that there are pizza orders under $20 and over $70, what gives? </p>\n<p>The problem is with the <code>AND</code> keyword. Remember, each record gets tested with all the conditions in the <code>WHERE</code> clause. In this query, we are testing each record twice. Each record only has 1 total_amount number, and it can only either be under 20 or over 70 (or possibly somewhere in between). </p>\n<p>A single number can&#39;t meet both those conditions, so no records were returned. </p>\n<p>I&#39;ll take part of the responsibility though, as I asked the question a little funny. </p>\n<p><strong>Challenge:</strong> Can you fix the query to return pizza orders either under $20 <em>or</em> over $70?</p>\n",
+      "screenMd": "Nothing. We know that there are pizza orders under $20 and orders over $70, so why didn't any return from our query? \n\nOur problem is with the ```AND``` keyword. Remember, each record gets tested with all the conditions in the ```WHERE``` clause. In this query, we are testing each record twice. Each record only has 1 total_amount number, and it can only either be under 20 or over 70 (or possibly somewhere in between). \n\nA single number can't meet both those conditions, so no records were returned. \n\nI'll take part of the responsibility though, as I asked the question a little funny. \n\n**Challenge:** Can you fix the query to return pizza orders either under $20 *or* over $70?",
+      "screenText": "<p>Nothing. We know that there are pizza orders under $20 and orders over $70, so why didn&#39;t any return from our query? </p>\n<p>Our problem is with the <code>AND</code> keyword. Remember, each record gets tested with all the conditions in the <code>WHERE</code> clause. In this query, we are testing each record twice. Each record only has 1 total_amount number, and it can only either be under 20 or over 70 (or possibly somewhere in between). </p>\n<p>A single number can&#39;t meet both those conditions, so no records were returned. </p>\n<p>I&#39;ll take part of the responsibility though, as I asked the question a little funny. </p>\n<p><strong>Challenge:</strong> Can you fix the query to return pizza orders either under $20 <em>or</em> over $70?</p>\n",
       "keepSql": "true",
-      "sqlTarget": "SELECT \n\t*\nFROM \n\tpizza_order\nWHERE \n\ttotal_amount < 20\n\tAND total_amount > 70",
+      "sqlTarget": "SELECT \n\t*\nFROM \n\tpizza_order\nWHERE \n\ttotal_amount < 20\n\tOR total_amount > 70",
       "startingSql": "",
       "screenNumber": "5"
     },
     {
-      "screenMd": "Great job! That about wraps up our introduction on using ```AND``` and ```OR``` in the ```WHERE``` clause. \n\nWe'll explore managing more than 2 ```WHERE``` clause conditions in future lessons.\n",
-      "screenText": "<p>Great job! That about wraps up our introduction on using <code>AND</code> and <code>OR</code> in the <code>WHERE</code> clause. </p>\n<p>We&#39;ll explore managing more than 2 <code>WHERE</code> clause conditions in future lessons.</p>\n",
+      "screenMd": "Great job! That about wraps up our introduction on using ```AND``` and ```OR``` in the ```WHERE``` clause. \n\nWe'll explore managing more than two ```WHERE``` clause conditions in future lessons.\n",
+      "screenText": "<p>Great job! That about wraps up our introduction on using <code>AND</code> and <code>OR</code> in the <code>WHERE</code> clause. </p>\n<p>We&#39;ll explore managing more than two <code>WHERE</code> clause conditions in future lessons.</p>\n",
       "keepSql": "true",
       "sqlTarget": "",
       "startingSql": "",

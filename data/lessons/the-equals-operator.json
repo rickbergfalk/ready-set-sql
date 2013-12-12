@@ -1,1 +1,97 @@
-{"lessonId":"the-equals-operator","lessonTitle":"The equals operator","lessonDescription":"Find all records in a table where a column equals a certain value","lessonScreens":[{"screenText":"<p>So far all our <code>SELECT</code> statements have been returning all the data in a table. That&#39;s not usually the desired outcome for most SQL queries. Instead people are looking for specific data. </p>\n<p>To filter a query&#39;s results, and only look at some of the data in a table, we use the <code>WHERE</code> clause. </p>\n<p>There are lots of different kinds of operators to be used in WHERE filters - we&#39;ll start off with equals.</p>\n","keepSql":false,"sqlTarget":"","sqlExample":"","startingSql":"","screenNumber":0,"screenMd":"So far all our ```SELECT``` statements have been returning all the data in a table. That's not usually the desired outcome for most SQL queries. Instead people are looking for specific data. \n\nTo filter a query's results, and only look at some of the data in a table, we use the ```WHERE``` clause. \n\nThere are lots of different kinds of operators to be used in WHERE filters - we'll start off with equals."},{"screenMd":"Let's pull up the Customer table, but with a filter on the query. Try and guess what the query will return before you run it.\n\n**NOTE**: Notice the capitalization in Cityville. Not all databases are case sensitive when it comes to record values, but PostgreSQL is. ```'cityville'``` won't return any data...\n\n```\nSELECT *\nFROM Customer\nWHERE city = 'Cityville'\n```","screenText":"<p>Let&#39;s pull up the Customer table, but with a filter on the query. Try and guess what the query will return before you run it.</p>\n<p><strong>NOTE</strong>: Notice the capitalization in Cityville. Not all databases are case sensitive when it comes to record values, but PostgreSQL is. <code>&#39;cityville&#39;</code> won&#39;t return any data...</p>\n<pre><code>SELECT *\nFROM Customer\nWHERE city = &#39;Cityville&#39;</code></pre>\n","keepSql":false,"sqlTarget":"SELECT *\nFROM Customer\nWHERE city = 'Cityville'","sqlExample":"","startingSql":"","screenNumber":1},{"screenMd":"If you guessed that only customers that lived in Cityville would be returned, you're right!\n\nBecause we're dealing with a text-based column, we need to enclose the value to search for in single-quotes.\n\n","screenText":"<p>If you guessed that only customers that lived in Cityville would be returned, you&#39;re right!</p>\n<p>Because we&#39;re dealing with a text-based column, we need to enclose the value to search for in single-quotes.</p>\n","keepSql":true,"sqlTarget":"","sqlExample":"","startingSql":"","screenNumber":2},{"screenMd":"So how about numeric columns? They don't require any single-quotes surrounding the requested value. Here's a query to get a customer's information based on customer_id. \n\nGive it a try in your editor.\n\n```\nSELECT * \nFROM customer\nWHERE customer_id = 10003\n```","screenText":"<p>So how about numeric columns? They don&#39;t require any single-quotes surrounding the requested value. Here&#39;s a query to get a customer&#39;s information based on customer_id. </p>\n<p>Give it a try in your editor.</p>\n<pre><code>SELECT * \nFROM customer\nWHERE customer_id = 10003</code></pre>\n","keepSql":true,"sqlTarget":"SELECT * \nFROM customer\nWHERE customer_id = 10003","sqlExample":"","startingSql":"","screenNumber":3},{"screenMd":"We've covered text and numbers, but what about dates?\n\nDates are a bit tricky, and vary database system to database system. Usually, you enclose the date in single-quotes like a text string, but each database is different when it comes to the date formatting it accepts.\n\nLet's pull up the pizza_order table to take a look at some data with dates in it.\n\n```\nSELECT * FROM pizza_order\n```","screenText":"<p>We&#39;ve covered text and numbers, but what about dates?</p>\n<p>Dates are a bit tricky, and vary database system to database system. Usually, you enclose the date in single-quotes like a text string, but each database is different when it comes to the date formatting it accepts.</p>\n<p>Let&#39;s pull up the pizza_order table to take a look at some data with dates in it.</p>\n<pre><code>SELECT * FROM pizza_order</code></pre>\n","keepSql":true,"sqlTarget":"SELECT * FROM pizza_order","sqlExample":"","startingSql":"","screenNumber":4},{"screenMd":"Because dates are so precise, you generally aren't using the equals operator on them. But it can be done if you need to.\n\nNotice that we're enclosing the date within single-quotes, and providing the full date and time in a specific format.\n\n```\nSELECT * \nFROM pizza_order \nWHERE order_date = '2013-03-06 18:32'\n```","screenText":"<p>Because dates are so precise, you generally aren&#39;t using the equals operator on them. But it can be done if you need to.</p>\n<p>Notice that we&#39;re enclosing the date within single-quotes, and providing the full date and time in a specific format.</p>\n<pre><code>SELECT * \nFROM pizza_order \nWHERE order_date = &#39;2013-03-06 18:32&#39;</code></pre>\n","keepSql":false,"sqlTarget":"SELECT * \nFROM pizza_order \nWHERE order_date = '2013-03-06 18:32'","sqlExample":"","startingSql":"","screenNumber":5},{"screenMd":"And what if we try a different format? Does this work?\n\n```\nSELECT * \nFROM pizza_order \nWHERE order_date = '03/06/2013 18:32'\n```","screenText":"<p>And what if we try a different format? Does this work?</p>\n<pre><code>SELECT * \nFROM pizza_order \nWHERE order_date = &#39;03/06/2013 18:32&#39;</code></pre>\n","keepSql":true,"sqlTarget":"SELECT * \nFROM pizza_order \nWHERE order_date = '03/06/2013 18:32'","sqlExample":"","startingSql":"","screenNumber":6},{"screenMd":"It does! (in PostgreSQL at least)\n\n**Challenge**: List the order_ids of all pizza orders belonging to customer_id 10004. ","screenText":"<p>It does! (in PostgreSQL at least)</p>\n<p><strong>Challenge</strong>: List the order_ids of all pizza orders belonging to customer_id 10004. </p>\n","keepSql":true,"sqlTarget":"SELECT order_id\nFROM pizza_order\nWHERE customer_id = 10004","sqlExample":"","startingSql":"","screenNumber":7},{"screenMd":"Great! How about another. \n\n**Challenge**: Find the customer_id of the customer with the last name of Jenkins. (Remember it's case sensitive.)","screenText":"<p>Great! How about another. </p>\n<p><strong>Challenge</strong>: Find the customer_id of the customer with the last name of Jenkins. (Remember it&#39;s case sensitive.)</p>\n","keepSql":true,"sqlTarget":"SELECT customer_id\nFROM customer\nWHERE last_name = 'Jenkins'","sqlExample":"","startingSql":"","screenNumber":8},{"screenMd":"Good job! \n\nThe equals operator isn't anything fancy, but hopefully this has given you an intro to how to refer to values within a table: text strings are surrounded in single-quotes, numbers are not, and dates are treated like a flexible kind of text...\n\nContinue on for more available operators for filtering your queries.","screenText":"<p>Good job! </p>\n<p>The equals operator isn&#39;t anything fancy, but hopefully this has given you an intro to how to refer to values within a table: text strings are surrounded in single-quotes, numbers are not, and dates are treated like a flexible kind of text...</p>\n<p>Continue on for more available operators for filtering your queries.</p>\n","keepSql":true,"sqlTarget":"","sqlExample":"","startingSql":"","screenNumber":9}],"nextLessonId":5,"nextLessonTitle":"IN: equals a list of values","nextLessonListName":"Filtering Results"}
+{
+  "lessonId": "the-equals-operator",
+  "lessonTitle": "The equals operator",
+  "lessonDescription": "Find all records in a table where a column equals a certain value",
+  "lessonScreens": [
+    {
+      "screenText": "<p>So far all our <code>SELECT</code> statements have been returning all the data in a table. That&#39;s not usually the desired outcome for most SQL queries. Instead people are looking for specific data. </p>\n<p>To filter a query&#39;s results, and only look at some of the data in a table, we use the <code>WHERE</code> clause. </p>\n<p>There are lots of different kinds of operators to be used in WHERE filters - we&#39;ll start off with equals.</p>\n",
+      "keepSql": "false",
+      "sqlTarget": "",
+      "sqlExample": "",
+      "startingSql": "",
+      "screenNumber": "0",
+      "screenMd": "So far all our ```SELECT``` statements have been returning all the data in a table. That's not usually the desired outcome for most SQL queries. Instead people are looking for specific data. \n\nTo filter a query's results, and only look at some of the data in a table, we use the ```WHERE``` clause. \n\nThere are lots of different kinds of operators to be used in WHERE filters - we'll start off with equals."
+    },
+    {
+      "screenMd": "Let's pull up the Customer table, but with a filter on the query. Try and guess what the query will return before you run it.\n\n**NOTE**: Notice the capitalization in Cityville. Not all databases are case sensitive when it comes to record values, but PostgreSQL is. ```'cityville'``` won't return any data...\n\n```\nSELECT *\nFROM Customer\nWHERE city = 'Cityville'\n```",
+      "screenText": "<p>Let&#39;s pull up the Customer table, but with a filter on the query. Try and guess what the query will return before you run it.</p>\n<p><strong>NOTE</strong>: Notice the capitalization in Cityville. Not all databases are case sensitive when it comes to record values, but PostgreSQL is. <code>&#39;cityville&#39;</code> won&#39;t return any data...</p>\n<pre><code>SELECT *\nFROM Customer\nWHERE city = &#39;Cityville&#39;</code></pre>\n",
+      "keepSql": "false",
+      "sqlTarget": "SELECT *\nFROM Customer\nWHERE city = 'Cityville'",
+      "sqlExample": "",
+      "startingSql": "",
+      "screenNumber": "1"
+    },
+    {
+      "screenMd": "If you guessed that only customers that lived in Cityville would be returned, you're right!\n\nBecause we're dealing with a text-based column, we need to enclose the value to search for in single-quotes.\n\n",
+      "screenText": "<p>If you guessed that only customers that lived in Cityville would be returned, you&#39;re right!</p>\n<p>Because we&#39;re dealing with a text-based column, we need to enclose the value to search for in single-quotes.</p>\n",
+      "keepSql": "true",
+      "sqlTarget": "",
+      "sqlExample": "",
+      "startingSql": "",
+      "screenNumber": "2"
+    },
+    {
+      "screenMd": "So how about numeric columns? They don't require any single-quotes surrounding the requested value. Here's a query to get a customer's information based on customer_id. \n\nGive it a try in your editor.\n\n```\nSELECT * \nFROM customer\nWHERE customer_id = 10003\n```",
+      "screenText": "<p>So how about numeric columns? They don&#39;t require any single-quotes surrounding the requested value. Here&#39;s a query to get a customer&#39;s information based on customer_id. </p>\n<p>Give it a try in your editor.</p>\n<pre><code>SELECT * \nFROM customer\nWHERE customer_id = 10003</code></pre>\n",
+      "keepSql": "true",
+      "sqlTarget": "SELECT * \nFROM customer\nWHERE customer_id = 10003",
+      "sqlExample": "",
+      "startingSql": "",
+      "screenNumber": "3"
+    },
+    {
+      "screenMd": "We've covered text and numbers, but what about dates?\n\nDates are a bit tricky, and vary database system to database system. Usually, you enclose the date in single-quotes like a text string, but each database is different when it comes to the date formatting it accepts.\n\nLet's pull up the pizza_order table to take a look at some data with dates in it.\n\n```\nSELECT * FROM pizza_order\n```",
+      "screenText": "<p>We&#39;ve covered text and numbers, but what about dates?</p>\n<p>Dates are a bit tricky, and vary database system to database system. Usually, you enclose the date in single-quotes like a text string, but each database is different when it comes to the date formatting it accepts.</p>\n<p>Let&#39;s pull up the pizza_order table to take a look at some data with dates in it.</p>\n<pre><code>SELECT * FROM pizza_order</code></pre>\n",
+      "keepSql": "true",
+      "sqlTarget": "SELECT * FROM pizza_order",
+      "sqlExample": "",
+      "startingSql": "",
+      "screenNumber": "4"
+    },
+    {
+      "screenMd": "Because dates are so precise, you generally aren't using the equals operator on them. But it can be done if you need to.\n\nNotice that we're enclosing the date within single-quotes, and providing the full date and time in a specific format.\n\n```\nSELECT * \nFROM pizza_order \nWHERE order_date = '2013-03-06 18:32'\n```",
+      "screenText": "<p>Because dates are so precise, you generally aren&#39;t using the equals operator on them. But it can be done if you need to.</p>\n<p>Notice that we&#39;re enclosing the date within single-quotes, and providing the full date and time in a specific format.</p>\n<pre><code>SELECT * \nFROM pizza_order \nWHERE order_date = &#39;2013-03-06 18:32&#39;</code></pre>\n",
+      "keepSql": "true",
+      "sqlTarget": "SELECT * \nFROM pizza_order \nWHERE order_date = '2013-03-06 18:32'",
+      "sqlExample": "",
+      "startingSql": "",
+      "screenNumber": "5"
+    },
+    {
+      "screenMd": "And what if we try a different format? Does this work?\n\n```\nSELECT * \nFROM pizza_order \nWHERE order_date = '03/06/2013 18:32'\n```",
+      "screenText": "<p>And what if we try a different format? Does this work?</p>\n<pre><code>SELECT * \nFROM pizza_order \nWHERE order_date = &#39;03/06/2013 18:32&#39;</code></pre>\n",
+      "keepSql": "true",
+      "sqlTarget": "SELECT * \nFROM pizza_order \nWHERE order_date = '03/06/2013 18:32'",
+      "sqlExample": "",
+      "startingSql": "",
+      "screenNumber": "6"
+    },
+    {
+      "screenMd": "It does! (in PostgreSQL at least)\n\n**Challenge**: List the order_ids of all pizza orders belonging to customer_id 10004. ",
+      "screenText": "<p>It does! (in PostgreSQL at least)</p>\n<p><strong>Challenge</strong>: List the order_ids of all pizza orders belonging to customer_id 10004. </p>\n",
+      "keepSql": "true",
+      "sqlTarget": "SELECT order_id\nFROM pizza_order\nWHERE customer_id = 10004",
+      "sqlExample": "",
+      "startingSql": "",
+      "screenNumber": "7"
+    },
+    {
+      "screenMd": "Great! How about another. \n\n**Challenge**: Find the customer_id of the customer with the last name of Jenkins. (Remember it's case sensitive.)",
+      "screenText": "<p>Great! How about another. </p>\n<p><strong>Challenge</strong>: Find the customer_id of the customer with the last name of Jenkins. (Remember it&#39;s case sensitive.)</p>\n",
+      "keepSql": "true",
+      "sqlTarget": "SELECT customer_id\nFROM customer\nWHERE last_name = 'Jenkins'",
+      "sqlExample": "",
+      "startingSql": "",
+      "screenNumber": "8"
+    },
+    {
+      "screenMd": "Good job! \n\nThe equals operator isn't anything fancy, but hopefully this has given you an intro to how to refer to values within a table: text strings are surrounded in single-quotes, numbers are not, and dates are treated like a flexible kind of text...\n\nContinue on for more available operators for filtering your queries.",
+      "screenText": "<p>Good job! </p>\n<p>The equals operator isn&#39;t anything fancy, but hopefully this has given you an intro to how to refer to values within a table: text strings are surrounded in single-quotes, numbers are not, and dates are treated like a flexible kind of text...</p>\n<p>Continue on for more available operators for filtering your queries.</p>\n",
+      "keepSql": "true",
+      "sqlTarget": "",
+      "sqlExample": "",
+      "startingSql": "",
+      "screenNumber": "9"
+    }
+  ]
+}

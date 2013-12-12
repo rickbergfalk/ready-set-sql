@@ -1,1 +1,52 @@
-{"lessonId":"in-equals-a-list-of-values","lessonTitle":"IN: equals a list of values","lessonDescription":"The equals operator only lets you specify 1 value, but IN lets you specify as many as you want!","lessonScreens":[{"screenText":"<p>When filtering a query using the equals operator, you can only specify 1 value to search on. </p>\n<p>What if you wanted to search on a list of values? Its possible with the <code>IN</code> operator.</p>\n<p>Let&#39;s jump in by trying the following query.</p>\n<pre><code>SELECT *\nFROM customer\nWHERE customer_id IN (10001, 10003, 10004)</code></pre>\n","keepSql":false,"sqlTarget":"SELECT *\nFROM customer\nWHERE customer_id IN (10001, 10003, 10004)","sqlExample":"","startingSql":"","screenNumber":0,"screenMd":"When filtering a query using the equals operator, you can only specify 1 value to search on. \n\nWhat if you wanted to search on a list of values? Its possible with the ```IN``` operator.\n\nLet's jump in by trying the following query.\n\n```\nSELECT *\nFROM customer\nWHERE customer_id IN (10001, 10003, 10004)\n```"},{"screenMd":"See how we got 3 records back? And each with a customer_id in the list specified. The ```IN``` operator acts like the equals operator, but using a list of values enclosed within some parenthesis. \n\nIf we want to use ```IN``` on a text data-type column, we simply enclose our values in single-quotes.\n\n```\nSELECT * \nFROM customer\nWHERE first_name IN ('Jonathan', 'Faye')\n```","screenText":"<p>See how we got 3 records back? And each with a customer_id in the list specified. The <code>IN</code> operator acts like the equals operator, but using a list of values enclosed within some parenthesis. </p>\n<p>If we want to use <code>IN</code> on a text data-type column, we simply enclose our values in single-quotes.</p>\n<pre><code>SELECT * \nFROM customer\nWHERE first_name IN (&#39;Jonathan&#39;, &#39;Faye&#39;)</code></pre>\n","keepSql":true,"sqlTarget":"SELECT * \nFROM customer\nWHERE first_name IN ('Jonathan', 'Faye')","sqlExample":"","startingSql":"","screenNumber":1},{"screenMd":"It works as you'd expect. \n\nWhen you think about it though, it opens up some interesting scenarios. What would happen if we included the same value multiple times? Would that affect the output? \n\nAny guesses?\n\n```\nSELECT * \nFROM pizza\nWHERE pizza_id IN (103, 105, 105)\n```","screenText":"<p>It works as you&#39;d expect. </p>\n<p>When you think about it though, it opens up some interesting scenarios. What would happen if we included the same value multiple times? Would that affect the output? </p>\n<p>Any guesses?</p>\n<pre><code>SELECT * \nFROM pizza\nWHERE pizza_id IN (103, 105, 105)</code></pre>\n","keepSql":true,"sqlTarget":"SELECT * \nFROM pizza\nWHERE pizza_id IN (103, 105, 105)","sqlExample":"","startingSql":"","screenNumber":2},{"screenMd":"Interestingly enough, the database server didn't care. It simply returned 2 records with the pizza IDs provided. \n\nAnd what about providing it with some values that exist, and some that don't? Would that impact the query results for the values that *do exist*?\n\n```\nSELECT * \nFROM pizza\nWHERE pizza_id IN (104, 200, 299)\n```","screenText":"<p>Interestingly enough, the database server didn&#39;t care. It simply returned 2 records with the pizza IDs provided. </p>\n<p>And what about providing it with some values that exist, and some that don&#39;t? Would that impact the query results for the values that <em>do exist</em>?</p>\n<pre><code>SELECT * \nFROM pizza\nWHERE pizza_id IN (104, 200, 299)</code></pre>\n","keepSql":true,"sqlTarget":"SELECT * \nFROM pizza\nWHERE pizza_id IN (104, 200, 299)","sqlExample":"","startingSql":"","screenNumber":3},{"screenMd":"It looks like only records for values that existed were returned - the invalid values in the list had no adverse impact.\n\nWe aren't going to spend too much time on the ```IN``` operator, but think of it as a flexible multi-value equals operator. Its the = symbol, but one that takes a list of values. ","screenText":"<p>It looks like only records for values that existed were returned - the invalid values in the list had no adverse impact.</p>\n<p>We aren&#39;t going to spend too much time on the <code>IN</code> operator, but think of it as a flexible multi-value equals operator. Its the = symbol, but one that takes a list of values. </p>\n","keepSql":true,"sqlTarget":"","sqlExample":"","startingSql":"","screenNumber":4}],"nextLessonId":6,"nextLessonTitle":"Less Than, Greater Than, and everything in BETWEEN","nextLessonListName":"Filtering Results"}
+{
+  "lessonId": "in-equals-a-list-of-values",
+  "lessonTitle": "IN: equals a list of values",
+  "lessonDescription": "The equals operator only lets you specify 1 value, but IN lets you specify as many as you want!",
+  "lessonScreens": [
+    {
+      "screenText": "<p>When filtering a query using the equals operator, you can only specify 1 value to search on. </p>\n<p>What if you wanted to search on a list of values? It&#39;s possible with the <code>IN</code> operator.</p>\n<p>Let&#39;s jump in by trying the following query.</p>\n<pre><code>SELECT *\nFROM customer\nWHERE customer_id IN (10001, 10003, 10004)</code></pre>\n",
+      "keepSql": "false",
+      "sqlTarget": "SELECT *\nFROM customer\nWHERE customer_id IN (10001, 10003, 10004)",
+      "sqlExample": "",
+      "startingSql": "",
+      "screenNumber": "0",
+      "screenMd": "When filtering a query using the equals operator, you can only specify 1 value to search on. \n\nWhat if you wanted to search on a list of values? It's possible with the ```IN``` operator.\n\nLet's jump in by trying the following query.\n\n```\nSELECT *\nFROM customer\nWHERE customer_id IN (10001, 10003, 10004)\n```"
+    },
+    {
+      "screenMd": "See how we got 3 records back? And each with a customer_id in the list specified. The ```IN``` operator acts like the equals operator, but using a list of values enclosed within some parenthesis. \n\nIf we want to use ```IN``` on a text data-type column, we simply enclose our values in single-quotes.\n\n```\nSELECT * \nFROM customer\nWHERE first_name IN ('Jonathan', 'Faye')\n```",
+      "screenText": "<p>See how we got 3 records back? And each with a customer_id in the list specified. The <code>IN</code> operator acts like the equals operator, but using a list of values enclosed within some parenthesis. </p>\n<p>If we want to use <code>IN</code> on a text data-type column, we simply enclose our values in single-quotes.</p>\n<pre><code>SELECT * \nFROM customer\nWHERE first_name IN (&#39;Jonathan&#39;, &#39;Faye&#39;)</code></pre>\n",
+      "keepSql": "true",
+      "sqlTarget": "SELECT * \nFROM customer\nWHERE first_name IN ('Jonathan', 'Faye')",
+      "sqlExample": "",
+      "startingSql": "",
+      "screenNumber": "1"
+    },
+    {
+      "screenMd": "It works as you'd expect. \n\nWhen you think about it though, it opens up some interesting scenarios. What would happen if we included the same value multiple times? Would that affect the output? \n\nAny guesses?\n\n```\nSELECT * \nFROM pizza\nWHERE pizza_id IN (103, 105, 105)\n```",
+      "screenText": "<p>It works as you&#39;d expect. </p>\n<p>When you think about it though, it opens up some interesting scenarios. What would happen if we included the same value multiple times? Would that affect the output? </p>\n<p>Any guesses?</p>\n<pre><code>SELECT * \nFROM pizza\nWHERE pizza_id IN (103, 105, 105)</code></pre>\n",
+      "keepSql": "true",
+      "sqlTarget": "SELECT * \nFROM pizza\nWHERE pizza_id IN (103, 105, 105)",
+      "sqlExample": "",
+      "startingSql": "",
+      "screenNumber": "2"
+    },
+    {
+      "screenMd": "Interestingly enough, the database server didn't care. It simply returned 2 records with the pizza IDs provided. \n\nAnd what about providing it with some values that exist, and some that don't? Would that impact the query results for the values that *do exist*?\n\n```\nSELECT * \nFROM pizza\nWHERE pizza_id IN (104, 200, 299)\n```",
+      "screenText": "<p>Interestingly enough, the database server didn&#39;t care. It simply returned 2 records with the pizza IDs provided. </p>\n<p>And what about providing it with some values that exist, and some that don&#39;t? Would that impact the query results for the values that <em>do exist</em>?</p>\n<pre><code>SELECT * \nFROM pizza\nWHERE pizza_id IN (104, 200, 299)</code></pre>\n",
+      "keepSql": "true",
+      "sqlTarget": "SELECT * \nFROM pizza\nWHERE pizza_id IN (104, 200, 299)",
+      "sqlExample": "",
+      "startingSql": "",
+      "screenNumber": "3"
+    },
+    {
+      "screenMd": "It looks like only records for values that existed were returned - the invalid values in the list had no adverse impact.\n\nWe aren't going to spend too much time on the ```IN``` operator, but think of it as a flexible multi-value equals operator. Its the = symbol, but one that takes a list of values. ",
+      "screenText": "<p>It looks like only records for values that existed were returned - the invalid values in the list had no adverse impact.</p>\n<p>We aren&#39;t going to spend too much time on the <code>IN</code> operator, but think of it as a flexible multi-value equals operator. Its the = symbol, but one that takes a list of values. </p>\n",
+      "keepSql": "true",
+      "sqlTarget": "",
+      "sqlExample": "",
+      "startingSql": "",
+      "screenNumber": "4"
+    }
+  ]
+}

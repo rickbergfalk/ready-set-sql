@@ -1,0 +1,15 @@
+{
+  "lessonId": "the-inner-join",
+  "lessonTitle": "The Inner Join",
+  "lessonDescription": "[lesson not yet finished]",
+  "lessonScreens": [
+    {
+      "screenMd": "[lesson not yet finished]",
+      "screenText": "<p>[lesson not yet finished]</p>\n",
+      "keepSql": "false",
+      "sqlTarget": "",
+      "startingSql": "",
+      "screenNumber": "0"
+    }
+  ]
+}

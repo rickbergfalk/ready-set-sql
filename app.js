@@ -100,7 +100,7 @@ app.configure(function(){
 	if (process.env.NODE_ENV === 'production') app.use(express.compress());
 	app.use(express.bodyParser());
 	app.use(express.methodOverride());
-	app.use(express.cookieParser('your secret here'));
+	app.use(express.cookieParser('secret: cookies only really matter for administration'));
 	app.use(express.session());
 	
 	app.use(banMiddleware.handleBannedPeople);
@@ -361,7 +361,7 @@ var checkBadSql = function (req, res, next) {
 app.post('/query', checkBadSql, function(req, res) {
 	var sqlQuery = req.body.sqlQuery || '';
 	if (sqlQuery.trim().length > 0) {
-		sqlRunner.runSql(sqlQuery, [], null, function(err, results) {
+		sqlRunner.runSql(sqlQuery, [], function(err, results) {
 			if (err) {
 				// 400 is bad request
 				res.send(400, 'Query failed because <br>' + err.message);
@@ -396,7 +396,7 @@ app.get('/superquery', [editorsOnly], function (req, res) {
 app.post('/superquery', [editorsOnly], function (req, res) {
 	var sqlQuery = req.body.sqlQuery || '';
 	if (sqlQuery.trim().length > 0) {
-		sqlRunner.runSql(sqlQuery, [], null, function(err, results) {
+		sqlRunner.runSql(sqlQuery, [], function(err, results) {
 			if (err) {
 				// 400 is bad request
 				res.send(400, 'Query failed because <br>' + err.message);

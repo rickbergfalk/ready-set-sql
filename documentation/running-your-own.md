@@ -38,7 +38,7 @@ I use a .env file when developing locally. Create a file called .env in the root
 
 ```
 NODE_ENV=development
-DATABASE_URL=tcp://user:password@pghosturl/databasename
+DATABASE_URL=tcp://user:password@databaseHost/databaseName
 PASSPHRASE=ThePassphraseToGetIntoTheEditorArea
 ```
 
@@ -62,4 +62,4 @@ Visit [http://localhost:3000/](http://localhost:3000/) to see it.
 
 ## 9. Editing the Lessons (optional)
 
-Sign in to the application at [http://localhost:3000/signin](http://localhost:3000/signin)
+Sign in to the application at [http://localhost:3000/signin](http://localhost:3000/signin). 

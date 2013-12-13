@@ -1,6 +1,8 @@
 # Project Structure
 
-If you've read any about the history of this project, you know that its architecture and goals changed quite a bit.
+Ready Set SQL is a side project I started nearly 2 years ago. 
+At the time I was teaching myself as I went, and also using it as a platform for learning all the fancy HTML/JS/CSS technologies I had been reading about but never actually done anything with. I changed my mind a lot and tried a lot of different libraries, rewriting things more than once.
+
 Because of that and me (still) learning as I go, there are likely scars and messes you'll come across if you dive in to this thing.
 
 If you *still* want to jump in after all that, here's a brief primer to get your orientation.

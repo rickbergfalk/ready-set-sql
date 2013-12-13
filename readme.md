@@ -10,24 +10,11 @@ and experimenting. Take this into consideration if you attempt to explore the in
 it for your own uses.
 
 
+## Running your own
 
-## Left to do before launch
-
-* Clean up CSS to good enough state
-
-* Lesson Viewer pro-tips
-	* ctrl-e to run sql
-	* ctrl+n to go to next slide
-	* etc.
-	
-* Finish Lessons
+Refer to /documentation/running-your-own.md
 
 
+## License
 
-## Documentation and Stuff
-
-- Project History
-- Running your own Ready Set SQL
-- Technical Overview
-- Contributing
-- Todos that I may never get to
+MIT

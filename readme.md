@@ -12,7 +12,7 @@ it for your own uses.
 
 ## Running your own
 
-Refer to /documentation/running-your-own.md
+Refer to the [documentation for running your own] (documentation/running-your-own.md)
 
 
 ## License

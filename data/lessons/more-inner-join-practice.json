@@ -1,0 +1,55 @@
+{
+  "lessonId": "more-inner-join-practice",
+  "lessonTitle": " More INNER JOIN Practice",
+  "lessonDescription": "In this exercise we'll practice joining more tables together, leading up to one really big query.",
+  "lessonScreens": [
+    {
+      "screenMd": "Let's practice joining tables together, but this time working with customer and pizza order information. \n\nStart by pulling up the ```customer``` table.\n\n```\nSELECT \n\tc.customer_id,\n\tc.first_name,\n\tc.city\nFROM \n\tcustomer AS c\n```",
+      "screenText": "<p>Let&#39;s practice joining tables together, but this time working with customer and pizza order information. </p>\n<p>Start by pulling up the <code>customer</code> table.</p>\n<pre><code>SELECT \n    c.customer_id,\n    c.first_name,\n    c.city\nFROM \n    customer AS c</code></pre>\n",
+      "keepSql": "true",
+      "sqlTarget": "SELECT \n\tc.customer_id,\n\tc.first_name,\n\tc.city\nFROM \n\tcustomer c",
+      "startingSql": "",
+      "screenNumber": "0"
+    },
+    {
+      "screenMd": "We're going to gradually build on to this query, but we're going to leave pieces out for you to fill in. \n\nUpdate your query adding the pizza order fields below, adding the correct ```ON``` condition for the join clause. You may want to refer to the [table map](/table-map) for reference.\n\n```\nSELECT \n\tc.customer_id,\n\tc.first_name,\n\tc.city,\n\tpo.order_id,\n\tpo.order_date,\n\tpo.total_amount\nFROM \n\tcustomer AS c\n\tJOIN pizza_order AS po ON ???\n```",
+      "screenText": "<p>We&#39;re going to gradually build on to this query, but we&#39;re going to leave pieces out for you to fill in. </p>\n<p>Update your query adding the pizza order fields below, adding the correct <code>ON</code> condition for the join clause. You may want to refer to the <a href=\"/table-map\">table map</a> for reference.</p>\n<pre><code>SELECT \n    c.customer_id,\n    c.first_name,\n    c.city,\n    po.order_id,\n    po.order_date,\n    po.total_amount\nFROM \n    customer AS c\n    JOIN pizza_order AS po ON ???</code></pre>\n",
+      "keepSql": "true",
+      "sqlTarget": "SELECT \n\tc.customer_id,\n\tc.first_name,\n\tc.city,\n\tpo.order_id,\n\tpo.order_date,\n\tpo.total_amount\nFROM \n\tcustomer AS c\n\tJOIN pizza_order AS po ON c.customer_id = po.customer_id",
+      "startingSql": "",
+      "screenNumber": "1"
+    },
+    {
+      "screenMd": "Good job!\n\nBut we're not done yet. Add ```pizza_order_line``` to the query. \n\n```\nSELECT \n\tc.customer_id,\n\tc.first_name,\n\tc.city,\n\tpo.order_id,\n\tpo.order_date,\n\tpo.total_amount,\n\tpol.line_number,\n\tpol.pizza_id,\n\tpol.size_code,\n\tpol.quantity,\n\tpol.pizza_price\nFROM \n\tcustomer AS c\n\tJOIN pizza_order AS po ON c.customer_id = po.customer_id\n\tJOIN ???\n```",
+      "screenText": "<p>Good job!</p>\n<p>But we&#39;re not done yet. Add <code>pizza_order_line</code> to the query. </p>\n<pre><code>SELECT \n    c.customer_id,\n    c.first_name,\n    c.city,\n    po.order_id,\n    po.order_date,\n    po.total_amount,\n    pol.line_number,\n    pol.pizza_id,\n    pol.size_code,\n    pol.quantity,\n    pol.pizza_price\nFROM \n    customer AS c\n    JOIN pizza_order AS po ON c.customer_id = po.customer_id\n    JOIN ???</code></pre>\n",
+      "keepSql": "true",
+      "sqlTarget": "SELECT \n\tc.customer_id,\n\tc.first_name,\n\tc.city,\n\tpo.order_id,\n\tpo.order_date,\n\tpo.total_amount,\n\tpol.line_number,\n\tpol.pizza_id,\n\tpol.size_code,\n\tpol.quantity,\n\tpol.pizza_price\nFROM \n\tcustomer AS c\n\tJOIN pizza_order AS po ON c.customer_id = po.customer_id\n\tJOIN pizza_order_line AS pol ON po.order_id = pol.order_id",
+      "startingSql": "",
+      "screenNumber": "2"
+    },
+    {
+      "screenMd": "Great! Now how about ```pizza``` and ```size_code```?\n\n**Note that we've changed the columns returned a bit too**\n\n```\nSELECT \n\tc.customer_id,\n\tc.first_name,\n\tc.city,\n\tpo.order_id,\n\tpo.order_date,\n\tpo.total_amount,\n\tpol.line_number,\n\tp.pizza_name,\n\tsc.size_name,\n\tpol.quantity,\n\tpol.pizza_price\nFROM \n\tcustomer AS c\n\tJOIN pizza_order AS po ON c.customer_id = po.customer_id\n\tJOIN pizza_order_line AS pol ON po.order_id = pol.order_id\n\tJOIN ??? ON pol.pizza_id = p.pizza_id\n\t???\n```",
+      "screenText": "<p>Great! Now how about <code>pizza</code> and <code>size_code</code>?</p>\n<p><strong>Note that we&#39;ve changed the columns returned a bit too</strong></p>\n<pre><code>SELECT \n    c.customer_id,\n    c.first_name,\n    c.city,\n    po.order_id,\n    po.order_date,\n    po.total_amount,\n    pol.line_number,\n    p.pizza_name,\n    sc.size_name,\n    pol.quantity,\n    pol.pizza_price\nFROM \n    customer AS c\n    JOIN pizza_order AS po ON c.customer_id = po.customer_id\n    JOIN pizza_order_line AS pol ON po.order_id = pol.order_id\n    JOIN ??? ON pol.pizza_id = p.pizza_id\n    ???</code></pre>\n",
+      "keepSql": "true",
+      "sqlTarget": "SELECT \n\tc.customer_id,\n\tc.first_name,\n\tc.city,\n\tpo.order_id,\n\tpo.order_date,\n\tpo.total_amount,\n\tpol.line_number,\n\tp.pizza_name,\n\tsc.size_name,\n\tpol.quantity,\n\tpol.pizza_price\nFROM \n\tcustomer AS c\n\tJOIN pizza_order AS po ON c.customer_id = po.customer_id\n\tJOIN pizza_order_line AS pol ON po.order_id = pol.order_id\n\tJOIN pizza AS p ON pol.pizza_id = p.pizza_id\n\tJOIN size_code AS sc ON pol.size_code = sc.size_code",
+      "startingSql": "",
+      "screenNumber": "3"
+    },
+    {
+      "screenMd": "Oofta! That's quite a query. And look at all those columns!\n\nTo help give these results some order, lets sort the results by customer first name, order id, and line number. \n\nRemember how to do that? (use the hint button if you forgot)\n",
+      "screenText": "<p>Oofta! That&#39;s quite a query. And look at all those columns!</p>\n<p>To help give these results some order, lets sort the results by customer first name, order id, and line number. </p>\n<p>Remember how to do that? (use the hint button if you forgot)</p>\n",
+      "keepSql": "true",
+      "sqlTarget": "SELECT \n\tc.customer_id,\n\tc.first_name,\n\tc.city,\n\tpo.order_id,\n\tpo.order_date,\n\tpo.total_amount,\n\tpol.line_number,\n\tp.pizza_name,\n\tsc.size_name,\n\tpol.quantity,\n\tpol.pizza_price\nFROM \n\tcustomer AS c\n\tJOIN pizza_order AS po ON c.customer_id = po.customer_id\n\tJOIN pizza_order_line AS pol ON po.order_id = pol.order_id\n\tJOIN pizza AS p ON pol.pizza_id = p.pizza_id\n\tJOIN size_code AS sc ON pol.size_code = sc.size_code\nORDER BY \n\tc.first_name,\n\tpo.order_id,\n\tpol.line_number",
+      "startingSql": "",
+      "screenNumber": "4"
+    },
+    {
+      "screenMd": "Excellent! That's a nice looking query. It's so comprehensive!\n\nThere really isn't a limit to how many tables you can join in one query (in a practical sense), but you may find out that too many joins start to slow down your queries. \n\nKeep this in mind as you write large queries against other real-world databases.",
+      "screenText": "<p>Excellent! That&#39;s a nice looking query. It&#39;s so comprehensive!</p>\n<p>There really isn&#39;t a limit to how many tables you can join in one query (in a practical sense), but you may find out that too many joins start to slow down your queries. </p>\n<p>Keep this in mind as you write large queries against other real-world databases.</p>\n",
+      "keepSql": "true",
+      "sqlTarget": "",
+      "startingSql": "",
+      "screenNumber": "5"
+    }
+  ]
+}

@@ -12,16 +12,16 @@
       "screenNumber": "0"
     },
     {
-      "screenMd": "The ```pizza_price``` table displays the price for each pizza and size combination. Notice however that the pizza in this table is just represented by a pizza_id. Unless we've memorized what each id represents, this table is not very useful.\n\nTo add in information about the pizza_id referenced, we can ```JOIN``` the ```pizza``` table to the ```pizza_order``` table. \n\n```\nSELECT \n\tpizza_price.pizza_id,\n\tpizza_price.size_code,\n\tpizza_price.price,\n\tpizza.pizza_name,\n\tpizza.description\nFROM \n\tpizza_price\n\tJOIN pizza ON pizza_price.pizza_id = pizza.pizza_id\n```",
-      "screenText": "<p>The <code>pizza_price</code> table displays the price for each pizza and size combination. Notice however that the pizza in this table is just represented by a pizza_id. Unless we&#39;ve memorized what each id represents, this table is not very useful.</p>\n<p>To add in information about the pizza_id referenced, we can <code>JOIN</code> the <code>pizza</code> table to the <code>pizza_order</code> table. </p>\n<pre><code>SELECT \n    pizza_price.pizza_id,\n    pizza_price.size_code,\n    pizza_price.price,\n    pizza.pizza_name,\n    pizza.description\nFROM \n    pizza_price\n    JOIN pizza ON pizza_price.pizza_id = pizza.pizza_id</code></pre>\n",
+      "screenMd": "The ```pizza_price``` table displays the price for each pizza and size combination. Notice however that the pizza in this table is just represented by a pizza_id. Unless we've memorized what each id represents, this table is not very useful.\n\nTo add in information about the pizza_id referenced, we can ```JOIN``` the ```pizza``` table to the ```pizza_order``` table. \n\nThe query below uses an ```INNER JOIN``` to join the tables together. This kind of join is the most common - we'll get into different kinds of joins later on.\n\n```\nSELECT \n\tpizza_price.pizza_id,\n\tpizza_price.size_code,\n\tpizza_price.price,\n\tpizza.pizza_name,\n\tpizza.description\nFROM \n\tpizza_price\n\tINNER JOIN pizza ON pizza_price.pizza_id = pizza.pizza_id\n```",
+      "screenText": "<p>The <code>pizza_price</code> table displays the price for each pizza and size combination. Notice however that the pizza in this table is just represented by a pizza_id. Unless we&#39;ve memorized what each id represents, this table is not very useful.</p>\n<p>To add in information about the pizza_id referenced, we can <code>JOIN</code> the <code>pizza</code> table to the <code>pizza_order</code> table. </p>\n<p>The query below uses an <code>INNER JOIN</code> to join the tables together. This kind of join is the most common - we&#39;ll get into different kinds of joins later on.</p>\n<pre><code>SELECT \n    pizza_price.pizza_id,\n    pizza_price.size_code,\n    pizza_price.price,\n    pizza.pizza_name,\n    pizza.description\nFROM \n    pizza_price\n    INNER JOIN pizza ON pizza_price.pizza_id = pizza.pizza_id</code></pre>\n",
       "keepSql": "true",
-      "sqlTarget": "SELECT \n\tpizza_price.pizza_id,\n\tpizza_price.size_code,\n\tpizza_price.price,\n\tpizza.pizza_name,\n\tpizza.description\nFROM \n\tpizza_price\n\tJOIN pizza ON pizza_price.pizza_id = pizza.pizza_id",
+      "sqlTarget": "SELECT \n\tpizza_price.pizza_id,\n\tpizza_price.size_code,\n\tpizza_price.price,\n\tpizza.pizza_name,\n\tpizza.description\nFROM \n\tpizza_price\n\tINNER JOIN pizza ON pizza_price.pizza_id = pizza.pizza_id",
       "startingSql": "",
       "screenNumber": "1"
     },
     {
-      "screenMd": "There are 2 parts to a SQL ```JOIN```: The name of the table being joined, and the condition that should be used to determine what records should be joined together.\n\nTake a look at the results: Notice how the pizza name and pizza description keep repeating throughout the result? This is because the ```pizza_id``` exists multiple times in the ```pizza_price``` table. For each record in the ```pizza_price``` table, the corresponding ```pizza``` record is shown with it.\n\nThis kind of ```JOIN``` is sometimes called an ```INNER JOIN```.\n\nClick next to continue.",
-      "screenText": "<p>There are 2 parts to a SQL <code>JOIN</code>: The name of the table being joined, and the condition that should be used to determine what records should be joined together.</p>\n<p>Take a look at the results: Notice how the pizza name and pizza description keep repeating throughout the result? This is because the <code>pizza_id</code> exists multiple times in the <code>pizza_price</code> table. For each record in the <code>pizza_price</code> table, the corresponding <code>pizza</code> record is shown with it.</p>\n<p>This kind of <code>JOIN</code> is sometimes called an <code>INNER JOIN</code>.</p>\n<p>Click next to continue.</p>\n",
+      "screenMd": "There are 2 parts to a SQL ```JOIN```: The name of the table being joined, and the condition that should be used to determine what records should be joined together.\n\nTake a look at the results: Notice how the pizza name and pizza description keep repeating throughout the result? This is because the ```pizza_id``` exists multiple times in the ```pizza_price``` table. For each record in the ```pizza_price``` table, the corresponding ```pizza``` record is shown with it.\n\nClick next to continue.",
+      "screenText": "<p>There are 2 parts to a SQL <code>JOIN</code>: The name of the table being joined, and the condition that should be used to determine what records should be joined together.</p>\n<p>Take a look at the results: Notice how the pizza name and pizza description keep repeating throughout the result? This is because the <code>pizza_id</code> exists multiple times in the <code>pizza_price</code> table. For each record in the <code>pizza_price</code> table, the corresponding <code>pizza</code> record is shown with it.</p>\n<p>Click next to continue.</p>\n",
       "keepSql": "true",
       "sqlTarget": "",
       "startingSql": "",
@@ -36,12 +36,20 @@
       "screenNumber": "3"
     },
     {
-      "screenMd": "Writing out the table name every time can get tedious after a while though. Luckily we can alias the tables. \n\nAliasing a table simply provides a nickname for it that only exists in the query you're writing. In a way, we can tell the database \"For this query only, I'm going to refer to ```pizza_price``` as pp and ```pizza``` as p.\"\n\n```\nSELECT \n\tpp.pizza_id,\n\tpp.size_code,\n\tpp.price,\n\tp.pizza_name,\n\tp.description\nFROM \n\tpizza_price AS pp\n\tJOIN pizza AS p ON pp.pizza_id = p.pizza_id\n```",
-      "screenText": "<p>Writing out the table name every time can get tedious after a while though. Luckily we can alias the tables. </p>\n<p>Aliasing a table simply provides a nickname for it that only exists in the query you&#39;re writing. In a way, we can tell the database &quot;For this query only, I&#39;m going to refer to <code>pizza_price</code> as pp and <code>pizza</code> as p.&quot;</p>\n<pre><code>SELECT \n    pp.pizza_id,\n    pp.size_code,\n    pp.price,\n    p.pizza_name,\n    p.description\nFROM \n    pizza_price AS pp\n    JOIN pizza AS p ON pp.pizza_id = p.pizza_id</code></pre>\n",
+      "screenMd": "Writing out the table name every time can get tedious after a while though. Luckily we can alias the tables. \n\nAliasing a table simply provides a nickname for it that only exists in the query you're writing. In a way, we can tell the database \"For this query only, I'm going to refer to ```pizza_price``` as pp and ```pizza``` as p.\"\n\n```\nSELECT \n\tpp.pizza_id,\n\tpp.size_code,\n\tpp.price,\n\tp.pizza_name,\n\tp.description\nFROM \n\tpizza_price AS pp\n\tINNER JOIN pizza AS p ON pp.pizza_id = p.pizza_id\n```",
+      "screenText": "<p>Writing out the table name every time can get tedious after a while though. Luckily we can alias the tables. </p>\n<p>Aliasing a table simply provides a nickname for it that only exists in the query you&#39;re writing. In a way, we can tell the database &quot;For this query only, I&#39;m going to refer to <code>pizza_price</code> as pp and <code>pizza</code> as p.&quot;</p>\n<pre><code>SELECT \n    pp.pizza_id,\n    pp.size_code,\n    pp.price,\n    p.pizza_name,\n    p.description\nFROM \n    pizza_price AS pp\n    INNER JOIN pizza AS p ON pp.pizza_id = p.pizza_id</code></pre>\n",
+      "keepSql": "true",
+      "sqlTarget": "SELECT \n\tpp.pizza_id,\n\tpp.size_code,\n\tpp.price,\n\tp.pizza_name,\n\tp.description\nFROM \n\tpizza_price AS pp\n\tINNER JOIN pizza AS p ON pp.pizza_id = p.pizza_id",
+      "startingSql": "",
+      "screenNumber": "4"
+    },
+    {
+      "screenMd": "Another way we can clean up and simplify this query is to remove the ```INNER``` keyword from the ```JOIN``` clause. This kind of join is considered to be the default, so it is not necessary to specify when writing SQL (it's a preference thing).\n\n```\nSELECT \n\tpp.pizza_id,\n\tpp.size_code,\n\tpp.price,\n\tp.pizza_name,\n\tp.description\nFROM \n\tpizza_price AS pp\n\tJOIN pizza AS p ON pp.pizza_id = p.pizza_id\n```",
+      "screenText": "<p>Another way we can clean up and simplify this query is to remove the <code>INNER</code> keyword from the <code>JOIN</code> clause. This kind of join is considered to be the default, so it is not necessary to specify when writing SQL (it&#39;s a preference thing).</p>\n<pre><code>SELECT \n    pp.pizza_id,\n    pp.size_code,\n    pp.price,\n    p.pizza_name,\n    p.description\nFROM \n    pizza_price AS pp\n    JOIN pizza AS p ON pp.pizza_id = p.pizza_id</code></pre>\n",
       "keepSql": "true",
       "sqlTarget": "SELECT \n\tpp.pizza_id,\n\tpp.size_code,\n\tpp.price,\n\tp.pizza_name,\n\tp.description\nFROM \n\tpizza_price AS pp\n\tJOIN pizza AS p ON pp.pizza_id = p.pizza_id",
       "startingSql": "",
-      "screenNumber": "4"
+      "screenNumber": "5"
     },
     {
       "screenMd": "Let's join another table to our query, this time adding the ```size_code``` table. \n\nCan you guess what this query is going to do before you run it?\n\n```\nSELECT \n\tpp.pizza_id,\n\tp.pizza_name,\t\n\tpp.size_code,\n\tsc.size_name,\n\tpp.price\nFROM \n\tpizza_price AS pp\n\tJOIN pizza AS p ON pp.pizza_id = p.pizza_id\n\tJOIN size_code AS sc ON pp.size_code = sc.size_code\n```",
@@ -49,7 +57,7 @@
       "keepSql": "true",
       "sqlTarget": "SELECT \n\tpp.pizza_id,\n\tp.pizza_name,\t\n\tpp.size_code,\n\tsc.size_name,\n\tpp.price\nFROM \n\tpizza_price AS pp\n\tJOIN pizza AS p ON pp.pizza_id = p.pizza_id\n\tJOIN size_code AS sc ON pp.size_code = sc.size_code",
       "startingSql": "",
-      "screenNumber": "5"
+      "screenNumber": "6"
     },
     {
       "screenMd": "It adds the text of the size code! This is mostly unnecessary since size-code is relatively standard and intuitive, but it shows an important ability of relational databases. \n\nThe ```JOIN``` clause is one of the defining features of a relational database. We'll be covering more about inner joins and other kinds of joins later on.\n",
@@ -57,7 +65,7 @@
       "keepSql": "true",
       "sqlTarget": "",
       "startingSql": "",
-      "screenNumber": "6"
+      "screenNumber": "7"
     }
   ]
 }

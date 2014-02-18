@@ -70,7 +70,7 @@ var LessonView = function (lesson) {
 			matchBrackets: true,
 			indentUnit: 4,
 			value: "",
-			mode: "text/x-plsql",
+			mode: "text/x-sql",
 			theme: "monokai",
 			extraKeys: {
 				"Ctrl-E": function (cm) {
@@ -135,7 +135,7 @@ var LessonView = function (lesson) {
 		// look for any SQL blocks - render them in codemirror
 		$('pre > code').each(function(index, element) {
 			$(this).parent().addClass('cm-s-monokai');
-			CodeMirror.runMode($(this).text(), 'text/x-mysql', $(this).parent().get(0));
+			CodeMirror.runMode($(this).text(), 'text/x-sql', $(this).parent().get(0));
 		});
 		
 		// Match any inline code elements that are NOT contained within a pre element

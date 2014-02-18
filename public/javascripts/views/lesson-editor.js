@@ -88,7 +88,7 @@ var ScreenCard = function (screen, $beforeElement, lessonEditor) {
 		indentWithTabs : true,
 		matchBrackets: true,
 		indentUnit: 4,
-		mode: "text/x-mysql",
+		mode: "text/x-sql",
 		theme: "monokai",
 		tabMode: "indent"//,					// TODO: update this?
 		//extraKeys: {"Tab": "indentAuto"}

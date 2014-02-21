@@ -18,13 +18,12 @@
 <pre class="right-perspective">
 <code id="home-editor" class="sample-code">
 	SELECT 
-		some_column, 
-		some_other_column 
+		order_date, 
+		total_amount 
 	FROM 
-		some_table 
+		pizza_order
 	WHERE 
-		some_column = 'some value' 
-		AND some_other_column > 42
+		total_amount > 18.99
 
 </code>
 </pre>

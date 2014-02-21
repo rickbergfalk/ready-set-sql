@@ -5,6 +5,7 @@
   "lessonIds": [
     "a-basic-query",
     "format-and-style",
-    "ordering-query-results"
+    "ordering-query-results",
+    "aliasing-a-column-name"
   ]
 }

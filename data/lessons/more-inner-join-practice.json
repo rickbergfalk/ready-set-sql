@@ -1,6 +1,6 @@
 {
   "lessonId": "more-inner-join-practice",
-  "lessonTitle": " More INNER JOIN Practice",
+  "lessonTitle": " More JOIN Practice",
   "lessonDescription": "In this exercise we'll practice joining more tables together, leading up to one really big query.",
   "lessonScreens": [
     {
@@ -44,12 +44,20 @@
       "screenNumber": "4"
     },
     {
-      "screenMd": "Excellent! That's a nice looking query. It's so comprehensive!\n\nThere really isn't a limit to how many tables you can join in one query (in a practical sense), but you may find out that too many joins start to slow down your queries. \n\nKeep this in mind as you write large queries against other real-world databases.",
-      "screenText": "<p>Excellent! That&#39;s a nice looking query. It&#39;s so comprehensive!</p>\n<p>There really isn&#39;t a limit to how many tables you can join in one query (in a practical sense), but you may find out that too many joins start to slow down your queries. </p>\n<p>Keep this in mind as you write large queries against other real-world databases.</p>\n",
+      "screenMd": "Excellent! That's a nice looking query, and the results are so comprehensive!\n\nLet's take a moment and observe the data in the result set. \n\nWhen joining a lot of tables together, it's necessary to consider what level of detail your query results will be at. Some might refer to this as the \"grain\" of the results. \n\nPut another way, each record in this conceptually represents 1 unique thing. A single record doesn't represent a customer - a single customer is repeated across rows. Nor does a single record represent a pizza order.\n\nAny ideas as to what \"grain\" these results are at? \n\nClick next to find out.",
+      "screenText": "<p>Excellent! That&#39;s a nice looking query, and the results are so comprehensive!</p>\n<p>Let&#39;s take a moment and observe the data in the result set. </p>\n<p>When joining a lot of tables together, it&#39;s necessary to consider what level of detail your query results will be at. Some might refer to this as the &quot;grain&quot; of the results. </p>\n<p>Put another way, each record in this conceptually represents 1 unique thing. A single record doesn&#39;t represent a customer - a single customer is repeated across rows. Nor does a single record represent a pizza order.</p>\n<p>Any ideas as to what &quot;grain&quot; these results are at? </p>\n<p>Click next to find out.</p>\n",
       "keepSql": "true",
       "sqlTarget": "",
       "startingSql": "",
       "screenNumber": "5"
+    },
+    {
+      "screenMd": "If you said Pizza Order Line you were correct!\n\nThe relationships between tables, and the granularity of the data is an important thing to keep in mind. While it doesn't impact the actual functioning of the SQL query, it does impact the correctness of the results. \n\nRelationships between tables are usually discussed in the terms of one-to-one or one-to-many. Here are a couple statements to get you familiar with the concept:\n\n- A customer has many pizza orders\n- A pizza order belongs to only one customer\n- A pizza order has 1 or more pizza order lines\n- A pizza order line belongs to only 1 pizza order\n\nWe'll take a look at what happens when you write some JOINs that return incorrect data in a future lesson.\n\n",
+      "screenText": "<p>If you said Pizza Order Line you were correct!</p>\n<p>The relationships between tables, and the granularity of the data is an important thing to keep in mind. While it doesn&#39;t impact the actual functioning of the SQL query, it does impact the correctness of the results. </p>\n<p>Relationships between tables are usually discussed in the terms of one-to-one or one-to-many. Here are a couple statements to get you familiar with the concept:</p>\n<ul>\n<li>A customer has many pizza orders</li>\n<li>A pizza order belongs to only one customer</li>\n<li>A pizza order has 1 or more pizza order lines</li>\n<li>A pizza order line belongs to only 1 pizza order</li>\n</ul>\n<p>We&#39;ll take a look at what happens when you write some JOINs that return incorrect data in a future lesson.</p>\n",
+      "keepSql": "true",
+      "sqlTarget": "",
+      "startingSql": "",
+      "screenNumber": "6"
     }
   ]
 }

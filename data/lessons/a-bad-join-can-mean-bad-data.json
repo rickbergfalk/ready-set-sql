@@ -1,0 +1,63 @@
+{
+  "lessonId": "a-bad-join-can-mean-bad-data",
+  "lessonTitle": " A Bad JOIN Means Bad Results",
+  "lessonDescription": "Just because you can JOIN tables together doesn't mean the result will be valid. In this lesson we'll explore a JOIN that gives us some bad data.",
+  "lessonScreens": [
+    {
+      "screenMd": "So far our table joins have been pretty simple, yielding correct results. But what happens when we join some tables incorrectly? Do the queries still run? Are the results valid? \n\nWe're going to find out. Let's start with the ```pizza_order_line``` table.\n\n```\nSELECT \n\tpol.order_id,\n\tpol.line_number,\n\tpol.pizza_id,\n\tpol.size_code,\n\tpol.pizza_price AS pizza_order_line_pizza_price\nFROM \n\tpizza_order_line AS pol\nORDER BY \n\tpol.order_id,\n\tpol.line_number\n```",
+      "screenText": "<p>So far our table joins have been pretty simple, yielding correct results. But what happens when we join some tables incorrectly? Do the queries still run? Are the results valid? </p>\n<p>We&#39;re going to find out. Let&#39;s start with the <code>pizza_order_line</code> table.</p>\n<pre><code>SELECT \n    pol.order_id,\n    pol.line_number,\n    pol.pizza_id,\n    pol.size_code,\n    pol.pizza_price AS pizza_order_line_pizza_price\nFROM \n    pizza_order_line AS pol\nORDER BY \n    pol.order_id,\n    pol.line_number</code></pre>\n",
+      "keepSql": "true",
+      "sqlTarget": "SELECT \n\tpol.order_id,\n\tpol.line_number,\n\tpol.pizza_id,\n\tpol.size_code,\n\tpol.pizza_price AS pizza_order_line_pizza_price\nFROM \n\tpizza_order_line AS pol\nORDER BY \n\tpol.order_id,\n\tpol.line_number",
+      "startingSql": "",
+      "screenNumber": "0"
+    },
+    {
+      "screenMd": "For this example, we'll want to narrow down our query result, and look at just a small set of data. \n\nAdd a ```WHERE``` clause to your query, limiting it to just pizza order 1002.\n\nThe ```WHERE``` clause should be added after the ```FROM``` clause but before the ```ORDER BY``` clause. \n\n```\n\t...\nFROM \n\tpizza_order_line AS pol\nWHERE \n\tpol.order_id = 1002\nORDER BY \n\tpol.order_id,\n\t...\n```",
+      "screenText": "<p>For this example, we&#39;ll want to narrow down our query result, and look at just a small set of data. </p>\n<p>Add a <code>WHERE</code> clause to your query, limiting it to just pizza order 1002.</p>\n<p>The <code>WHERE</code> clause should be added after the <code>FROM</code> clause but before the <code>ORDER BY</code> clause. </p>\n<pre><code>    ...\nFROM \n    pizza_order_line AS pol\nWHERE \n    pol.order_id = 1002\nORDER BY \n    pol.order_id,\n    ...</code></pre>\n",
+      "keepSql": "true",
+      "sqlTarget": "SELECT \n\tpol.order_id,\n\tpol.line_number,\n\tpol.pizza_id,\n\tpol.size_code,\n\tpol.pizza_price AS pizza_order_line_pizza_price\nFROM \n\tpizza_order_line AS pol\nWHERE \n\tpol.order_id = 1002\nORDER BY \n\tpol.order_id,\n\tpol.line_number",
+      "startingSql": "",
+      "screenNumber": "1"
+    },
+    {
+      "screenMd": "Notice that this pizza order has 4 line items. \n\nThe pizza order line table has a ```pizza_price``` column, noting the price of the pizza for a given size at the time of sale. But what if we wanted to find out the pizza price as it is currently? \n\nTo do that we need to join in the ```pizza_price``` table, and add a couple columns to our ```SELECT``` clause. \n\n```\nSELECT \n\tpol.order_id,\n\tpol.line_number,\n\tpol.pizza_id,\n\tpol.size_code,\n\tpol.pizza_price AS pizza_order_line_pizza_price,\n\tpp.size_code AS pizza_price_size_code, \n\tpp.price AS current_pizza_price\nFROM \n\tpizza_order_line AS pol\n\tJOIN pizza_price AS pp ON pol.pizza_id = pp.pizza_id\nWHERE \n\tpol.order_id = 1002\nORDER BY \n\tpol.order_id,\n\tpol.line_number\n```",
+      "screenText": "<p>Notice that this pizza order has 4 line items. </p>\n<p>The pizza order line table has a <code>pizza_price</code> column, noting the price of the pizza for a given size at the time of sale. But what if we wanted to find out the pizza price as it is currently? </p>\n<p>To do that we need to join in the <code>pizza_price</code> table, and add a couple columns to our <code>SELECT</code> clause. </p>\n<pre><code>SELECT \n    pol.order_id,\n    pol.line_number,\n    pol.pizza_id,\n    pol.size_code,\n    pol.pizza_price AS pizza_order_line_pizza_price,\n    pp.size_code AS pizza_price_size_code, \n    pp.price AS current_pizza_price\nFROM \n    pizza_order_line AS pol\n    JOIN pizza_price AS pp ON pol.pizza_id = pp.pizza_id\nWHERE \n    pol.order_id = 1002\nORDER BY \n    pol.order_id,\n    pol.line_number</code></pre>\n",
+      "keepSql": "true",
+      "sqlTarget": "SELECT \n\tpol.order_id,\n\tpol.line_number,\n\tpol.pizza_id,\n\tpol.size_code,\n\tpol.pizza_price AS pizza_order_line_pizza_price,\n\tpp.size_code AS pizza_price_size_code, \n\tpp.price AS current_pizza_price\nFROM \n\tpizza_order_line AS pol\n\tJOIN pizza_price AS pp ON pol.pizza_id = pp.pizza_id\nWHERE \n\tpol.order_id = 1002\nORDER BY \n\tpol.order_id,\n\tpol.line_number",
+      "startingSql": "",
+      "screenNumber": "2"
+    },
+    {
+      "screenMd": "Notice anything strange with the results? ",
+      "screenText": "<p>Notice anything strange with the results? </p>\n",
+      "keepSql": "true",
+      "sqlTarget": "",
+      "startingSql": "",
+      "screenNumber": "3"
+    },
+    {
+      "screenMd": "It looks like our join has resulted in some \"incorrect\" query results. The database is returning exactly what we told it to, but the information returned is not right.\n\nNotice how the two size code columns conflict with each other? \n\nThis is because our ```JOIN``` is not considering the level of detail these tables are at (the \"grain\" of the table). \n\nWe know the ```pizza_order_line``` table contains 1 record per pizza order line. The ```pizza_price``` table contains one record per pizza_id and size_code combination.\n\nThe problem lies with our ```JOIN``` condition - A pizza price is determined by both ```pizza_id``` AND ```size_code```, yet we are only joining on ```pizza_id```. \n\nHow do we go about correcting this query so that it  returns the right results?",
+      "screenText": "<p>It looks like our join has resulted in some &quot;incorrect&quot; query results. The database is returning exactly what we told it to, but the information returned is not right.</p>\n<p>Notice how the two size code columns conflict with each other? </p>\n<p>This is because our <code>JOIN</code> is not considering the level of detail these tables are at (the &quot;grain&quot; of the table). </p>\n<p>We know the <code>pizza_order_line</code> table contains 1 record per pizza order line. The <code>pizza_price</code> table contains one record per pizza_id and size_code combination.</p>\n<p>The problem lies with our <code>JOIN</code> condition - A pizza price is determined by both <code>pizza_id</code> AND <code>size_code</code>, yet we are only joining on <code>pizza_id</code>. </p>\n<p>How do we go about correcting this query so that it  returns the right results?</p>\n",
+      "keepSql": "true",
+      "sqlTarget": "",
+      "startingSql": "",
+      "screenNumber": "4"
+    },
+    {
+      "screenMd": "We can correct these results by fixing our ```JOIN``` condition, adding the size code to our join!\n\nAdd the following to your ```JOIN``` clause and run the query again. \n\n```\nJOIN pizza_price AS pp ON pol.pizza_id = pp.pizza_id\n\t\tAND pol.size_code = pp.size_code\n```",
+      "screenText": "<p>We can correct these results by fixing our <code>JOIN</code> condition, adding the size code to our join!</p>\n<p>Add the following to your <code>JOIN</code> clause and run the query again. </p>\n<pre><code>JOIN pizza_price AS pp ON pol.pizza_id = pp.pizza_id\n        AND pol.size_code = pp.size_code</code></pre>\n",
+      "keepSql": "true",
+      "sqlTarget": "SELECT \n\tpol.order_id,\n\tpol.line_number,\n\tpol.pizza_id,\n\tpol.size_code,\n\tpol.pizza_price AS pizza_order_line_pizza_price,\n\tpp.size_code AS pizza_price_size_code, \n\tpp.price AS current_pizza_price\nFROM \n\tpizza_order_line AS pol\n\tJOIN pizza_price AS pp ON pol.pizza_id = pp.pizza_id\n\t\tAND pol.size_code = pp.size_code\nWHERE \n\tpol.order_id = 1002\nORDER BY \n\tpol.order_id,\n\tpol.line_number",
+      "startingSql": "",
+      "screenNumber": "5"
+    },
+    {
+      "screenMd": "Much better! \n\nThe results now contain 1 record per pizza order line like it should. (Joining these tables together in this manner represents a one-to-one relationship.)\n\nThere are many other ways table joins can impact the data from the query, but we won't cover them here. Joins are a tricky thing to master, because not only does it require advanced SQL knowledge, but a deep understanding of the data model and tables as well! \n\nOn the bright side, detecting bad joins is fairly straight forward: If tables are joined in a way they are not supposed to be, you'll either end up with too many results or with some records missing that shouldn't be. \n\nThis is something you'll want to look out for when writing more complex queries.\n\n\n",
+      "screenText": "<p>Much better! </p>\n<p>The results now contain 1 record per pizza order line like it should. (Joining these tables together in this manner represents a one-to-one relationship.)</p>\n<p>There are many other ways table joins can impact the data from the query, but we won&#39;t cover them here. Joins are a tricky thing to master, because not only does it require advanced SQL knowledge, but a deep understanding of the data model and tables as well! </p>\n<p>On the bright side, detecting bad joins is fairly straight forward: If tables are joined in a way they are not supposed to be, you&#39;ll either end up with too many results or with some records missing that shouldn&#39;t be. </p>\n<p>This is something you&#39;ll want to look out for when writing more complex queries.</p>\n",
+      "keepSql": "true",
+      "sqlTarget": "",
+      "startingSql": "",
+      "screenNumber": "6"
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 {
   "lessonId": "the-inner-join",
-  "lessonTitle": "Joining Tables Together",
+  "lessonTitle": "JOINing Tables Together",
   "lessonDescription": "An introduction to joining tables together using an INNER JOIN.",
   "lessonScreens": [
     {

@@ -1,0 +1,55 @@
+{
+  "lessonId": "aliasing-a-column-name",
+  "lessonTitle": " Aliasing A Column Name",
+  "lessonDescription": "We can change the name of a column returned in our SELECT query by aliasing it. ",
+  "lessonScreens": [
+    {
+      "screenMd": "When writing SQL SELECT queries, you may sometimes need to change the name of a column being returned. \n\nThis is usually done for a few reasons. Sometimes multiple tables have the same column names (something we'll run into in later lessons). Other times you want to rename a column because it isn't very clear as to what it represents. \n\nOr maybe you just want to change the name to something more user friendly. (Some enterprise databases have very cryptic names, such as TFT1003 or SCON.)\n\nClick next to continue.",
+      "screenText": "<p>When writing SQL SELECT queries, you may sometimes need to change the name of a column being returned. </p>\n<p>This is usually done for a few reasons. Sometimes multiple tables have the same column names (something we&#39;ll run into in later lessons). Other times you want to rename a column because it isn&#39;t very clear as to what it represents. </p>\n<p>Or maybe you just want to change the name to something more user friendly. (Some enterprise databases have very cryptic names, such as TFT1003 or SCON.)</p>\n<p>Click next to continue.</p>\n",
+      "keepSql": "false",
+      "sqlTarget": "",
+      "startingSql": "",
+      "screenNumber": "0"
+    },
+    {
+      "screenMd": "Let's change some column names in the results of a query looking at the ```customer``` table. \n\nRun the following query in your editor:\n\n```\nSELECT \n\tfirst_name,\n\tlast_name,\n\taddress,\n\tcity\nFROM \n\tcustomer\n```",
+      "screenText": "<p>Let&#39;s change some column names in the results of a query looking at the <code>customer</code> table. </p>\n<p>Run the following query in your editor:</p>\n<pre><code>SELECT \n    first_name,\n    last_name,\n    address,\n    city\nFROM \n    customer</code></pre>\n",
+      "keepSql": "false",
+      "sqlTarget": "SELECT \n\tfirst_name,\n\tlast_name,\n\taddress,\n\tcity\nFROM \n\tcustomer",
+      "startingSql": "",
+      "screenNumber": "1"
+    },
+    {
+      "screenMd": "To change the name of the column in the output, we simply add ```AS whatever_name_we_want``` after a column, before the comma if its not the last column specified in the ```SELECT``` clause.\n\nDifferent databases have different rules as to what is allowed when aliasing things, but as a general rule its a good idea to start with a letter and not include any spaces.\n\nLet's rename ```first_name``` to ```CustomerFirstName```.\n\n```\nSELECT \n\tfirst_name AS CustomerFirstName,\n\tlast_name,\n\taddress,\n\tcity\nFROM \n\tcustomer\n```",
+      "screenText": "<p>To change the name of the column in the output, we simply add <code>AS whatever_name_we_want</code> after a column, before the comma if its not the last column specified in the <code>SELECT</code> clause.</p>\n<p>Different databases have different rules as to what is allowed when aliasing things, but as a general rule its a good idea to start with a letter and not include any spaces.</p>\n<p>Let&#39;s rename <code>first_name</code> to <code>CustomerFirstName</code>.</p>\n<pre><code>SELECT \n    first_name AS CustomerFirstName,\n    last_name,\n    address,\n    city\nFROM \n    customer</code></pre>\n",
+      "keepSql": "true",
+      "sqlTarget": "SELECT \n\tfirst_name AS CustomerFirstName,\n\tlast_name,\n\taddress,\n\tcity\nFROM \n\tcustomer",
+      "startingSql": "",
+      "screenNumber": "2"
+    },
+    {
+      "screenMd": "Notice how the column in the query results now has the name ```CustomerFirstName``` like we specified?\n\nIt's important to realize we aren't actually changing the column name in the table - we're just changing the name used in the query result.\n\nLet's change another.\n\n```\nSELECT \n\tfirst_name AS CustomerFirstName,\n\tlast_name AS lastname,\n\taddress,\n\tcity\nFROM \n\tcustomer\n```",
+      "screenText": "<p>Notice how the column in the query results now has the name <code>CustomerFirstName</code> like we specified?</p>\n<p>It&#39;s important to realize we aren&#39;t actually changing the column name in the table - we&#39;re just changing the name used in the query result.</p>\n<p>Let&#39;s change another.</p>\n<pre><code>SELECT \n    first_name AS CustomerFirstName,\n    last_name AS lastname,\n    address,\n    city\nFROM \n    customer</code></pre>\n",
+      "keepSql": "true",
+      "sqlTarget": "SELECT \n\tfirst_name AS CustomerFirstName,\n\tlast_name AS lastname,\n\taddress,\n\tcity\nFROM \n\tcustomer",
+      "startingSql": "",
+      "screenNumber": "3"
+    },
+    {
+      "screenMd": "It's a pretty easy thing to do.\n\n**Challenge**: Keeping everything the same, alias the ```address``` column as ```street_address```.",
+      "screenText": "<p>It&#39;s a pretty easy thing to do.</p>\n<p><strong>Challenge</strong>: Keeping everything the same, alias the <code>address</code> column as <code>street_address</code>.</p>\n",
+      "keepSql": "true",
+      "sqlTarget": "SELECT \n\tfirst_name AS CustomerFirstName,\n\tlast_name AS lastname,\n\taddress,\n\tcity\nFROM \n\tcustomer",
+      "startingSql": "",
+      "screenNumber": "4"
+    },
+    {
+      "screenMd": "Great! \n\nAS you can see, changing the name used in the query output is very easy to do.",
+      "screenText": "<p>Great! </p>\n<p>AS you can see, changing the name used in the query output is very easy to do.</p>\n",
+      "keepSql": "true",
+      "sqlTarget": "SELECT \n\tfirst_name AS CustomerFirstName,\n\tlast_name AS lastname,\n\taddress AS street_alias,\n\tcity\nFROM \n\tcustomer",
+      "startingSql": "",
+      "screenNumber": "5"
+    }
+  ]
+}

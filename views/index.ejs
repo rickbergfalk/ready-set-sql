@@ -56,9 +56,9 @@
 							<div class="card">
 								<div class="row-fluid">
 									<div class="span4">
-										<h1 class="card-title skinny ">
+										<h2 class="card-title skinny ">
 											<%= lessonList.listName %>
-										</h1>
+										</h2>
 										<div class="card-description">
 											<p>
 												<%= lessonList.listDescription || "" %>
@@ -67,25 +67,27 @@
 									</div>
 									<div class="span8" style="padding-left: 50px;">
 										<% if (lessonList.lessons && lessonList.lessons.length == 0) { %>
-                                            <div>
-                                                <p>
-                                                    <br>
-                                                    <i>More lessons coming soon - Check back later.</i>
-                                                </p>  
-                                            </div>
+                                            <p>
+                                                <br>
+                                                <i>More lessons coming soon - Check back later.</i>
+                                            </p> 
                                         <% } %>
+                                        <ul class="lesson-list">
                                         <% for (var i = 0; i < lessonList.lessons.length; i++ ) { %>
 											<% var lesson = lessonList.lessons[i]; %>
-											<h3 class="lightHeading">
-												<a class="lesson-list-lesson-link" href="/lesson/<%= lesson.lessonId %>" class=""><%= lesson.lessonTitle %></a>
-											</h3>
-											<div>
-												<p>
-													<%= lesson.lessonDescription %>
-												</p>
-											</div>
-											<hr class="hr-lesson-list">
+                                                <li>
+                                                    <h3 class="lightHeading">
+                                                        <a class="lesson-list-lesson-link" href="/lesson/<%= lesson.lessonId %>" class=""><%= lesson.lessonTitle %></a>
+                                                    </h3>
+                                                    <p>
+                                                        <%= lesson.lessonDescription %>
+                                                    </p>
+                                                    <% if (i < lessonList.lessons.length - 1) { %>
+                                                    <hr class="hr-lesson-list">
+                                                    <% } %>
+                                                </li>
 										<% } %>
+                                        </ul>
 									</div>
 								</div>
 							</div>

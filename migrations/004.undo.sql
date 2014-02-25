@@ -1,0 +1,1 @@
+UPDATE customer SET email = NULL WHERE customer_id = 10002;

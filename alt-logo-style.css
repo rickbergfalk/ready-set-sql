@@ -1,0 +1,24 @@
+.brand-logo .ready {
+position: absolute;
+font-size: 14px;
+line-height: 14px;
+top: 2px;
+letter-spacing: 6px;
+}
+
+.brand-logo .set {
+position: absolute;
+font-size: 19px;
+line-height: 19px;
+top: 16px;
+/* letter-spacing: 1px; */
+}
+
+.brand-logo .sql {
+position: absolute;
+font-size: 19px;
+line-height: 19px;
+left: 37px;
+top: 16px;
+/* letter-spacing: 1px; */
+}

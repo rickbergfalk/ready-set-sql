@@ -1,0 +1,15 @@
+{
+  "lessonId": "if-then-logic-with-the-case-statement",
+  "lessonTitle": "If-Then Logic with the CASE Statement",
+  "lessonDescription": "[WIP] The closest a SQL SELECT query has to if-then logic is the CASE statement, and even then it's not entirely used the way you'd think it'd be. We'll dive into CASE and its usefulness here.",
+  "lessonScreens": [
+    {
+      "screenMd": "Bucketing values. \nAdding \"meta data\"\nconditionally hiding data? \n",
+      "screenText": "<p>Bucketing values. \nAdding &quot;meta data&quot;\nconditionally hiding data? </p>\n",
+      "keepSql": "false",
+      "sqlTarget": "",
+      "startingSql": "",
+      "screenNumber": "0"
+    }
+  ]
+}

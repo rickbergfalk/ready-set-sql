@@ -1,0 +1,15 @@
+{
+  "lessonId": "pivoting-query-results-with-case",
+  "lessonTitle": " Pivoting query results with CASE",
+  "lessonDescription": "[WIP] This is tricky, but sometimes useful.",
+  "lessonScreens": [
+    {
+      "screenMd": "basically a pivot. \n\nMaybe pizza, total amount, by city?",
+      "screenText": "<p>basically a pivot. </p>\n<p>Maybe pizza, total amount, by city?</p>\n",
+      "keepSql": "false",
+      "sqlTarget": "",
+      "startingSql": "",
+      "screenNumber": "0"
+    }
+  ]
+}

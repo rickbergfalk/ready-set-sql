@@ -1,0 +1,15 @@
+{
+  "lessonId": "intro-to-views",
+  "lessonTitle": " Intro to Views",
+  "lessonDescription": "[WIP] A very brief introduction to views.",
+  "lessonScreens": [
+    {
+      "screenMd": "JOINs can get complicated and require an understanding of the data model. If ever in doubt, get someone familiar with the data model to build a view.\n\nNot much of an exercise here, except to show that views are like tables. Except convenient.\n\nMaybe we could introduce all the different views at the different levels \n\n- vw_pizza_order\n- vw_pizza_order_line",
+      "screenText": "<p>JOINs can get complicated and require an understanding of the data model. If ever in doubt, get someone familiar with the data model to build a view.</p>\n<p>Not much of an exercise here, except to show that views are like tables. Except convenient.</p>\n<p>Maybe we could introduce all the different views at the different levels </p>\n<ul>\n<li>vw_pizza_order</li>\n<li>vw_pizza_order_line</li>\n</ul>\n",
+      "keepSql": "false",
+      "sqlTarget": "",
+      "startingSql": "",
+      "screenNumber": "0"
+    }
+  ]
+}

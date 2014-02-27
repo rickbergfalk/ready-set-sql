@@ -3,5 +3,6 @@
   "listName": "Tips & Tricks",
   "listDescription": "Random tips and tricks that might come in handy.",
   "lessonIds": [
+    "if-then-logic-with-the-case-statement"
   ]
 }

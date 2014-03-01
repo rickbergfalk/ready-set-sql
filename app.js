@@ -61,7 +61,7 @@ if (!process.env.DATABASE_URL) throw new Error('process.env.DATABASE_URL is not 
 
 postgrator.setMigrationDirectory(__dirname + '/migrations');
 postgrator.setConnectionString(process.env.DATABASE_URL);
-postgrator.migrate('004', function(err) {
+postgrator.migrate('006', function(err) {
 	if (err) console.log(err);
 });
 

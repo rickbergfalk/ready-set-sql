@@ -1,15 +1,55 @@
 {
   "lessonId": "intro-to-views",
   "lessonTitle": " Intro to Views",
-  "lessonDescription": "[WIP] A very brief introduction to views.",
+  "lessonDescription": "A brief introduction to using views and how they can make your life easier.",
   "lessonScreens": [
     {
-      "screenMd": "JOINs can get complicated and require an understanding of the data model. If ever in doubt, get someone familiar with the data model to build a view.\n\nNot much of an exercise here, except to show that views are like tables. Except convenient.\n\nMaybe we could introduce all the different views at the different levels \n\n- vw_pizza_order\n- vw_pizza_order_line",
-      "screenText": "<p>JOINs can get complicated and require an understanding of the data model. If ever in doubt, get someone familiar with the data model to build a view.</p>\n<p>Not much of an exercise here, except to show that views are like tables. Except convenient.</p>\n<p>Maybe we could introduce all the different views at the different levels </p>\n<ul>\n<li>vw_pizza_order</li>\n<li>vw_pizza_order_line</li>\n</ul>\n",
-      "keepSql": "false",
+      "screenMd": "Sometimes SQL JOINS are a pain to deal with. They can get complicated and tedious to write out. They also  require an understanding of the data model within the database. \n\nIf written incorrectly they will break your query, or worse... leave you with a functioning query that yields incorrect data. \n\nTo ease this pain, most SQL databases allow the creation of **views**. Views look and behave like tables when reading from them, but they are actually the output of a query run behind the scenes. \n\nWe aren't going to cover creating your own views, but we are going to introduce you to using them in your queries, and point out how they might be a help to you and your organization. \n\n",
+      "screenText": "<p>Sometimes SQL JOINS are a pain to deal with. They can get complicated and tedious to write out. They also  require an understanding of the data model within the database. </p>\n<p>If written incorrectly they will break your query, or worse... leave you with a functioning query that yields incorrect data. </p>\n<p>To ease this pain, most SQL databases allow the creation of <strong>views</strong>. Views look and behave like tables when reading from them, but they are actually the output of a query run behind the scenes. </p>\n<p>We aren&#39;t going to cover creating your own views, but we are going to introduce you to using them in your queries, and point out how they might be a help to you and your organization. </p>\n",
+      "keepSql": "true",
       "sqlTarget": "",
       "startingSql": "",
       "screenNumber": "0"
+    },
+    {
+      "screenMd": "As we previously mentioned, views look and behave like tables. Let's view all the rows and columns of the view ```vw_pizza_order``` for example:\n\n```\nSELECT * \nFROM vw_pizza_order\n```",
+      "screenText": "<p>As we previously mentioned, views look and behave like tables. Let&#39;s view all the rows and columns of the view <code>vw_pizza_order</code> for example:</p>\n<pre><code>SELECT * \nFROM vw_pizza_order</code></pre>\n",
+      "keepSql": "true",
+      "sqlTarget": "SELECT * \nFROM vw_pizza_order",
+      "startingSql": "",
+      "screenNumber": "1"
+    },
+    {
+      "screenMd": "Notice all the columns in the output? This view joins the ```customer``` table to the ```pizza_order``` table behind the scenes, and treats the output as a virtual table we can run queries against.\n\nAnything you'd normally do when running a ```SELECT``` statement on a table can be done with a view. Let's try filtering the data down with the ```WHERE``` clause:\n\n```\nSELECT \n\tfirst_name,\n\tlast_name,\n\tcity,\n\torder_id, \n\torder_date, \n\ttotal_amount\nFROM \n\tvw_pizza_order\nWHERE \n\tcity = 'Cityville'\n```",
+      "screenText": "<p>Notice all the columns in the output? This view joins the <code>customer</code> table to the <code>pizza_order</code> table behind the scenes, and treats the output as a virtual table we can run queries against.</p>\n<p>Anything you&#39;d normally do when running a <code>SELECT</code> statement on a table can be done with a view. Let&#39;s try filtering the data down with the <code>WHERE</code> clause:</p>\n<pre><code>SELECT \n    first_name,\n    last_name,\n    city,\n    order_id, \n    order_date, \n    total_amount\nFROM \n    vw_pizza_order\nWHERE \n    city = &#39;Cityville&#39;</code></pre>\n",
+      "keepSql": "true",
+      "sqlTarget": "SELECT \n\tfirst_name,\n\tlast_name,\n\tcity,\n\torder_id, \n\torder_date, \n\ttotal_amount\nFROM \n\tvw_pizza_order\nWHERE \n\tcity = 'Cityville'",
+      "startingSql": "",
+      "screenNumber": "2"
+    },
+    {
+      "screenMd": "The results are just as you'd expect!\n\nYou can also join other tables to views, just as they were tables themselves. \n\n```\nSELECT \n\tpo.last_name,\n\tpo.order_id, \n\tpol.line_number,\n\tpol.pizza_id,\n\tpol.quantity,\n\tpol.pizza_price,\n\tpol.total_line_amount\nFROM \n\tvw_pizza_order po\n\tJOIN pizza_order_line pol ON po.order_id = pol.order_id\nWHERE \n\tcity = 'Cityville'\n```\n",
+      "screenText": "<p>The results are just as you&#39;d expect!</p>\n<p>You can also join other tables to views, just as they were tables themselves. </p>\n<pre><code>SELECT \n    po.last_name,\n    po.order_id, \n    pol.line_number,\n    pol.pizza_id,\n    pol.quantity,\n    pol.pizza_price,\n    pol.total_line_amount\nFROM \n    vw_pizza_order po\n    JOIN pizza_order_line pol ON po.order_id = pol.order_id\nWHERE \n    city = &#39;Cityville&#39;</code></pre>\n",
+      "keepSql": "true",
+      "sqlTarget": "SELECT \n\tpo.last_name,\n\tpo.order_id, \n\tpol.line_number,\n\tpol.pizza_id,\n\tpol.quantity,\n\tpol.pizza_price,\n\tpol.total_line_amount\nFROM \n\tvw_pizza_order po\n\tJOIN pizza_order_line pol ON po.order_id = pol.order_id\nWHERE \n\tcity = 'Cityville'",
+      "startingSql": "",
+      "screenNumber": "3"
+    },
+    {
+      "screenMd": "",
+      "screenText": "",
+      "keepSql": "true",
+      "sqlTarget": "",
+      "startingSql": "",
+      "screenNumber": "4"
+    },
+    {
+      "screenMd": "As long as you are just running ```SELECT``` queries, consider tables the same as views. \n\n## Views are here to help\n\nIf you find yourself writing a complex query over and over, or if you aren't sure about some complex table relationships, have someone familiar with the database create a view for you. \n\nChances are if you would find a view useful, others might too. \n\n",
+      "screenText": "<p>As long as you are just running <code>SELECT</code> queries, consider tables the same as views. </p>\n<h2>Views are here to help</h2>\n<p>If you find yourself writing a complex query over and over, or if you aren&#39;t sure about some complex table relationships, have someone familiar with the database create a view for you. </p>\n<p>Chances are if you would find a view useful, others might too. </p>\n",
+      "keepSql": "true",
+      "sqlTarget": "",
+      "startingSql": "",
+      "screenNumber": "5"
     }
   ]
 }

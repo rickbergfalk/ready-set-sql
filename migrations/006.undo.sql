@@ -1,0 +1,1 @@
+DROP VIEW vw_pizza_order_line;

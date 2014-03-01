@@ -6,6 +6,7 @@
     "the-inner-join",
     "more-inner-join-practice",
     "a-bad-join-can-mean-bad-data",
-    "subqueries-in-the-where"
+    "subqueries-in-the-where",
+    "intro-to-views"
   ]
 }
